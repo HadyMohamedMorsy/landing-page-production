@@ -2,12 +2,12 @@
 <html lang="en" data-theme-color="skin-2">
   <head>
     <!-- Title -->
-    <title>V Dental Clinics- Health & Medical Bootstrap Template</title>
+    <title>V Dental Clinics</title>
 
     <!-- Meta -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="DexignZone" />
+    <meta name="author" content="V Dental Clinics" />
     <meta name="robots" content="index, follow" />
     <meta name="format-detection" content="telephone=no" />
 
@@ -36,22 +36,22 @@
     <!-- TWITTER META -->
     <meta
       name="twitter:title"
-      content="V Dental Clinics- Health & Medical Bootstrap Template"
+      content="V Dental Clinics"
     />
     <meta
       name="twitter:description"
-      content="V Dental Clinicsis a sleek and responsive Bootstrap HTML template tailored for dentists and dental clinics. Perfect for showcasing dental services, promoting oral health, and creating a professional online presence with a modern and easy-to-navigate design."
+      content="V Dental Clinics is a dental clinic that provides comprehensive dental services including cleanings, cosmetic dentistry, implants, and emergency care. Schedule your appointment today for quality dental treatment."
     />
     <meta
       name="twitter:image"
-      content="https://V Dental Clinics.dexignzone.com/xhtml/social-image.png"
+      content="https://vdentalclinic.com/images/v-dental-clinic-social.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- CANONICAL URL -->
     <link
       rel="canonical"
-      href="https://V Dental Clinics.dexignzone.com/xhtml/dentist/index.html"
+      href="https://vdentalclinic.com"
     />
 
     <!-- MOBILE SPECIFIC -->
@@ -112,6 +112,61 @@
         z-index: 9999999999;
         opacity: 1;
         transition: opacity 0.5s ease-in-out;
+      }
+      
+      /* WhatsApp Fixed Button Styles */
+      .whatsapp-fixed {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        width: 60px;
+        height: 60px;
+        background-color: #25d366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: white;
+        font-size: 28px;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        transition: all 0.3s ease;
+        animation: whatsapp-pulse 2s infinite;
+      }
+      
+      .whatsapp-fixed:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        color: white;
+        text-decoration: none;
+      }
+      
+      .whatsapp-fixed:active {
+        transform: scale(0.95);
+      }
+      
+      @keyframes whatsapp-pulse {
+        0% {
+          box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        }
+        50% {
+          box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6);
+        }
+        100% {
+          box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+        }
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .whatsapp-fixed {
+          bottom: 20px;
+          left: 20px;
+          width: 55px;
+          height: 55px;
+          font-size: 24px;
+        }
       }
       
       #splash-screen.fade-out {
@@ -863,8 +918,8 @@
                             alt=""
                           />
                           <div class="clearfix m-l10">
-                            <h6 class="name">Olivia Davis</h6>
-                            <span class="position">Dentist</span>
+                            <h6 class="name">Dr. Mohamed Atfy</h6>
+                            <span class="position"> Consultant in Orthodontics </span>
                           </div>
                           <input
                             class="form-check-input form-check1 ms-auto form-check-secondary"
@@ -881,8 +936,8 @@
                             alt=""
                           />
                           <div class="clearfix m-l10">
-                            <h6 class="name">William Martinez</h6>
-                            <span class="position">Dentist</span>
+                            <h6 class="name">Dr. Dina Mostafa </h6>
+                            <span class="position">Paedodontist</span>
                           </div>
                           <input
                             class="form-check-input form-check1 ms-auto form-check-secondary"
@@ -1171,9 +1226,9 @@
                           </div>
                           <div class="dz-content">
                             <h3 class="dz-name">
-                              <a href="javascript:void(0);">Nashid Martines</a>
+                              <a href="javascript:void(0);">Dr. Ahmed Ammar</a>
                             </h3>
-                            <span class="dz-position">Cardiac Surgery</span>
+                            <span class="dz-position">Specialist in Cosmetic Dentistry and Fillings</span>
                           </div>
                         </div>
                         <div class="dz-footer">
@@ -1206,9 +1261,9 @@
                           </div>
                           <div class="dz-content">
                             <h3 class="dz-name">
-                              <a href="javascript:void(0);">Nashid Martines</a>
+                              <a href="javascript:void(0);">Dr. Seif Wael</a>
                             </h3>
-                            <span class="dz-position">Cardiac Surgery</span>
+                            <span class="dz-position">Specialist in Dental Prosthetics</span>
                           </div>
                         </div>
                         <div class="dz-footer">
@@ -1241,9 +1296,9 @@
                           </div>
                           <div class="dz-content">
                             <h3 class="dz-name">
-                              <a href="javascript:void(0);">Nashid Martines</a>
+                              <a href="javascript:void(0);">Dr. Ahmed El Feshawy</a>
                             </h3>
-                            <span class="dz-position">Cardiac Surgery</span>
+                            <span class="dz-position"> Specialist in Root Canal Treatments</span>
                           </div>
                         </div>
                         <div class="dz-footer">
@@ -1276,9 +1331,9 @@
                           </div>
                           <div class="dz-content">
                             <h3 class="dz-name">
-                              <a href="javascript:void(0);">Nashid Martines</a>
+                              <a href="javascript:void(0);">Dr. Dina Mostafa </a>
                             </h3>
-                            <span class="dz-position">Cardiac Surgery</span>
+                            <span class="dz-position">Paedodontist</span>
                           </div>
                         </div>
                         <div class="dz-footer">
@@ -1311,9 +1366,9 @@
                           </div>
                           <div class="dz-content">
                             <h3 class="dz-name">
-                              <a href="javascript:void(0);">Nashid Martines</a>
+                              <a href="javascript:void(0);">Dr. Mohamed Atfy</a>
                             </h3>
-                            <span class="dz-position">Cardiac Surgery</span>
+                            <span class="dz-position">Consultant in Orthodontics</span>
                           </div>
                         </div>
                         <div class="dz-footer">
@@ -1342,13 +1397,13 @@
                       <div class="dz-team style-3">
                         <div class="dz-body">
                           <div class="dz-media">
-                            <img src="./assets/images/120-120/5.png" alt="/" />
+                            <img src="./assets/images/120-120/13.jpeg" alt="" />
                           </div>
                           <div class="dz-content">
                             <h3 class="dz-name">
-                              <a href="javascript:void(0);">Nashid Martines</a>
+                              <a href="javascript:void(0);">Dr. Omar El-Nashaar </a>
                             </h3>
-                            <span class="dz-position">Cardiac Surgery</span>
+                            <span class="dz-position"> Consultant in Dental Implants and Oral Diseases</span>
                           </div>
                         </div>
                         <div class="dz-footer">
@@ -1377,13 +1432,13 @@
                       <div class="dz-team style-3">
                         <div class="dz-body">
                           <div class="dz-media">
-                            <img src="./assets/images/120-120/WhatsApp Image 2025-07-15 at 19.44.11.png" alt="/" />
+                            <img src="./assets/images/120-120/12.jpg" alt="/" />
                           </div>
                           <div class="dz-content">
                             <h3 class="dz-name">
-                              <a href="javascript:void(0);">Nashid Martines</a>
+                              <a href="javascript:void(0);">Dr. Mohamed Diaa</a>
                             </h3>
-                            <span class="dz-position">Cardiac Surgery</span>
+                            <span class="dz-position"> Specialist in Dental Prosthetics</span>
                           </div>
                         </div>
                         <div class="dz-footer">
@@ -1416,9 +1471,9 @@
                           </div>
                           <div class="dz-content">
                             <h3 class="dz-name">
-                              <a href="javascript:void(0);">Nashid Martines</a>
+                              <a href="javascript:void(0);">Dr. Dalia Sameh</a>
                             </h3>
-                            <span class="dz-position">Cardiac Surgery</span>
+                            <span class="dz-position"> Specialist in Esthetic and Restorative Dentistry</span>
                           </div>
                         </div>
                         <div class="dz-footer">
@@ -1491,14 +1546,14 @@
                                 <img src="./assets/images/120-120/6.png" alt="" />
                               </div>
                               <div class="widget-content">
-                                <h6 class="title">Dr. Natali jackson</h6>
+                                <h6 class="title">Dr. Mohamed Rady</h6>
                                 <span class="sub-title text-primary"
-                                  >Dental Experts</span
+                                  >Specialist in Dental Prosthetics</span
                                 >
                               </div>
                             </div>
                             <p>
-                              Years of expertise, care that exceeds expectations.
+                              General Practitioner Medical Manager of Nasr City Branch
                             </p>
                           </div>
                         </div>
@@ -2209,7 +2264,7 @@
                     data-wow-delay="0.4s"
                     data-wow-duration="0.8s"
                   >
-                    About Dr. Nashid Martines
+                    About Dr. Mohamed Rady
                   </h2>
                   <p
                     class="fw-normal wow fadeInUp"
@@ -2217,12 +2272,9 @@
                     data-wow-duration="0.8s"
                   >
                     <strong class="text-secondary fw-semibold"
-                      >Dr. Nashid Martines</strong
+                      >Dr. Mohamed Rady</strong
                     >
-                    There are many variations of passages of Lorem Ipsum
-                    available, but the majority have suffered alteration in some
-                    form, by injected humour, or randomised words which don't
-                    look even slightly believable.
+                    Behind every smoothly running dental clinic is a manager like [Dr.Rady], whose leadership, organization, and dedication ensure that both patients and staff feel cared for every step of the way
                   </p>
                 </div>
                 <h3
@@ -2250,9 +2302,6 @@
                     data-wow-delay="1.2s"
                     data-wow-duration="0.8s"
                   >
-                    <div class="text-center">
-                      <span class="font-14 d-block">Dr. Nashid Martines</span>
-                    </div>
                   </div>
                   <div
                     class="col-sm-6 wow fadeInUp"
@@ -2302,7 +2351,25 @@
                   >
                     <div class="dz-img-box style-1 move-4">
                       <div class="dz-media">
-                        <img src="images/logo/logo1.png" alt="" />
+                        <svg width="150px" height="150px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 363.6 137.5" style="enable-background:new 0 0 363.6 137.5;" xml:space="preserve">
+                        <g>
+                          <path fill="#5D734C" d="M114.5,121.4"></path>
+                          <g>
+                            <path fill="#5E734D" d="M112.9,29.7"></path>
+                            <g>
+                              <path fill="#C8A444" d="M127.3,13.2l-0.8,0.1c-0.1,0-4.3,0.8-6.3,5l-0.3,0.7l0,0c-0.7,1.3-1.4,2.6-2,3.9c-0.5,1-1.1,2-1.7,3     c-0.1,0.1-0.1,0.3-0.2,0.4c-0.4,0.7-0.8,1.5-1.2,2.2c-1.3,2.4-2.6,4.8-3.8,7.1c0,0,0,0,0,0.1l-0.8,1.6c-0.1,0.3-0.3,0.5-0.4,0.8     c-0.1,0.3-0.3,0.6-0.5,0.9c-0.5,0.9-1,1.8-1.5,2.8c-0.2,0.3-0.3,0.6-0.5,0.9c0,0.1-0.1,0.2-0.1,0.2c-0.3,0.5-0.6,1-0.8,1.5     c-0.1,0.2-0.3,0.5-0.4,0.7c-0.6,1.1-1.2,2.2-1.8,3.3c-0.2,0.3-0.4,0.7-0.5,1c-0.6,1.2-1.2,2.3-1.8,3.5c-0.5,0.9-0.9,1.8-1.4,2.7     c-0.1,0.2-0.2,0.5-0.4,0.7c-0.2,0.5-0.5,0.9-0.7,1.4L99,57.9c-0.9,1.6-1.7,3.2-2.6,4.8c-1.1,2-2.2,4.1-3.3,6.2l-8.3,15.5l0,0     c-0.6,1.1-1.1,2.1-1.6,2.9c-0.6,1-1.1,2.1-1.7,3.1l-5.3,9.8v0l0,0l-1.8,3.4l-0.1,0.1v0l-4.1,7.7l-0.4,0.7l-0.3-0.5l-0.5-1     l-0.9-1.6c0-0.1-0.1-0.2-0.1-0.2c0,0,0,0,0-0.1c-0.3-0.6-0.6-1.2-0.9-1.8c-0.5-1-1-2-1.5-2.9c-0.7-1.4-1.5-2.8-2.2-4.1     c-0.4-0.8-0.9-1.6-1.3-2.4c-0.3-0.6-0.7-1.2-1-1.9c-0.9-1.7-1.8-3.3-2.6-5c-0.8-1.6-1.7-3.2-2.5-4.7c-0.8-1.5-1.6-3-2.4-4.5     c-0.7-1.3-1.4-2.6-2.1-3.9c-0.3-0.5-0.6-1-0.8-1.5l-1.8-3.4c-0.3-0.6-0.7-1.3-1-1.9L47,69.3c-0.2-0.5-0.5-0.9-0.7-1.4l-0.6-1.2     c-1.2-2.2-2.4-4.5-3.6-6.7c-0.3-0.5-0.5-1-0.8-1.5l-3.3-6.2l0,0c-0.1-0.3-0.3-0.6-0.4-0.9c-0.2-0.3-0.3-0.7-0.5-1l-0.6-1.3     c0.2,0,0.4,0.1,0.5,0.1c0.6,0.1,1.2,0.2,1.8,0.3c0.9,0.2,1.8,0.4,2.7,0.7l0.1,0c1.2,0.3,2.3,0.7,3.5,1.1c0.6,0.2,1.3,0.5,1.9,0.7     c1,0.4,1.9,0.8,2.9,1.2l15.9,28l0,0c0.5,0.9,1,1.9,1.6,2.8l2.5,4.5c0.1-0.2,0.2-0.3,0.3-0.5c0.8-1.4,1.5-2.9,2.3-4.4     c1.3-2.4,2.6-4.8,3.8-7.1c0.7-1.2,1.3-2.5,2-3.7c1.1-2.1,2.3-4.2,3.4-6.3l0.2-0.3c0.9-1.6,1.7-3.2,2.6-4.8     c0.4-0.7,0.8-1.4,1.2-2.2c0.5-0.9,1-1.9,1.5-2.8c0.8-1.4,1.6-2.9,2.3-4.3c0.5-1,1-1.9,1.5-2.9l0,0l0.8-1.6l0-0.1l4.8-8.9l0.1-0.1     c0,0,0,0,0,0l0.7-1.3l0.3-0.6l0-0.1c0-0.1,0.1-0.2,0.1-0.3l0.1-0.2c0,0,0,0,0-0.1l1.8-3.4l0.1-0.2c1.7-3.1,3.4-6.3,5.1-9.4     l2.1-3.9l0-0.2l3.8-7.3h1v0l8.2,0h3.5l0,0l2.7,0l0.7-0.1L127.3,13.2z"></path>
+                            </g>
+                            <polygon fill="#C8A444" points="91.2,49.5 92.1,47.8 91.2,49.4   "></polygon>
+                            <path fill="#C8A444" d="M96.6,38.9l-4.8,8.9l0,0.1c0,0,0,0,0,0c-4.1,1.4-8,3.2-11.8,5.3c-3.6,2-7.1,4.2-10.6,6.3    c-0.4,0.2-0.7,0.2-1,0c-1.2-0.8-2.5-1.7-3.8-2.4c-2.8-1.6-5.5-3.1-8.3-4.6c-4.3-2.3-8.7-4.1-13.4-5.5c0,0,0,0,0,0    c-2.5-0.7-5-1.3-7.5-1.4c-0.5,0-1.1-0.1-1.6-0.1c-0.8,0-1.7,0-2.6,0.2c-3.6,0.4-6.2,2.2-7.9,5.4c-1.7,3.1-1.8,6.6-2.1,10    c-0.3,4.6,0.5,9.1,1.4,13.6c0.8,3.8,1.9,7.5,3.1,11.2c0.6,2.1,1.4,4.1,2.2,6.1c0.7,1.9,1.5,3.7,2.4,5.6c0.6,1.2,1.2,2.4,1.8,3.7    c0.9,1.8,1.6,3.7,2.7,5.4c1.6,2.6,3.4,5.2,5.2,7.7c1.4,2,3.2,3.7,5.3,4.9c1.5,0.9,3.1,1.6,4.9,0.9c1-0.4,1.9-0.9,2.7-1.6    c1.6-1.2,2.8-2.8,3.8-4.5c1.3-2.2,2.6-4.2,3.9-6.4c0.7-1.1,1.3-2.3,2-3.5c0.1,0.2,0.1,0.2,0.2,0.3c1.1,2.1,2.3,4.1,3.4,6.2    c0.3,0.6,0.5,1.3,0.2,1.9c0,0,0,0,0,0v0c0,0.1-0.1,0.2-0.2,0.3c-1.1,1.6-2.1,3.3-3.2,5c-1.8,2.6-3.7,5.1-6.4,7    c-2.2,1.6-4.6,2.7-7.3,2.8c-4.2,0.2-7.6-1.7-10.6-4.3c-1.5-1.3-2.9-2.9-4.2-4.4c-1.4-1.7-2.7-3.4-3.9-5.3c-1.3-1.9-2.4-4-3.4-6    c-1.4-2.6-2.8-5.2-3.9-7.9c-1.3-2.8-2.2-5.8-3.4-8.7c-1.6-3.8-2.7-7.8-3.6-11.8c-1-4.3-1.7-8.7-2.1-13.1    c-0.4-4.7-0.5-9.5,0.9-14.1c0.7-2.4,1.6-4.8,3.1-6.9c3-4.2,7.1-6.4,12.1-7c0.2,0,0.3-0.1,0.5-0.1c0.2,0,0.3-0.1,0.6-0.1    c0,0,0,0,0,0c0.3,0,3.3,0,6.7,0.4c1,0.1,2,0.3,3,0.5c0,0,0,0,0,0c0,0,0.1,0,0.1,0c0.5,0.1,0.9,0.2,1.4,0.3    c0.5,0.1,1.1,0.3,1.6,0.4c0,0,0,0,0,0c0.1,0,0.3,0.1,0.4,0.1c1,0.3,2,0.6,2.9,0.9c3.5,1.3,6.9,2.6,10.3,4.2    c3.4,1.6,6.7,3.6,10,5.5c0.7,0.4,1.4,0.5,2.1,0c0.5-0.3,0.9-0.6,1.4-0.8c2.2-1.3,4.4-2.6,6.7-3.8c2.1-1.1,4.3-1.9,6.4-2.9    c3.5-1.6,7.2-2.7,10.9-3.7C95.7,39.1,96.1,39,96.6,38.9z"></path>
+                            <g>
+                              <path fill="#C8A444" d="M41.9,35.6l-0.5-0.1h-0.2c-0.6-0.1-1.1-0.2-1.7-0.3c-0.8-0.1-1.6-0.2-2.3-0.3c-0.5,0-1-0.1-1.4-0.1     c-1.1-0.1-2-0.1-2.8-0.2c-0.8,0-1.4,0-1.7,0c-0.1,0-0.2,0-0.2,0l-0.3,0h0l-0.1,0l-0.4,0.1c-0.2,0-0.3,0.1-0.5,0.1     c-0.1,0-0.2,0.1-0.3,0.1c0,0-0.1,0-0.1,0c-0.2,0-0.4,0.1-0.6,0.1c-0.8-1.5-1.6-3-2.4-4.5l-7.6-14.2c-2.1-2.2-4.7-2.7-4.8-2.8     l-0.8-0.1l0.3-1.5l0.6,0.1l0-0.1l2.3,0l0,0h4l8.2,0l0,0h0.6l3.8,7.1l0.1,0.2c0,0.1,0,0.1,0.1,0.2c0.8,1.5,1.6,3,2.4,4.5     c0.6,1.1,1.2,2.3,1.8,3.4c1.2,2.2,2.4,4.4,3.6,6.6l0.3,0.6C41.5,34.9,41.7,35.2,41.9,35.6C41.9,35.6,41.9,35.6,41.9,35.6     L41.9,35.6z"></path>
+                            </g>
+                            <path fill="#C8A444" d="M77,107.8c0.2,0.3,0.3,0.5,0.5,0.8c0.2,0.3,0.3,0.5,0.5,0.8c0.3,0.5,0.6,1,1,1.6c0,0.1,0.1,0.1,0.1,0.2    c0,0,0,0.1,0.1,0.1c0.6,0.9,1.2,1.9,1.8,2.8c1.3,2,2.8,3.9,4.9,5.2c1.1,0.7,2.3,1.4,3.7,1c1.2-0.4,2.5-0.9,3.5-1.6    c2.1-1.4,3.8-3.3,5.3-5.3c2.2-3,4.2-6.1,5.9-9.5c1.6-3.2,3.2-6.5,4.6-9.8c1.3-3.1,2.4-6.3,3.5-9.4c1.7-5.1,2.9-10.4,3.7-15.7    c0.5-3.5,0.6-7.1,0.2-10.6c-0.2-2.6-0.7-5.1-1.9-7.4c-1.2-2.2-2.9-3.8-5.2-4.7c0,0,0,0,0,0l3.5-6.5c0.4,0.2,0.8,0.3,1.2,0.5    c0.1,0,0.2,0.1,0.3,0.1c0,0,0,0,0,0c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0.1,0.2,0.1c0,0,0,0,0,0c0.1,0,0.2,0.1,0.2,0.1    c0.1,0.1,0.2,0.1,0.3,0.2c2.2,1.5,4.1,3.2,5.3,5.7c0.7,1.5,1.5,3,2,4.6c1.5,5,1.7,10.1,1.3,15.2c-0.5,5.8-1.5,11.5-3.2,17    c-1.1,3.7-2.3,7.3-3.7,10.9c-2,5.1-4.3,10.2-7.1,15c-2.1,3.6-4.3,7.1-7,10.2c-1.4,1.6-2.9,3-4.5,4.4c-2,1.8-4.3,2.9-6.8,3.4    c-2.8,0.6-5.5,0.3-8.1-1.1c-1.5-0.8-2.9-1.8-4.1-3c-1.2-1.2-2.3-2.4-3.2-3.8c-0.3-0.4-0.6-0.8-0.9-1.3c-0.3-0.4-0.6-0.8-0.9-1.3    c-0.1-0.2-0.3-0.4-0.4-0.6c-0.3-0.4-0.6-0.9-0.8-1.3c-0.1-0.2-0.3-0.4-0.4-0.6l4-7.5C76.6,107.2,76.8,107.5,77,107.8z"></path>
+                            <g>
+                            </g>
+                          </g>
+                        </g>
+                        </svg>
                       </div>
                       <div class="dz-content">
                         <h3 class="title">V Dental Clinics 2025</h3>
@@ -2409,11 +2476,7 @@
                       <div class="testimonial-contant">
                         <div class="testimonial-text">
                           <p>
-                            It is a long established fact that a reader will be
-                            distracted by the readable content of a page when
-                            looking at its layout. The point of using Lorem
-                            Ipsum is that it has a making it look like readable
-                            English.
+                            Exceptional Care from a Truly Compassionate Team The team is so professional and friendly , The doctors are sharing decisions with the patients and looking for the patient benefits , The follow up for the appointments and all the instructions post procedures are so helpful and so professional The doctors are so specialized and so professional Highly recommended
                           </p>
                         </div>
                       </div>
@@ -2422,10 +2485,7 @@
                           <img src="images/avatar/small/avatar3.webp" alt="" />
                         </div>
                         <div class="clearfix">
-                          <h5 class="testimonial-name">Kenneth Fong</h5>
-                          <span class="testimonial-position"
-                            >Postgraduate Student</span
-                          >
+                          <h5 class="testimonial-name">Mohammed Mahmoud</h5>
                         </div>
                       </div>
                     </div>
@@ -2454,11 +2514,7 @@
                       <div class="testimonial-contant">
                         <div class="testimonial-text">
                           <p>
-                            It is a long established fact that a reader will be
-                            distracted by the readable content of a page when
-                            looking at its layout. The point of using Lorem
-                            Ipsum is that it has a making it look like readable
-                            English.
+                        I would like to thank all the staff at V Dental, for the general good treatment. I would like to thank especially the management, Mr. Abdel Hamid and Dr. Karim because I had a problem in the middle of the Eid holiday and Mr. Abdel Hamid, thank you, made an appointment for yesterday and Dr. Karim came from vacation and opened the center especially and did what was necessary, thank you. Honestly Thank you all
                           </p>
                         </div>
                       </div>
@@ -2467,10 +2523,8 @@
                           <img src="images/avatar/small/avatar3.webp" alt="" />
                         </div>
                         <div class="clearfix">
-                          <h5 class="testimonial-name">Kenneth Fong</h5>
-                          <span class="testimonial-position"
-                            >Postgraduate Student</span
-                          >
+                          <h5 class="testimonial-name">bahaa makkawi</h5>
+                          
                         </div>
                       </div>
                     </div>
@@ -2499,11 +2553,7 @@
                       <div class="testimonial-contant">
                         <div class="testimonial-text">
                           <p>
-                            It is a long established fact that a reader will be
-                            distracted by the readable content of a page when
-                            looking at its layout. The point of using Lorem
-                            Ipsum is that it has a making it look like readable
-                            English.
+                            The best dental in Egypt, they are so clean and professional. Unlike others, they actually respect your time and once you come in you don’t wait. They also follow up with you to make sure you are in good care. I definelty recommend them.
                           </p>
                         </div>
                       </div>
@@ -2512,10 +2562,7 @@
                           <img src="images/avatar/small/avatar3.webp" alt="" />
                         </div>
                         <div class="clearfix">
-                          <h5 class="testimonial-name">Kenneth Fong</h5>
-                          <span class="testimonial-position"
-                            >Postgraduate Student</span
-                          >
+                          <h5 class="testimonial-name">Ayman Morsy</h5>
                         </div>
                       </div>
                     </div>
@@ -2773,8 +2820,7 @@
                     </a>
                   </div>
                   <p>
-                    <span class="text-white">V Dental Clinics</span> Ipsum Dolor Sit
-                    Amet, Consectetuer Adipiscing Elit, Sed Diam Nonummy Nibh.
+                    <span class="text-white">V Dental Clinics</span> Redefining dental care with precision, comfort, and lasting results.
                   </p>
                 </div>
               </div>
@@ -2837,6 +2883,11 @@
       <button class="scroltop" type="button">
         <i class="fas fa-arrow-up"></i>
       </button>
+      
+      <!-- Fixed WhatsApp Button -->
+      <a href="https://api.whatsapp.com/send?phone=201050800531" class="whatsapp-fixed" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+      </a>
     </div>
     <!-- JAVASCRIPT FILES ========================================= -->
     <script src="./assets/js/global.min.js"></script>
