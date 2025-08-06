@@ -1,7 +1,10 @@
 // Scroltop
 .scroltop {
 	background: var(--bs-secondary);
-	bottom: 30px;
+	bottom: 70px;
+  display : flex;
+  justify-content: center;
+  align-items: center;
 	color: #fff !important;
 	cursor: pointer;
 	opacity: 0;
