@@ -1,8 +1,8 @@
 // Fetch data from existing backend endpoint
 class DataFetcher {
   constructor() {
-    this.apiUrl = 'http://localhost:3001/api/v1/unified-data/data';
-    this.domain = 'http://localhost:3001';
+    this.apiUrl = 'https://api.vdentaleg.com/api/v1/unified-data/data';
+    this.domain = 'https://api.vdentaleg.com';
     this.language = 'en';
     this.data = null;
   }
@@ -238,7 +238,7 @@ function buildHeroSectionFromScratch(sectionOne) {
                 <div class="info-widget style-12 m-r40 shadow-sm">
                   <div class="avatar-group">
                     ${sectionOne.talk_doctors_images && Array.isArray(sectionOne.talk_doctors_images) ? sectionOne.talk_doctors_images.map((doctor, index) => `
-                      <img class="avatar rounded-circle avatar-md border border-white" src="http://localhost:3001/${doctor}" alt="${doctor}" style="margin-left: ${index > 0 ? '10px' : '0'};" />
+                      <img class="avatar rounded-circle avatar-md border border-white" src="https://api.vdentaleg.com/${doctor}" alt="${doctor}" style="margin-left: ${index > 0 ? '10px' : '0'};" />
                     `).join('') : ''}
                   </div>
                   <div class="clearfix">
@@ -256,14 +256,14 @@ function buildHeroSectionFromScratch(sectionOne) {
           </div>
           <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.8s" data-wow-duration="0.8s">
             <div class="hero-thumbnail" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-              <img class="thumbnail" src="http://localhost:3001/${sectionOne.main_clinic_image}" alt="v-Dental Clinic" />
+              <img class="thumbnail" src="https://api.vdentaleg.com/${sectionOne.main_clinic_image}" alt="v-Dental Clinic" />
               <div class="circle-wrapper"></div>
               <div class="item3" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
                 <img class="move-3" src="images/hero-banner/img3.webp" alt="v-Dental Clinic" />
               </div>
               ${sectionOne.additional_clinic_images && Array.isArray(sectionOne.additional_clinic_images) ? sectionOne.additional_clinic_images.map((image, index) => `
                 <div class="item${index + 4}" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-                  <img class="move-4" src="http://localhost:3001/${image}" alt="v-Dental Clinic" />
+                  <img class="move-4" src="https://api.vdentaleg.com/${image}" alt="v-Dental Clinic" />
                 </div>
               `).join('') : ''}
               <div class="item6" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
@@ -274,7 +274,7 @@ function buildHeroSectionFromScratch(sectionOne) {
                   </div>
                   ${sectionOne.available_doctors_images && Array.isArray(sectionOne.available_doctors_images) && sectionOne.available_doctors_images[0] ? `
                     <div class="d-flex align-items-center m-b15">
-                      <img class="rounded-circle avatar-md" src="http://localhost:3001/${sectionOne.available_doctors_images[0].image}" alt="${sectionOne.available_doctors_images[0].name}" />
+                      <img class="rounded-circle avatar-md" src="https://api.vdentaleg.com/${sectionOne.available_doctors_images[0].image}" alt="${sectionOne.available_doctors_images[0].name}" />
                       <div class="clearfix m-l10">
                         <h6 class="name">${sectionOne.available_doctors_images[0].name}</h6>
                         <span class="position">${sectionOne.available_doctors_images[0].short_description}</span>
@@ -336,7 +336,7 @@ function buildAboutSectionFromScratch(sectionTwo) {
         <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7">
           <div class="content-media m-b30">
             <div class="dz-media" data-bottom-top="transform: translateY(30px)" data-top-bottom="transform: translateY(0px)">
-              <img src="http://localhost:3001/${sectionTwo.main_clinic_image}" alt="V-Dental Clinic" />
+              <img src="https://api.vdentaleg.com/${sectionTwo.main_clinic_image}" alt="V-Dental Clinic" />
             </div>
             <div class="item1" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(0px)"></div>
             <div class="item2" data-bottom-top="transform: translateY(-30px)" data-top-bottom="transform: translateY(0px)">
@@ -403,7 +403,7 @@ function updateServicesSection(sectionThree) {
       if (sectionThree.services_images[index]) {
         const img = mediaElement.querySelector('img');
         if (img) {
-          img.src = `http://localhost:3001/${sectionThree.services_images[index]}`;
+          img.src = `https://api.vdentaleg.com/${sectionThree.services_images[index]}`;
           img.alt = `Service Image ${index + 1}`;
         }
       }
@@ -416,14 +416,14 @@ function updateServicesSection(sectionThree) {
     // تحديث صورة before (الصورة الأولى)
     const beforeImg = twentytwentyContainer.querySelector('img:first-child');
     if (beforeImg && sectionThree.service_image_before) {
-      beforeImg.src = `http://localhost:3001/${sectionThree.service_image_before}`;
+      beforeImg.src = `https://api.vdentaleg.com/${sectionThree.service_image_before}`;
       beforeImg.alt = 'Before';
     }
 
     // تحديث صورة after (الصورة الثانية)
     const afterImg = twentytwentyContainer.querySelector('img:last-child');
     if (afterImg && sectionThree.service_image_after) {
-      afterImg.src = `http://localhost:3001/${sectionThree.service_image_after}`;
+      afterImg.src = `https://api.vdentaleg.com/${sectionThree.service_image_after}`;
       afterImg.alt = 'After';
     }
   }
@@ -476,7 +476,7 @@ function buildWhyChooseSectionFromScratch(sectionFour) {
                       </div>
                       <div class="col-sm-4">
                         <div class="dz-media radius-md">
-                          <img src="http://localhost:3001/${feature.image}" alt="${feature.title}" width="200px" height="200px" style="object-fit: contain; width: 200px; height: 200px;" />
+                          <img src="https://api.vdentaleg.com/${feature.image}" alt="${feature.title}" width="200px" height="200px" style="object-fit: contain; width: 200px; height: 200px;" />
                         </div>
                       </div>
                     </div>
@@ -490,18 +490,18 @@ function buildWhyChooseSectionFromScratch(sectionFour) {
           <div class="content-media" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
             <div class="media-top">
               <div class="media1">
-                <img src="http://localhost:3001/${sectionFour.right_section_image_2}" alt="Feature 2" />
+                <img src="https://api.vdentaleg.com/${sectionFour.right_section_image_2}" alt="Feature 2" />
               </div>
               <div class="media2">
-                <img src="http://localhost:3001/${sectionFour.right_section_image_1}" alt="Feature 1" />
+                <img src="https://api.vdentaleg.com/${sectionFour.right_section_image_1}" alt="Feature 1" />
               </div>
             </div>
             <div class="media-bottom">
               <div class="media3">
-                <img src="http://localhost:3001/${sectionFour.right_section_image_3}" alt="Feature 3" />
+                <img src="https://api.vdentaleg.com/${sectionFour.right_section_image_3}" alt="Feature 3" />
               </div>
               <div class="media4">
-                <img src="http://localhost:3001/${sectionFour.right_section_image_4}" alt="Feature 4" />
+                <img src="https://api.vdentaleg.com/${sectionFour.right_section_image_4}" alt="Feature 4" />
               </div>
             </div>
             <div class="item1 move-3">
@@ -570,7 +570,7 @@ function buildDoctorSectionFromScratch(sectionFive) {
         <div class="col-xl-6 col-lg-6 m-b30">
           <div class="content-media">
             <div class="dz-media" data-bottom-top="transform: translateY(30px)" data-top-bottom="transform: translateY(-30px)">
-              <img src="http://localhost:3001/${sectionFive.doctor_image}" alt="Doctor Image" />
+              <img src="https://api.vdentaleg.com/${sectionFive.doctor_image}" alt="Doctor Image" />
             </div>
             <div class="item1" data-bottom-top="transform: translateY(-20px)" data-top-bottom="transform: translateY(10px)">
               <div class="info-widget style-10 move-3">
@@ -640,7 +640,7 @@ function updateReviewsSection(sectionReviews, sectionOne) {
       sectionOne.talk_doctors_images.forEach((image, index) => {
         const img = document.createElement('img');
         img.className = 'avatar rounded-circle avatar-md border border-white';
-        img.src = `http://localhost:3001/${image}`;
+        img.src = `https://api.vdentaleg.com/${image}`;
         img.alt = 'Doctor';
         img.style.marginLeft = index > 0 ? '10px' : '0';
         avatarGroup.appendChild(img);
@@ -670,7 +670,7 @@ function updateReviewsSection(sectionReviews, sectionOne) {
       slide.innerHTML = `
         <div class="testimonial-2">
           <div class="testimonial-media">
-            <img src="http://localhost:3001/${review.image}" alt="Testimonial" />
+            <img src="https://api.vdentaleg.com/${review.image}" alt="Testimonial" />
           </div>
           <div class="testimonial-detail">
             <div class="testimonial-head">
@@ -686,7 +686,7 @@ function updateReviewsSection(sectionReviews, sectionOne) {
             </div>
             <div class="testimonial-info">
               <div class="dz-media">
-                <img src="http://localhost:3001/${review.reviewer_image}" alt="Reviewer" />
+                <img src="https://api.vdentaleg.com/${review.reviewer_image}" alt="Reviewer" />
               </div>
               <div class="clearfix">
                 <h5 class="testimonial-name">${review.reviewer_name || ''}</h5>
@@ -759,7 +759,7 @@ function createSmallDoctorSlideStyle3(doctor, index) {
     <div class="dz-team style-3">
       <div class="dz-body">
         <div class="dz-media">
-          <img src="http://localhost:3001/${doctor.small_image}" alt="${doctor.name}" />
+          <img src="https://api.vdentaleg.com/${doctor.small_image}" alt="${doctor.name}" />
         </div>
         <div class="dz-content">
           <h3 class="dz-name">
@@ -794,7 +794,7 @@ function createLargeDoctorSlideStyle4(doctor, index) {
   slide.innerHTML = `
     <div class="dz-team style-4">
       <div class="dz-media">
-        <img src="http://localhost:3001/${doctor.image_main}" alt="${doctor.name}" />
+        <img src="https://api.vdentaleg.com/${doctor.image_main}" alt="${doctor.name}" />
       </div>
       <ul class="dz-social">
         <li>
@@ -818,7 +818,7 @@ function createLargeDoctorSlideStyle4(doctor, index) {
         <div class="info-widget style-3">
           <div class="widget-head">
             <div class="widget-media">
-              <img src="http://localhost:3001/${doctor.small_image}" alt="${doctor.name}" />
+              <img src="https://api.vdentaleg.com/${doctor.small_image}" alt="${doctor.name}" />
             </div>
             <div class="widget-content">
               <h6 class="title">${doctor.name}</h6>
