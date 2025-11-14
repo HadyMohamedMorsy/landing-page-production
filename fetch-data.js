@@ -25,7 +25,6 @@ class DataFetcher {
       
       return data;
     } catch (error) {
-      console.error('❌ خطأ في جلب البيانات:', error);
       throw error;
     }
   }
@@ -43,16 +42,13 @@ class DataFetcher {
   getGeneralSettings() {
     if (!this.data) return null;
     
-    // Structure: data.general_settings.content is an object containing:
-    // - content: array of multilingual content
-    // - store_email, store_phone, facebook_pixel_id, etc. (settings not in content array)
-    const generalSettingsObj = this.data.data?.general_settings?.content;
+    const generalSettingsObj = this.data.data?.general_settings;
     if (!generalSettingsObj) {
       return null;
     }
     
     // Get content array (multilingual content)
-    const contentArray = generalSettingsObj.content;
+    const contentArray = generalSettingsObj?.content;
     if (!Array.isArray(contentArray) || contentArray.length === 0) {
       return null;
     }
@@ -152,12 +148,10 @@ class DataFetcher {
   hideSplashScreen() {
     const splashScreen = document.getElementById('splash-screen');
     if (splashScreen) {
-      console.log('🎭 جاري إخفاء الـ splash screen...');
       splashScreen.classList.add('fade-out');
       
       setTimeout(() => {
         splashScreen.style.display = 'none';
-        console.log('✅ تم إخفاء الـ splash screen');
       }, 500);
     }
   }
@@ -173,7 +167,6 @@ class DataFetcher {
       
       return data;
     } catch (error) {
-      console.error('❌ فشل في تحميل البيانات:', error);
       
       // إخفاء الـ splash screen حتى لو كان هناك خطأ
       this.hideSplashScreen();
@@ -191,8 +184,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     // جلب البيانات وإخفاء الـ splash screen
     await fetcher.loadDataAndHideSplash();
     
-    console.log('🎉 تم تحميل جميع البيانات بنجاح!');
-    
     // الحصول على كل section منفصل
     const generalSettings = fetcher.getGeneralSettings();
     const sectionOne = fetcher.getSectionOne();
@@ -203,8 +194,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     const sectionReviews = fetcher.getSectionReviews();
     const sectionBranches = fetcher.getSectionBranches();
     const sectionDoctors = fetcher.getSectionDoctors();
-    
-    console.log("🏠 Section Branches:", generalSettings);
     
     // تحديث الـ hero section بالبيانات
     updateHeroSection(sectionOne, generalSettings);
@@ -234,7 +223,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     updateGeneralSettings(generalSettings);
   
   } catch (error) {
-    console.error('💥 خطأ في التنفيذ الرئيسي:', error);
+    // Error handling
   }
 });
 
@@ -1129,34 +1118,53 @@ function updateOpenGraphTags(content) {
 
 // دالة لتحديث الـ tracking scripts
 function updateTrackingScripts(settings) {
+  if (!settings) {
+    return;
+  }
+
+  // Helper function to check if enabled (handles both boolean and string "true")
+  const isEnabled = (value) => {
+    return value === true || value === 'true' || value === 1 || value === '1';
+  };
+
   // Google Tag Manager
-  if (settings.gtm_enabled && settings.gtm_container_id) {
+  if (isEnabled(settings.gtm_enabled) && settings.gtm_container_id) {
     addGoogleTagManager(settings.gtm_container_id);
   }
 
   // Google Analytics
-  if (settings.google_analytics_enabled && settings.google_analytics_id) {
+  if (isEnabled(settings.google_analytics_enabled) && settings.google_analytics_id) {
     addGoogleAnalytics(settings.google_analytics_id);
   }
 
   // Facebook Pixel
-  if (settings.facebook_pixel_enabled && settings.facebook_pixel_id) {
+  if (isEnabled(settings.facebook_pixel_enabled) && settings.facebook_pixel_id) {
     addFacebookPixel(settings.facebook_pixel_id);
   }
 
   // Snapchat Pixel
-  if (settings.snapchat_pixel_enabled && settings.snapchat_pixel_id) {
+  if (isEnabled(settings.snapchat_pixel_enabled) && settings.snapchat_pixel_id) {
     addSnapchatPixel(settings.snapchat_pixel_id);
   }
 
   // TikTok Pixel
-  if (settings.init_tiktok_enabled && settings.init_tiktok_id) {
+  if (isEnabled(settings.init_tiktok_enabled) && settings.init_tiktok_id) {
     addTikTokPixel(settings.init_tiktok_id);
   }
 }
 
 // دالة إضافة Google Analytics
 function addGoogleAnalytics(gaId) {
+  if (!gaId) {
+    return;
+  }
+
+  // Check if already added
+  const existingScript = document.querySelector(`script[src*="gtag/js?id=${gaId}"]`);
+  if (existingScript) {
+    return;
+  }
+
   // Google Analytics 4
   const gaScript = document.createElement('script');
   gaScript.async = true;
@@ -1175,6 +1183,16 @@ function addGoogleAnalytics(gaId) {
 
 // دالة إضافة Google Tag Manager
 function addGoogleTagManager(gtmId) {
+  if (!gtmId) {
+    return;
+  }
+
+  // Check if already added
+  const existingScript = document.querySelector(`script[src*="gtm.js?id=${gtmId}"]`);
+  if (existingScript) {
+    return;
+  }
+
   // GTM Script
   const gtmScript = document.createElement('script');
   gtmScript.innerHTML = `
@@ -1187,14 +1205,33 @@ function addGoogleTagManager(gtmId) {
   document.head.appendChild(gtmScript);
 
   // GTM NoScript
-  const gtmNoScript = document.createElement('noscript');
-  gtmNoScript.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
-  document.body.insertBefore(gtmNoScript, document.body.firstChild);
+  const existingNoScript = document.querySelector(`noscript iframe[src*="ns.html?id=${gtmId}"]`);
+  if (!existingNoScript) {
+    const gtmNoScript = document.createElement('noscript');
+    gtmNoScript.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
+    document.body.insertBefore(gtmNoScript, document.body.firstChild);
+  }
 }
 
 // دالة إضافة Facebook Pixel
 function addFacebookPixel(pixelId) {
+  if (!pixelId) {
+    return;
+  }
+
+  // Check if already added
+  if (window.fbq) {
+    return;
+  }
+
+  // Check if script already exists
+  const existingScript = document.querySelector('script[data-facebook-pixel]');
+  if (existingScript) {
+    return;
+  }
+
   const fbScript = document.createElement('script');
+  fbScript.setAttribute('data-facebook-pixel', pixelId);
   fbScript.innerHTML = `
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -1209,14 +1246,34 @@ function addFacebookPixel(pixelId) {
   `;
   document.head.appendChild(fbScript);
 
-  const fbNoScript = document.createElement('noscript');
-  fbNoScript.innerHTML = `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1"/>`;
-  document.head.appendChild(fbNoScript);
+  // Check if noscript already exists
+  const existingNoScript = document.querySelector('noscript[data-facebook-pixel]');
+  if (!existingNoScript) {
+    const fbNoScript = document.createElement('noscript');
+    fbNoScript.setAttribute('data-facebook-pixel', pixelId);
+    fbNoScript.innerHTML = `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1"/>`;
+    document.head.appendChild(fbNoScript);
+  }
 }
 
 // دالة إضافة Snapchat Pixel
 function addSnapchatPixel(pixelId) {
+  if (!pixelId) {
+    return;
+  }
+
+  // Check if already added
+  if (window.snaptr) {
+    return;
+  }
+
+  const existingScript = document.querySelector('script[data-snapchat-pixel]');
+  if (existingScript) {
+    return;
+  }
+
   const snapScript = document.createElement('script');
+  snapScript.setAttribute('data-snapchat-pixel', pixelId);
   snapScript.innerHTML = `
     (function(e,t,n){if(e.snaptr)return;var a=e.snaptr=function()
     {a.handleRequest?a.handleRequest.apply(a,arguments):a.queue.push(arguments)};
@@ -1233,7 +1290,22 @@ function addSnapchatPixel(pixelId) {
 
 // دالة إضافة TikTok Pixel
 function addTikTokPixel(pixelId) {
+  if (!pixelId) {
+    return;
+  }
+
+  // Check if already added
+  if (window.ttq) {
+    return;
+  }
+
+  const existingScript = document.querySelector('script[data-tiktok-pixel]');
+  if (existingScript) {
+    return;
+  }
+
   const tiktokScript = document.createElement('script');
+  tiktokScript.setAttribute('data-tiktok-pixel', pixelId);
   tiktokScript.innerHTML = `
     !function (w, d, t) {
       w.TikTokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["track","page","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
