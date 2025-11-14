@@ -113,27 +113,27 @@ html[data-theme-color=skin-2] {
   --bs-body-color: #566593;
   --bs-heading-color: #5f724f;
   --bs-heading-color-rgb: 95, 114, 79;
-  --bs-primary: #eac04f;
+  --bs-primary: #c8a867;
   --bs-secondary: #5f724f;
-  --bs-light: #FFF5F9;
-  --bs-primary-rgb: 204, 171, 108;
+  --bs-light: #f6f4e5;
+  --bs-primary-rgb: 200, 168, 103;
   --bs-secondary-rgb: 95, 114, 79;
-  --bs-light-rgb: 255, 245, 249;
-  --bs-primary-text-emphasis: rgb(81.6, 68.4, 43.2);
+  --bs-light-rgb: 246, 244, 229;
+  --bs-primary-text-emphasis: rgb(80, 67.2, 41.2);
   --bs-secondary-text-emphasis: rgb(38, 45.6, 31.6);
-  --bs-light-text-emphasis: rgb(102, 98, 99.6);
-  --bs-primary-bg-subtle: rgb(244.8, 238.2, 225.6);
-  --bs-secondary-bg-subtle: rgb(244.8, 238.2, 225.6);
-  --bs-light-bg-subtle: rgb(255, 253, 253.8);
-  --bs-primary-border-subtle: rgb(244.8, 238.2, 225.6);
+  --bs-light-text-emphasis: rgb(98.4, 97.6, 91.6);
+  --bs-primary-bg-subtle: rgb(244, 237.6, 224.6);
+  --bs-secondary-bg-subtle: rgb(244, 237.6, 224.6);
+  --bs-light-bg-subtle: rgb(253.2, 252.8, 249.8);
+  --bs-primary-border-subtle: rgb(244, 237.6, 224.6);
   --bs-secondary-border-subtle: rgb(223, 226.8, 219.8);
-  --bs-light-border-subtle: rgb(255, 253, 253.8);
-  --bs-primary-btn-hover-bg: rgb(173.4, 145.35, 91.8);
-  --bs-primary-btn-hover-border-color: rgb(173.4, 145.35, 91.8);
+  --bs-light-border-subtle: rgb(253.2, 252.8, 249.8);
+  --bs-primary-btn-hover-bg: rgb(170, 142.8, 87.55);
+  --bs-primary-btn-hover-border-color: rgb(170, 142.8, 87.55);
   --bs-secondary-btn-hover-bg: rgb(80.75, 96.9, 67.15);
   --bs-secondary-btn-hover-border-color: rgb(80.75, 96.9, 67.15);
-  --bs-light-btn-hover-bg: rgb(216.75, 208.25, 211.65);
-  --bs-light-btn-hover-border-color: rgb(216.75, 208.25, 211.65);
+  --bs-light-btn-hover-bg: rgb(209.1, 207.4, 194.65);
+  --bs-light-btn-hover-border-color: rgb(209.1, 207.4, 194.65);
 }
 html[data-theme-color=skin-2] .site-header.style-2 .nav > li.menu-item-has-children.active > a:after, html[data-theme-color=skin-2] .site-header.style-2 .nav > li.menu-item-has-children:hover > a:after,
 html[data-theme-color=skin-2] .site-header.style-2 .nav > li.sub-menu-down.active > a:after,
@@ -15845,7 +15845,7 @@ section {
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  background: linear-gradient(to right, rgb(255, 243, 248) 0%, rgba(255, 243, 248, 0) 50%, rgb(255, 243, 248) 100%);
+  background: #f6f4e5;
   z-index: 1;
 }
 .hero-banner.style-2 > * {
@@ -22389,8 +22389,8 @@ select, button {
   padding: 30px;
 }
 .icon-bx-wraper.style-7 .bg {
-  mask-image: url(../images/pattern/bg03.svg);
-  -webkit-mask-image: url(../images/pattern/bg03.svg);
+  mask-image: url(../images/bg03.svg);
+  -webkit-mask-image: url(../images/bg03.svg);
   position: absolute;
   left: 0;
   top: 0;
@@ -33300,7 +33300,10 @@ ul.grid-2 li {
 
 .scroltop {
   background: var(--bs-secondary);
-  bottom: 30px;
+  bottom: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #fff !important;
   cursor: pointer;
   opacity: 0;
@@ -53454,10 +53457,6 @@ footer.site-footer.footer-dark .fb-inner {
   color: var(--bs-primary);
 }
 
-.DZ-theme-btn{
-  display : none !important;
-}
-
 @keyframes btn-hover {
   0% {
     transform: translateY(0%);
@@ -53493,7 +53492,6 @@ footer.site-footer.footer-dark .fb-inner {
   left: 50%;
   width: 1200px;
   margin: 0 -600px;
-
 }
 .boxed .is-fixed .main-bar {
   transition: none;

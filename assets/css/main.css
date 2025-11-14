@@ -113,27 +113,27 @@ html[data-theme-color=skin-2] {
   --bs-body-color: #566593;
   --bs-heading-color: #5f724f;
   --bs-heading-color-rgb: 95, 114, 79;
-  --bs-primary: #eac04f;
+  --bs-primary: #c8a867;
   --bs-secondary: #5f724f;
-  --bs-light: #FFF5F9;
-  --bs-primary-rgb: 234, 192, 79;
+  --bs-light: #f6f4e5;
+  --bs-primary-rgb: 200, 168, 103;
   --bs-secondary-rgb: 95, 114, 79;
-  --bs-light-rgb: 255, 245, 249;
-  --bs-primary-text-emphasis: #5e4d20;
+  --bs-light-rgb: 246, 244, 229;
+  --bs-primary-text-emphasis: #504329;
   --bs-secondary-text-emphasis: #262e20;
-  --bs-light-text-emphasis: #666264;
-  --bs-primary-bg-subtle: #fbf2dc;
-  --bs-secondary-bg-subtle: #fbf2dc;
-  --bs-light-bg-subtle: #fffdfe;
-  --bs-primary-border-subtle: #fbf2dc;
+  --bs-light-text-emphasis: #62625c;
+  --bs-primary-bg-subtle: #f4eee1;
+  --bs-secondary-bg-subtle: #f4eee1;
+  --bs-light-bg-subtle: #fdfdfa;
+  --bs-primary-border-subtle: #f4eee1;
   --bs-secondary-border-subtle: #dfe3dc;
-  --bs-light-border-subtle: #fffdfe;
-  --bs-primary-btn-hover-bg: #c7a343;
-  --bs-primary-btn-hover-border-color: #c7a343;
+  --bs-light-border-subtle: #fdfdfa;
+  --bs-primary-btn-hover-bg: #aa8f58;
+  --bs-primary-btn-hover-border-color: #aa8f58;
   --bs-secondary-btn-hover-bg: #516143;
   --bs-secondary-btn-hover-border-color: #516143;
-  --bs-light-btn-hover-bg: #d9d0d4;
-  --bs-light-btn-hover-border-color: #d9d0d4;
+  --bs-light-btn-hover-bg: #d1cfc3;
+  --bs-light-btn-hover-border-color: #d1cfc3;
 }
 html[data-theme-color=skin-2] .site-header.style-2 .nav > li.menu-item-has-children.active > a:after, html[data-theme-color=skin-2] .site-header.style-2 .nav > li.menu-item-has-children:hover > a:after,
 html[data-theme-color=skin-2] .site-header.style-2 .nav > li.sub-menu-down.active > a:after,
@@ -17642,8 +17642,7 @@ section {
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  background: -webkit-gradient(linear, left top, right top, from(rgb(255, 243, 248)), color-stop(50%, rgba(255, 243, 248, 0)), to(rgb(255, 243, 248)));
-  background: linear-gradient(to right, rgb(255, 243, 248) 0%, rgba(255, 243, 248, 0) 50%, rgb(255, 243, 248) 100%);
+  background: #f6f4e5;
   z-index: 1;
 }
 .hero-banner.style-2 > * {

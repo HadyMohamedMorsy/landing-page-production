@@ -39,10 +39,48 @@ class DataFetcher {
     ) || sectionData.content[0]; // fallback to first item
   }
 
-  // General Settings (no language filter)
+  // General Settings - similar to api-service.js
   getGeneralSettings() {
     if (!this.data) return null;
-    return this.data.data.general_settings;
+    
+    // Structure: data.general_settings.content is an object containing:
+    // - content: array of multilingual content
+    // - store_email, store_phone, facebook_pixel_id, etc. (settings not in content array)
+    const generalSettingsObj = this.data.data?.general_settings?.content;
+    if (!generalSettingsObj) {
+      return null;
+    }
+    
+    // Get content array (multilingual content)
+    const contentArray = generalSettingsObj.content;
+    if (!Array.isArray(contentArray) || contentArray.length === 0) {
+      return null;
+    }
+    
+    // Get content for current language
+    // Assuming language_id: 1=en, 2=ar
+    const currentLangId = this.language === 'ar' ? 2 : 1;
+    const languageContent = contentArray.find(c => c.language_id === currentLangId) || contentArray[0];
+    
+    return {
+      content: languageContent,
+      store_email: generalSettingsObj.store_email,
+      store_phone: generalSettingsObj.store_phone,
+      gtm_container_id: generalSettingsObj.gtm_container_id,
+      google_analytics_id: generalSettingsObj.google_analytics_id,
+      facebook_pixel_id: generalSettingsObj.facebook_pixel_id,
+      snapchat_pixel_id: generalSettingsObj.snapchat_pixel_id,
+      init_tiktok_id: generalSettingsObj.init_tiktok_id,
+      gtm_enabled: generalSettingsObj.gtm_enabled,
+      google_analytics_enabled: generalSettingsObj.google_analytics_enabled,
+      facebook_pixel_enabled: generalSettingsObj.facebook_pixel_enabled,
+      snapchat_pixel_enabled: generalSettingsObj.snapchat_pixel_enabled,
+      init_tiktok_enabled: generalSettingsObj.init_tiktok_enabled,
+      facebook_url: generalSettingsObj.facebook_url,
+      instagram_url: generalSettingsObj.instagram_url,
+      twitter_url: generalSettingsObj.twitter_url,
+      maintenance_mode: generalSettingsObj.maintenance_mode
+    };
   }
 
   // Section One - Hero Section
@@ -169,7 +207,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     console.log("🏠 Section Branches:", generalSettings);
     
     // تحديث الـ hero section بالبيانات
-    updateHeroSection(sectionOne);
+    updateHeroSection(sectionOne, generalSettings);
     
     // تحديث الـ about section بالبيانات
     updateAboutSection(sectionTwo);
@@ -201,22 +239,26 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 // دالة لتحديث الـ hero section
-function updateHeroSection(sectionOne) {
+function updateHeroSection(sectionOne, generalSettings) {
   if (!sectionOne) {
     return;
   }
 
   // بناء الـ hero section من الصفر
-  buildHeroSectionFromScratch(sectionOne);
+  buildHeroSectionFromScratch(sectionOne, generalSettings);
 }
 
 // دالة لبناء الـ hero section من الصفر
-function buildHeroSectionFromScratch(sectionOne) {
+function buildHeroSectionFromScratch(sectionOne, generalSettings) {
   // البحث عن الـ container
   const container = document.querySelector('.hero-banner.style-2');
   if (!container) {
     return;
   }
+
+  // الحصول على رقم الهاتف من الـ generalSettings
+  const phone = generalSettings?.store_phone || '201050800531';
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook`;
 
   // مسح المحتوى الموجود
   container.innerHTML = '';
@@ -238,14 +280,14 @@ function buildHeroSectionFromScratch(sectionOne) {
                 <div class="info-widget style-12 m-r40 shadow-sm">
                   <div class="avatar-group">
                     ${sectionOne.talk_doctors_images && Array.isArray(sectionOne.talk_doctors_images) ? sectionOne.talk_doctors_images.map((doctor, index) => `
-                      <img class="avatar rounded-circle avatar-md border border-white" src="https://api.vdentaleg.com/${doctor}" alt="${doctor}" style="margin-left: ${index > 0 ? '10px' : '0'};" />
+                      <img class="avatar rounded-circle avatar-md border border-white" src="https://api.vdentaleg.com/${doctor}" alt="v-Dental Clinic" style="margin-left: ${index > 0 ? '-8px' : '0'}; z-index: ${sectionOne.talk_doctors_images.length - index};" />
                     `).join('') : ''}
                   </div>
                   <div class="clearfix">
                     <span>Talk to over <strong>${sectionOne.doctor_count_text || '215'}</strong> doctor</span>
                   </div>
                 </div>
-                <a href="#" class="btn btn-square btn-xl btn-white shadow-sm btn-rounded">
+                <a href="${whatsappUrl}" target="_blank" class="btn btn-square btn-xl btn-white shadow-sm btn-rounded">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 17L17 7" stroke="var(--bs-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M7 7H17V17" stroke="var(--bs-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -289,12 +331,6 @@ function buildHeroSectionFromScratch(sectionOne) {
               </div>
             </div>
           </div>
-        </div>
-        <div class="item1">
-          <img class="move-1" src="images/hero-banner/img2.webp" alt="v-Dental Clinic" />
-        </div>
-        <div class="item2">
-          <img class="move-2" src="images/hero-banner/img4.webp" alt="v-Dental Clinic" />
         </div>
       </div>
     </div>
@@ -340,9 +376,6 @@ function buildAboutSectionFromScratch(sectionTwo) {
             </div>
             <div class="item1" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(0px)"></div>
             <div class="item2" data-bottom-top="transform: translateY(-30px)" data-top-bottom="transform: translateY(0px)">
-              <div class="media1 move-4">
-                <img src="images/hero-banner/img4.webp" alt="v-Dental Clinic" />
-              </div>
             </div>
             <div class="item3" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(0px)">
               <svg viewBox="0 0 496 175" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -641,8 +674,9 @@ function updateReviewsSection(sectionReviews, sectionOne) {
         const img = document.createElement('img');
         img.className = 'avatar rounded-circle avatar-md border border-white';
         img.src = `https://api.vdentaleg.com/${image}`;
-        img.alt = 'Doctor';
-        img.style.marginLeft = index > 0 ? '10px' : '0';
+        img.alt = 'v-Dental Clinic';
+        img.style.marginLeft = index > 0 ? '-8px' : '0';
+        img.style.zIndex = `${sectionOne.talk_doctors_images.length - index}`;
         avatarGroup.appendChild(img);
       });
     }
@@ -749,6 +783,37 @@ function buildDoctorsSectionFromScratch(doctors) {
     const largeSlide = createLargeDoctorSlideStyle4(doctor, index);
     largeSwiperWrapper.appendChild(largeSlide);
   });
+
+  // إضافة CSS للـ mobile scaling (مرة واحدة فقط)
+  if (!document.getElementById('mobile-scale-style')) {
+    const style = document.createElement('style');
+    style.id = 'mobile-scale-style';
+    style.textContent = `
+      @media (max-width: 767.98px) {
+        .mobile-scale {
+          transform: scale(0.8) !important;
+          transform-origin: center;
+        }
+        .mobile-scale .list-check-try {
+          font-size: 0.8rem !important;
+        }
+        .mobile-scale .info-widget {
+          font-size: 0.85rem !important;
+        }
+        .mobile-scale .info-widget .widget-media img {
+          max-width: 35px !important;
+          max-height: 35px !important;
+        }
+        .mobile-scale .info-widget .title {
+          font-size: 0.85rem !important;
+        }
+        .mobile-scale .info-widget .sub-title {
+          font-size: 0.7rem !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
 }
 
 // دالة لإنشاء الـ small doctor slide (style-3)
@@ -808,13 +873,13 @@ function createLargeDoctorSlideStyle4(doctor, index) {
           </a>
         </li>
       </ul>
-      <div class="item1">
+      <div class="item1 d-block d-md-block mobile-scale" style="display: block !important;">
         <ul class="list-check-try fw-medium text-secondary">
           <li>Teeth Whitening</li>
           <li>Root Canal</li>
         </ul>
       </div>
-      <div class="item2">
+      <div class="item2 d-block d-md-block mobile-scale" style="display: block !important;">
         <div class="info-widget style-3">
           <div class="widget-head">
             <div class="widget-media">
@@ -921,23 +986,30 @@ function updateGeneralSettings(generalSettings) {
     return;
   }
 
-  const settings = generalSettings.content;
+  // Check maintenance mode
+  if (generalSettings.maintenance_mode) {
+    showMaintenanceMode(generalSettings.content.maintenance_message || 'Site is under maintenance');
+    return;
+  }
+
+  const content = generalSettings.content;
+  const settings = generalSettings; // Use full settings object for phone, email, etc.
 
   // تحديث رقم الهاتف
   const phoneLinks = document.querySelectorAll('.phone-setting');
-  if (settings.phone) {
+  if (settings.store_phone) {
     phoneLinks.forEach(link => {
-      link.href = `tel:${settings.phone}`;
-      link.innerHTML = `<i class="feather icon-phone-call text-primary"></i> ${settings.phone}`;
+      link.href = `tel:${settings.store_phone}`;
+      link.innerHTML = `<i class="feather icon-phone-call text-primary"></i> ${settings.store_phone}`;
     });
   }
 
   // تحديث الإيميل
   const emailLinks = document.querySelectorAll('.email-setting');
-  if (settings.email) {
+  if (settings.store_email) {
     emailLinks.forEach(link => {
-      link.href = `mailto:${settings.email}`;
-      link.innerHTML = `<i class="feather icon-mail text-primary"></i> ${settings.email}`;
+      link.href = `mailto:${settings.store_email}`;
+      link.innerHTML = `<i class="feather icon-mail text-primary"></i> ${settings.store_email}`;
     });
   }
 
@@ -959,24 +1031,38 @@ function updateGeneralSettings(generalSettings) {
 
   // تحديث رابط الموعد (WhatsApp)
   const appointmentLinks = document.querySelectorAll('.whatsapp-setting');
-  if (settings.phone) {
+  if (settings.store_phone) {
     appointmentLinks.forEach(link => {
-      link.href = `https://api.whatsapp.com/send?phone=${settings.phone}&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook`;
+      link.href = `https://api.whatsapp.com/send?phone=${settings.store_phone}&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook`;
     });
   }
 
-  // تحديث الـ SEO meta tags
-  updateSEOTags(settings);
+  // تحديث الـ SEO meta tags (use content for meta fields)
+  updateSEOTags(content);
   
-  // تحديث الـ tracking scripts
+  // تحديث الـ tracking scripts (use full settings object)
   updateTrackingScripts(settings);
 }
 
+// Show maintenance mode
+function showMaintenanceMode(message) {
+  document.body.innerHTML = `
+    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; padding: 20px;">
+      <div>
+        <h1 style="font-size: 48px; margin-bottom: 20px;">Maintenance Mode</h1>
+        <p style="font-size: 24px;">${message}</p>
+      </div>
+    </div>
+  `;
+}
+
 // دالة لتحديث الـ SEO meta tags
-function updateSEOTags(settings) {
+function updateSEOTags(content) {
   // تحديث الـ title
-  if (settings.meta_title) {
-    document.title = settings.meta_title;
+  if (content.meta_title) {
+    document.title = content.meta_title;
+  } else if (content.store_name) {
+    document.title = content.store_name;
   }
 
   // تحديث الـ meta description
@@ -986,8 +1072,8 @@ function updateSEOTags(settings) {
     metaDescription.name = 'description';
     document.head.appendChild(metaDescription);
   }
-  if (settings.meta_description) {
-    metaDescription.content = settings.meta_description;
+  if (content.meta_description) {
+    metaDescription.content = content.meta_description;
   }
 
   // تحديث الـ meta keywords
@@ -997,16 +1083,16 @@ function updateSEOTags(settings) {
     metaKeywords.name = 'keywords';
     document.head.appendChild(metaKeywords);
   }
-  if (settings.meta_keywords) {
-    metaKeywords.content = settings.meta_keywords;
+  if (content.meta_keywords) {
+    metaKeywords.content = content.meta_keywords;
   }
 
   // تحديث الـ Open Graph meta tags
-  updateOpenGraphTags(settings);
+  updateOpenGraphTags(content);
 }
 
 // دالة لتحديث الـ Open Graph meta tags
-function updateOpenGraphTags(settings) {
+function updateOpenGraphTags(content) {
   // Open Graph Title
   let ogTitle = document.querySelector('meta[property="og:title"]');
   if (!ogTitle) {
@@ -1014,8 +1100,8 @@ function updateOpenGraphTags(settings) {
     ogTitle.setAttribute('property', 'og:title');
     document.head.appendChild(ogTitle);
   }
-  if (settings.meta_title) {
-    ogTitle.content = settings.meta_title;
+  if (content.meta_og_title || content.meta_title || content.store_name) {
+    ogTitle.content = content.meta_og_title || content.meta_title || content.store_name;
   }
 
   // Open Graph Description
@@ -1025,8 +1111,8 @@ function updateOpenGraphTags(settings) {
     ogDescription.setAttribute('property', 'og:description');
     document.head.appendChild(ogDescription);
   }
-  if (settings.meta_description) {
-    ogDescription.content = settings.meta_description;
+  if (content.meta_og_description || content.meta_description) {
+    ogDescription.content = content.meta_og_description || content.meta_description;
   }
 
   // Open Graph Site Name
@@ -1036,21 +1122,21 @@ function updateOpenGraphTags(settings) {
     ogSiteName.setAttribute('property', 'og:site_name');
     document.head.appendChild(ogSiteName);
   }
-  if (settings.name) {
-    ogSiteName.content = settings.name;
+  if (content.meta_og_site_name || content.store_name) {
+    ogSiteName.content = content.meta_og_site_name || content.store_name;
   }
 }
 
 // دالة لتحديث الـ tracking scripts
 function updateTrackingScripts(settings) {
+  // Google Tag Manager
+  if (settings.gtm_enabled && settings.gtm_container_id) {
+    addGoogleTagManager(settings.gtm_container_id);
+  }
+
   // Google Analytics
   if (settings.google_analytics_enabled && settings.google_analytics_id) {
     addGoogleAnalytics(settings.google_analytics_id);
-  }
-
-  // Google Tag Manager
-  if (settings.gtm_container_id) {
-    addGoogleTagManager(settings.gtm_container_id);
   }
 
   // Facebook Pixel
