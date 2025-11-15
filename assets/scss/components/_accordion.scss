@@ -83,19 +83,19 @@
 				&::after{
 					display: none;
 				}
-				&::before{
-					content: "0" counter(accordion-item);
-					counter-increment: accordion-item;
-					background-image: none !important;
-					font-size: 60px;
-					font-weight: 700;
-					color: #fff;
-					opacity: 0.1;
-					position: absolute;
-					right: 20px;
-					top: 15px;
-					line-height: 1.15;
-				}
+				// &::before{
+				// 	content: "0" counter(accordion-item);
+				// 	counter-increment: accordion-item;
+				// 	background-image: none !important;
+				// 	font-size: 60px;
+				// 	font-weight: 700;
+				// 	color: #fff;
+				// 	opacity: 0.1;
+				// 	position: absolute;
+				// 	right: 20px;
+				// 	top: 15px;
+				// 	line-height: 1.15;
+				// }
 			}
 			&:nth-of-type(n + 10) .accordion-button::before{
 				content: counter(accordion-item);

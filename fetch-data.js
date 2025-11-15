@@ -1069,12 +1069,6 @@ function createLargeDoctorSlideStyle4(doctor, index) {
           </a>
         </li>
       </ul>
-      <div class="item1 d-block d-md-block mobile-scale" style="display: block !important;">
-        <ul class="list-check-try fw-medium text-secondary">
-          <li>Teeth Whitening</li>
-          <li>Root Canal</li>
-        </ul>
-      </div>
       <div class="item2 d-block d-md-block mobile-scale" style="display: block !important;">
         <div class="info-widget style-3">
           <div class="widget-head">

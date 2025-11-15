@@ -157,6 +157,42 @@
           box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
         }
       }
+
+      /* Phone Fixed Button Styles (mobile only) */
+      .phone-fixed {
+        position: fixed;
+        bottom: 20px !important;
+        left: 30px !important;
+        width: 60px !important;
+        height: 60px !important;
+        background-color: #0ea5e9;
+        border-radius: 50%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: white;
+        font-size: 26px;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .phone-fixed:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 18px rgba(14, 165, 233, 0.6);
+        color: white;
+      }
+
+      .phone-fixed:active {
+        transform: scale(0.95);
+      }
+
+      @media (max-width: 767px) {
+        .phone-fixed {
+          display: flex;
+        }
+      }
       
       #splash-screen.fade-out {
         opacity: 0;
@@ -2323,6 +2359,10 @@ clinic 121, Abdullah ibn salamah, the fount mall, قسم أول القاهرة �
       <!-- Fixed WhatsApp Button -->
       <a href="https://api.whatsapp.com/send?phone=201050800531" class="whatsapp-fixed" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i>
+      </a>
+      <!-- Fixed Phone Button -->
+      <a href="tel:+201050800531" class="phone-fixed" aria-label="Call V Dental">
+        <i class="fas fa-phone"></i>
       </a>
     </div>
     <!-- JAVASCRIPT FILES ========================================= -->
