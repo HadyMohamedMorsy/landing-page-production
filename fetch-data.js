@@ -176,11 +176,17 @@ class DataFetcher {
   }
 }
 
+// متغير لتتبع ما إذا كانت البيانات قد تم جلبها
+let dataLoaded = false;
+
 // تشغيل الكود عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', async function() {
   const fetcher = new DataFetcher();
   
   try {
+    // منع تهيئة Swiper للأطباء في dz.carousel.js قبل جلب البيانات
+    preventTeamSwiperInitialization();
+    
     // جلب البيانات وإخفاء الـ splash screen
     await fetcher.loadDataAndHideSplash();
     
@@ -221,11 +227,178 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // تحديث الـ general settings
     updateGeneralSettings(generalSettings);
+    
+    // تعيين علامة أن البيانات قد تم جلبها
+    dataLoaded = true;
   
   } catch (error) {
     // Error handling
+    dataLoaded = true;
   }
 });
+
+// دالة لمنع تهيئة Swiper للأطباء قبل جلب البيانات
+function preventTeamSwiperInitialization() {
+  // إضافة علامة للعناصر لمنع التهيئة المبكرة
+  const thumbSwiperEl = document.querySelector('.dz-team-swiper1-thumb');
+  const mainSwiperEl = document.querySelector('.dz-team-swiper1');
+  
+  if (thumbSwiperEl) {
+    thumbSwiperEl.setAttribute('data-swiper-delay', 'true');
+  }
+  if (mainSwiperEl) {
+    mainSwiperEl.setAttribute('data-swiper-delay', 'true');
+  }
+}
+
+// دالة لإعادة تهيئة Swiper للأطباء بعد تحديث المحتوى
+function reinitializeTeamSwiper(totalSlides) {
+  // دالة مساعدة للتأكد من أن Swiper متاح
+  function waitForSwiper(callback) {
+    if (typeof Swiper !== 'undefined') {
+      callback();
+    } else {
+      // الانتظار حتى يتم تحميل Swiper
+      setTimeout(() => waitForSwiper(callback), 50);
+    }
+  }
+
+  waitForSwiper(() => {
+    // الانتظار قليلاً للتأكد من أن DOM تم تحديثه
+    setTimeout(() => {
+      // التحقق من وجود العناصر قبل التهيئة
+      const thumbSwiperEl = document.querySelector('.dz-team-swiper1-thumb');
+      const mainSwiperEl = document.querySelector('.dz-team-swiper1');
+      
+      if (!thumbSwiperEl || !mainSwiperEl) {
+        console.warn('Team swiper elements not found');
+        return;
+      }
+
+      // تدمير Swiper القديم إذا كان موجوداً (من dz.carousel.js أو من تهيئة سابقة)
+      // Swiper يحفظ نفسه في خاصية swiper على العنصر DOM
+      if (thumbSwiperEl.swiper) {
+        try {
+          thumbSwiperEl.swiper.destroy(true, true);
+          delete thumbSwiperEl.swiper;
+        } catch (e) {
+          // تجاهل الأخطاء
+        }
+      }
+      if (mainSwiperEl.swiper) {
+        try {
+          mainSwiperEl.swiper.destroy(true, true);
+          delete mainSwiperEl.swiper;
+        } catch (e) {
+          // تجاهل الأخطاء
+        }
+      }
+
+      // تدمير Swiper instances من window إذا كانت موجودة
+      if (typeof window.teamSwiperThumb !== 'undefined' && window.teamSwiperThumb) {
+        try {
+          if (window.teamSwiperThumb.destroy) {
+            window.teamSwiperThumb.destroy(true, true);
+          }
+        } catch (e) {
+          // تجاهل الأخطاء
+        }
+        delete window.teamSwiperThumb;
+      }
+      if (typeof window.teamSwiperMain !== 'undefined' && window.teamSwiperMain) {
+        try {
+          if (window.teamSwiperMain.destroy) {
+            window.teamSwiperMain.destroy(true, true);
+          }
+        } catch (e) {
+          // تجاهل الأخطاء
+        }
+        delete window.teamSwiperMain;
+      }
+
+      // التأكد من وجود slides قبل التهيئة
+      const slides = mainSwiperEl.querySelectorAll('.swiper-slide');
+      if (!slides || slides.length === 0) {
+        console.warn('No slides found in team swiper');
+        return;
+      }
+
+      // تهيئة Swiper للـ thumb (الصغير)
+      window.teamSwiperThumb = new Swiper('.dz-team-swiper1-thumb', {
+        slidesPerView: '2',
+        grid: {
+          rows: 2
+        },
+        autoplay: {
+          delay: 3000
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 1.2,
+            grid: {
+              rows: 1
+            }
+          },
+          591: {
+            slidesPerView: 2
+          },
+          991: {
+            slidesPerView: 3
+          },
+          1200: {
+            slidesPerView: 2
+          }
+        }
+      });
+
+      // تهيئة Swiper للـ main (الكبير)
+      window.teamSwiperMain = new Swiper('.dz-team-swiper1', {
+        slidesPerView: '1',
+        effect: 'fade',
+        thumbs: {
+          swiper: window.teamSwiperThumb
+        },
+        pagination: {
+          el: '.team-progressbar-swiper',
+          type: 'progressbar'
+        },
+        navigation: {
+          nextEl: '.team-swiper-next',
+          prevEl: '.team-swiper-prev'
+        }
+      });
+
+      // دالة لتحديث رقم الـ pagination
+      function updateTeamPagination() {
+        const currentSlide = document.querySelector('.team-slider__current');
+        const totalSlide = document.querySelector('.team-slider__total');
+        
+        if (currentSlide && totalSlide && window.teamSwiperMain) {
+          const current = window.teamSwiperMain.realIndex + 1;
+          const total = totalSlides || window.teamSwiperMain.slides.length;
+          
+          // تحديد الشكل الصحيح للرقم (01, 02, etc.)
+          const formattedCurrent = current < 10 ? `0${current}` : String(current);
+          const formattedTotal = total < 10 ? `0${total}` : String(total);
+          
+          currentSlide.textContent = formattedCurrent;
+          totalSlide.textContent = formattedTotal;
+        }
+      }
+
+      // تحديث رقم الـ pagination عند تغيير الـ slide
+      if (window.teamSwiperMain) {
+        window.teamSwiperMain.on('slideChange', updateTeamPagination);
+        
+        // تحديث رقم الـ pagination في البداية مباشرة
+        updateTeamPagination();
+        
+        // إعادة تحديث بعد تهيئة Swiper بالكامل
+        setTimeout(updateTeamPagination, 100);
+      }
+    }, 300);
+  });
+}
 
 // دالة لتحديث الـ hero section
 function updateHeroSection(sectionOne, generalSettings) {
@@ -289,9 +462,6 @@ function buildHeroSectionFromScratch(sectionOne, generalSettings) {
             <div class="hero-thumbnail" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
               <img class="thumbnail" src="https://api.vdentaleg.com/${sectionOne.main_clinic_image}" alt="v-Dental Clinic" />
               <div class="circle-wrapper"></div>
-              <div class="item3" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-                <img class="move-3" src="images/hero-banner/img3.webp" alt="v-Dental Clinic" />
-              </div>
               ${sectionOne.additional_clinic_images && Array.isArray(sectionOne.additional_clinic_images) ? sectionOne.additional_clinic_images.map((image, index) => `
                 <div class="item${index + 4}" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
                   <img class="move-4" src="https://api.vdentaleg.com/${image}" alt="v-Dental Clinic" />
@@ -406,47 +576,113 @@ function updateServicesSection(sectionThree) {
     return;
   }
 
-  // تحديث العنوان الرئيسي
-  const title = document.querySelector('.overlay-primary-light .title');
-  if (title && sectionThree.main_headline) {
-    title.textContent = sectionThree.main_headline;
+  // بناء الـ services section من الصفر
+  buildServicesSectionFromScratch(sectionThree);
+}
+
+// دالة لإعادة بناء الـ services section من الصفر
+function buildServicesSectionFromScratch(sectionThree) {
+  const container = document.querySelector('.twentytwenty-bottom-spacing.overlay-primary-light');
+  if (!container) {
+    return;
   }
 
-  // تحديث الوصف
-  const description = document.querySelector('.overlay-primary-light .m-b0, .overlay-primary-light p');
-  if (description && sectionThree.description) {
-    description.textContent = sectionThree.description;
-  }
+  // مسح المحتوى الموجود
+  container.innerHTML = '';
 
-  // تحديث صور الخدمات (services_images array)
-  const dzMediaElements = document.querySelectorAll('.overlay-primary-light .row .dz-media');
-  if (dzMediaElements.length > 0 && sectionThree.services_images && Array.isArray(sectionThree.services_images)) {
-    dzMediaElements.forEach((mediaElement, index) => {
-      if (sectionThree.services_images[index]) {
-        const img = mediaElement.querySelector('img');
-        if (img) {
-          img.src = `https://api.vdentaleg.com/${sectionThree.services_images[index]}`;
-          img.alt = `Service Image ${index + 1}`;
-        }
+  // بناء الـ services section من الصفر بنفس الـ style
+  container.innerHTML = `
+    <div class="container">
+      <div class="section-head style-3 row align-items-end mb-0 mb-lg-4">
+        <div class="col-xl-7 col-lg-7 m-b30">
+          <h2 class="title wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
+            ${sectionThree.main_headline || 'The Best Quality Service You Can Get'}
+          </h2>
+          <p class="m-b0 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
+            ${sectionThree.description || 'Where cutting-edge technology meets compassionate care for results that speak for themselves.'}
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        ${sectionThree.services_images && Array.isArray(sectionThree.services_images) ? sectionThree.services_images.map((image, index) => `
+          <div class="col-xl-3 col-md-6 m-b30 wow fadeInUp" data-wow-delay="${0.2 + (index * 0.2)}s" data-wow-duration="0.8s">
+            <div class="icon-bx-wraper style-7 box-hover ${index === 1 ? 'active' : ''}">
+              ${index === 0 ? `<div class="bg" style="background-image: url(images/background/bg7.webp)"></div>` : ''}
+              <div class="dz-media">
+                <img src="https://api.vdentaleg.com/${image}" alt="v-Dental Clinic" />
+              </div>
+            </div>
+          </div>
+        `).join('') : ''}
+      </div>
+    </div>
+    ${sectionThree.service_image_before && sectionThree.service_image_after ? `
+    <div class="twentytwenty-center wow bounceIn" data-wow-delay="1.0s" data-wow-duration="0.8s">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-8 col-lg-10">
+            <div class="twentytwenty-box shadow">
+              <div class="twentytwenty-container">
+                <img src="https://api.vdentaleg.com/${sectionThree.service_image_before}" alt="Before" />
+                <img src="https://api.vdentaleg.com/${sectionThree.service_image_after}" alt="After" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    ` : ''}
+  `;
+
+  // إعادة تهيئة twentytwenty إذا كان موجود
+  if (typeof jQuery !== 'undefined' && jQuery.fn.twentytwenty) {
+    const twentytwentyContainer = container.querySelector('.twentytwenty-container');
+    if (twentytwentyContainer) {
+      const $container = jQuery(twentytwentyContainer);
+      
+      // انتظار تحميل الصور قبل التهيئة
+      const images = $container.find('img');
+      const totalImages = images.length;
+      
+      if (totalImages === 0) {
+        return;
       }
-    });
-  }
-
-  // تحديث صور before and after
-  const twentytwentyContainer = document.querySelector('.twentytwenty-container');
-  if (twentytwentyContainer) {
-    // تحديث صورة before (الصورة الأولى)
-    const beforeImg = twentytwentyContainer.querySelector('img:first-child');
-    if (beforeImg && sectionThree.service_image_before) {
-      beforeImg.src = `https://api.vdentaleg.com/${sectionThree.service_image_before}`;
-      beforeImg.alt = 'Before';
-    }
-
-    // تحديث صورة after (الصورة الثانية)
-    const afterImg = twentytwentyContainer.querySelector('img:last-child');
-    if (afterImg && sectionThree.service_image_after) {
-      afterImg.src = `https://api.vdentaleg.com/${sectionThree.service_image_after}`;
-      afterImg.alt = 'After';
+      
+      let imagesLoaded = 0;
+      
+      const initTwentyTwenty = () => {
+        // إزالة الـ wrapper القديم والعناصر المضافة من قبل (لتجنب التكرار)
+        const existingWrapper = $container.parent('.twentytwenty-wrapper');
+        if (existingWrapper.length > 0) {
+          $container.unwrap();
+        }
+        
+        // إزالة العناصر المضافة من قبل (overlay, handle, etc.)
+        $container.find('.twentytwenty-overlay').remove();
+        $container.find('.twentytwenty-handle').remove();
+        $container.removeClass('twentytwenty-container');
+        $container.find('img').removeClass('twentytwenty-before twentytwenty-after');
+        
+        // تهيئة twentytwenty
+        $container.twentytwenty();
+      };
+      
+      const checkAllLoaded = () => {
+        imagesLoaded++;
+        if (imagesLoaded === totalImages) {
+          setTimeout(initTwentyTwenty, 50);
+        }
+      };
+      
+      images.each(function() {
+        const img = jQuery(this);
+        if (img[0].complete && img[0].naturalHeight !== 0) {
+          checkAllLoaded();
+        } else {
+          img.on('load', checkAllLoaded);
+          img.on('error', checkAllLoaded);
+        }
+      });
     }
   }
 }
@@ -526,9 +762,6 @@ function buildWhyChooseSectionFromScratch(sectionFour) {
                 <img src="https://api.vdentaleg.com/${sectionFour.right_section_image_4}" alt="Feature 4" />
               </div>
             </div>
-            <div class="item1 move-3">
-              <img src="images/hero-banner/img4.webp" alt="v-Dental Clinic" />
-            </div>
             <div class="circle-wrapper">
               <img src="images/bg-circle.svg" alt="v-Dental Clinic" />
             </div>
@@ -605,35 +838,6 @@ function buildDoctorSectionFromScratch(sectionFive) {
                 </h3>
               </div>
             </div>
-            <div class="item2" data-bottom-top="transform: translateY(-20px)" data-top-bottom="transform: translateY(10px)">
-              <div class="dz-img-box style-1 move-4">
-                <div class="dz-media">
-                  <svg width="150px" height="150px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 363.6 137.5" style="enable-background:new 0 0 363.6 137.5;" xml:space="preserve">
-                    <g>
-                      <path fill="#5D734C" d="M114.5,121.4"></path>
-                      <g>
-                        <path fill="#5E734D" d="M112.9,29.7"></path>
-                        <g>
-                          <path fill="#C8A444" d="M127.3,13.2l-0.8,0.1c-0.1,0-4.3,0.8-6.3,5l-0.3,0.7l0,0c-0.7,1.3-1.4,2.6-2,3.9c-0.5,1-1.1,2-1.7,3     c-0.1,0.1-0.1,0.3-0.2,0.4c-0.4,0.7-0.8,1.5-1.2,2.2c-1.3,2.4-2.6,4.8-3.8,7.1c0,0,0,0,0,0.1l-0.8,1.6c-0.1,0.3-0.3,0.5-0.4,0.8     c-0.1,0.3-0.3,0.6-0.5,0.9c-0.5,0.9-1,1.8-1.5,2.8c-0.2,0.3-0.3,0.6-0.5,0.9c0,0.1-0.1,0.2-0.1,0.2c-0.3,0.5-0.6,1-0.8,1.5     c-0.1,0.2-0.3,0.5-0.4,0.7c-0.6,1.1-1.2,2.2-1.8,3.3c-0.2,0.3-0.4,0.7-0.5,1c-0.6,1.2-1.2,2.3-1.8,3.5c-0.5,0.9-0.9,1.8-1.4,2.7     c-0.1,0.2-0.2,0.5-0.4,0.7c-0.2,0.5-0.5,0.9-0.7,1.4L99,57.9c-0.9,1.6-1.7,3.2-2.6,4.8c-1.1,2-2.2,4.1-3.3,6.2l-8.3,15.5l0,0     c-0.6,1.1-1.1,2.1-1.6,2.9c-0.6,1-1.1,2.1-1.7,3.1l-5.3,9.8v0l0,0l-1.8,3.4l-0.1,0.1v0l-4.1,7.7l-0.4,0.7l-0.3-0.5l-0.5-1     l-0.9-1.6c0-0.1-0.1-0.2-0.1-0.2c0,0,0,0,0-0.1c-0.3-0.6-0.6-1.2-0.9-1.8c-0.5-1-1-2-1.5-2.9c-0.7-1.4-1.5-2.8-2.2-4.1     c-0.4-0.8-0.9-1.6-1.3-2.4c-0.3-0.6-0.7-1.2-1-1.9c-0.9-1.7-1.8-3.3-2.6-5c-0.8-1.6-1.7-3.2-2.5-4.7c-0.8-1.5-1.6-3-2.4-4.5     c-0.7-1.3-1.4-2.6-2.1-3.9c-0.3-0.5-0.6-1-0.8-1.5l-1.8-3.4c-0.3-0.6-0.7-1.3-1-1.9L47,69.3c-0.2-0.5-0.5-0.9-0.7-1.4l-0.6-1.2     c-1.2-2.2-2.4-4.5-3.6-6.7c-0.3-0.5-0.5-1-0.8-1.5l-3.3-6.2l0,0c-0.1-0.3-0.3-0.6-0.4-0.9c-0.2-0.3-0.3-0.7-0.5-1l-0.6-1.3     c0.2,0,0.4,0.1,0.5,0.1c0.6,0.1,1.2,0.2,1.8,0.3c0.9,0.2,1.8,0.4,2.7,0.7l0.1,0c1.2,0.3,2.3,0.7,3.5,1.1c0.6,0.2,1.3,0.5,1.9,0.7     c1,0.4,1.9,0.8,2.9,1.2l15.9,28l0,0c0.5,0.9,1,1.9,1.6,2.8l2.5,4.5c0.1-0.2,0.2-0.3,0.3-0.5c0.8-1.4,1.5-2.9,2.3-4.4     c1.3-2.4,2.6-4.8,3.8-7.1c0.7-1.2,1.3-2.5,2-3.7c1.1-2.1,2.3-4.2,3.4-6.3l0.2-0.3c0.9-1.6,1.7-3.2,2.6-4.8     c0.4-0.7,0.8-1.4,1.2-2.2c0.5-0.9,1-1.9,1.5-2.8c0.8-1.4,1.6-2.9,2.3-4.3c0.5-1,1-1.9,1.5-2.9l0,0l0.8-1.6l0-0.1l4.8-8.9l0.1-0.1     c0,0,0,0,0,0l0.7-1.3l0.3-0.6l0-0.1c0-0.1,0.1-0.2,0.1-0.3l0.1-0.2c0,0,0,0,0-0.1l1.8-3.4l0.1-0.2c1.7-3.1,3.4-6.3,5.1-9.4     l2.1-3.9l0-0.2l3.8-7.3h1v0l8.2,0h3.5l0,0l2.7,0l0.7-0.1L127.3,13.2z"></path>
-                        </g>
-                        <polygon fill="#C8A444" points="91.2,49.5 92.1,47.8 91.2,49.4   "></polygon>
-                        <path fill="#C8A444" d="M96.6,38.9l-4.8,8.9l0,0.1c0,0,0,0,0,0c-4.1,1.4-8,3.2-11.8,5.3c-3.6,2-7.1,4.2-10.6,6.3    c-0.4,0.2-0.7,0.2-1,0c-1.2-0.8-2.5-1.7-3.8-2.4c-2.8-1.6-5.5-3.1-8.3-4.6c-4.3-2.3-8.7-4.1-13.4-5.5c0,0,0,0,0,0    c-2.5-0.7-5-1.3-7.5-1.4c-0.5,0-1.1-0.1-1.6-0.1c-0.8,0-1.7,0-2.6,0.2c-3.6,0.4-6.2,2.2-7.9,5.4c-1.7,3.1-1.8,6.6-2.1,10    c-0.3,4.6,0.5,9.1,1.4,13.6c0.8,3.8,1.9,7.5,3.1,11.2c0.6,2.1,1.4,4.1,2.2,6.1c0.7,1.9,1.5,3.7,2.4,5.6c0.6,1.2,1.2,2.4,1.8,3.7    c0.9,1.8,1.6,3.7,2.7,5.4c1.6,2.6,3.4,5.2,5.2,7.7c1.4,2,3.2,3.7,5.3,4.9c1.5,0.9,3.1,1.6,4.9,0.9c1-0.4,1.9-0.9,2.7-1.6    c1.6-1.2,2.8-2.8,3.8-4.5c1.3-2.2,2.6-4.2,3.9-6.4c0.7-1.1,1.3-2.3,2-3.5c0.1,0.2,0.1,0.2,0.2,0.3c1.1,2.1,2.3,4.1,3.4,6.2    c0.3,0.6,0.5,1.3,0.2,1.9c0,0,0,0,0,0v0c0,0.1-0.1,0.2-0.2,0.3c-1.1,1.6-2.1,3.3-3.2,5c-1.8,2.6-3.7,5.1-6.4,7    c-2.2,1.6-4.6,2.7-7.3,2.8c-4.2,0.2-7.6-1.7-10.6-4.3c-1.5-1.3-2.9-2.9-4.2-4.4c-1.4-1.7-2.7-3.4-3.9-5.3c-1.3-1.9-2.4-4-3.4-6    c-1.4-2.6-2.8-5.2-3.9-7.9c-1.3-2.8-2.2-5.8-3.4-8.7c-1.6-3.8-2.7-7.8-3.6-11.8c-1-4.3-1.7-8.7-2.1-13.1    c-0.4-4.7-0.5-9.5,0.9-14.1c0.7-2.4,1.6-4.8,3.1-6.9c3-4.2,7.1-6.4,12.1-7c0.2,0,0.3-0.1,0.5-0.1c0.2,0,0.3-0.1,0.6-0.1    c0,0,0,0,0,0c0.3,0,3.3,0,6.7,0.4c1,0.1,2,0.3,3,0.5c0,0,0,0,0,0c0,0,0.1,0,0.1,0c0.5,0.1,0.9,0.2,1.4,0.3    c0.5,0.1,1.1,0.3,1.6,0.4c0,0,0,0,0,0c0.1,0,0.3,0.1,0.4,0.1c1,0.3,2,0.6,2.9,0.9c3.5,1.3,6.9,2.6,10.3,4.2    c3.4,1.6,6.7,3.6,10,5.5c0.7,0.4,1.4,0.5,2.1,0c0.5-0.3,0.9-0.6,1.4-0.8c2.2-1.3,4.4-2.6,6.7-3.8c2.1-1.1,4.3-1.9,6.4-2.9    c3.5-1.6,7.2-2.7,10.9-3.7C95.7,39.1,96.1,39,96.6,38.9z"></path>
-                        <g>
-                          <path fill="#C8A444" d="M41.9,35.6l-0.5-0.1h-0.2c-0.6-0.1-1.1-0.2-1.7-0.3c-0.8-0.1-1.6-0.2-2.3-0.3c-0.5,0-1-0.1-1.4-0.1     c-1.1-0.1-2-0.1-2.8-0.2c-0.8,0-1.4,0-1.7,0c-0.1,0-0.2,0-0.2,0l-0.3,0h0l-0.1,0l-0.4,0.1c-0.2,0-0.3,0.1-0.5,0.1     c-0.1,0-0.2,0.1-0.3,0.1c0,0-0.1,0-0.1,0c-0.2,0-0.4,0.1-0.6,0.1c-0.8-1.5-1.6-3-2.4-4.5l-7.6-14.2c-2.1-2.2-4.7-2.7-4.8-2.8     l-0.8-0.1l0.3-1.5l0.6,0.1l0-0.1l2.3,0l0,0h4l8.2,0l0,0h0.6l3.8,7.1l0.1,0.2c0,0.1,0,0.1,0.1,0.2c0.8,1.5,1.6,3,2.4,4.5     c0.6,1.1,1.2,2.3,1.8,3.4c1.2,2.2,2.4,4.4,3.6,6.6l0.3,0.6C41.5,34.9,41.7,35.2,41.9,35.6C41.9,35.6,41.9,35.6,41.9,35.6     L41.9,35.6z"></path>
-                        </g>
-                        <path fill="#C8A444" d="M77,107.8c0.2,0.3,0.3,0.5,0.5,0.8c0.2,0.3,0.3,0.5,0.5,0.8c0.3,0.5,0.6,1,1,1.6c0,0.1,0.1,0.1,0.1,0.2    c0,0,0,0.1,0.1,0.1c0.6,0.9,1.2,1.9,1.8,2.8c1.3,2,2.8,3.9,4.9,5.2c1.1,0.7,2.3,1.4,3.7,1c1.2-0.4,2.5-0.9,3.5-1.6    c2.1-1.4,3.8-3.3,5.3-5.3c2.2-3,4.2-6.1,5.9-9.5c1.6-3.2,3.2-6.5,4.6-9.8c1.3-3.1,2.4-6.3,3.5-9.4c1.7-5.1,2.9-10.4,3.7-15.7    c0.5-3.5,0.6-7.1,0.2-10.6c-0.2-2.6-0.7-5.1-1.9-7.4c-1.2-2.2-2.9-3.8-5.2-4.7c0,0,0,0,0,0l3.5-6.5c0.4,0.2,0.8,0.3,1.2,0.5    c0.1,0,0.2,0.1,0.3,0.1c0,0,0,0,0,0c0.1,0,0.2,0.1,0.3,0.1c0.1,0,0.2,0.1,0.2,0.1c0,0,0,0,0,0c0.1,0,0.2,0.1,0.2,0.1    c0.1,0.1,0.2,0.1,0.3,0.2c2.2,1.5,4.1,3.2,5.3,5.7c0.7,1.5,1.5,3,2,4.6c1.5,5,1.7,10.1,1.3,15.2c-0.5,5.8-1.5,11.5-3.2,17    c-1.1,3.7-2.3,7.3-3.7,10.9c-2,5.1-4.3,10.2-7.1,15c-2.1,3.6-4.3,7.1-7,10.2c-1.4,1.6-2.9,3-4.5,4.4c-2,1.8-4.3,2.9-6.8,3.4    c-2.8,0.6-5.5,0.3-8.1-1.1c-1.5-0.8-2.9-1.8-4.1-3c-1.2-1.2-2.3-2.4-3.2-3.8c-0.3-0.4-0.6-0.8-0.9-1.3c-0.3-0.4-0.6-0.8-0.9-1.3    c-0.1-0.2-0.3-0.4-0.4-0.6c-0.3-0.4-0.6-0.9-0.8-1.3c-0.1-0.2-0.3-0.4-0.4-0.6l4-7.5C76.6,107.2,76.8,107.5,77,107.8z"></path>
-                        <g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
-                <div class="dz-content">
-                  <h3 class="title">${sectionFive.title || 'V Dental Clinics 2025'}</h3>
-                  <p>${sectionFive.short_description || 'Quality and Accreditation Institute'}</p>
-                  <a href="javascript:void(0);" class="btn-link">Best Dermatologists</a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -803,6 +1007,9 @@ function buildDoctorsSectionFromScratch(doctors) {
     `;
     document.head.appendChild(style);
   }
+
+  // إعادة تهيئة Swiper بعد تحديث المحتوى
+  reinitializeTeamSwiper(doctors.length);
 }
 
 // دالة لإنشاء الـ small doctor slide (style-3)
