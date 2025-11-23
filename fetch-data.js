@@ -1277,6 +1277,17 @@ function updateSEOTags(content) {
     metaKeywords.content = content.meta_keywords;
   }
 
+  let metaImage = document.querySelector('meta[name="image"]');
+  if (!metaImage) {
+    metaImage = document.createElement('meta');
+    metaImage.name = 'image';
+    document.head.appendChild(metaImage);
+  }
+  if (content.meta_image || content.meta_og_image) {
+    const imageUrl = `https://api.vdentaleg.com/${content.meta_image}`;
+    metaImage.content = imageUrl;
+  }
+
   // تحديث الـ Open Graph meta tags
   updateOpenGraphTags(content);
 }
@@ -1304,6 +1315,37 @@ function updateOpenGraphTags(content) {
   if (content.meta_og_description || content.meta_description) {
     ogDescription.content = content.meta_og_description || content.meta_description;
   }
+
+  // Open Graph Image
+  let ogImage = document.querySelector('meta[property="og:image"]');
+  if (!ogImage) {
+    ogImage = document.createElement('meta');
+    ogImage.setAttribute('property', 'og:image');
+    document.head.appendChild(ogImage);
+  }
+  if (content.meta_og_image) {
+    // إذا كانت الصورة مسار نسبي، أضف الـ domain
+    const imageUrl = `https://api.vdentaleg.com/${content.meta_og_image}`;
+    ogImage.content = imageUrl;
+  }
+
+  // Open Graph URL
+  let ogUrl = document.querySelector('meta[property="og:url"]');
+  if (!ogUrl) {
+    ogUrl = document.createElement('meta');
+    ogUrl.setAttribute('property', 'og:url');
+    document.head.appendChild(ogUrl);
+  }
+  ogUrl.content = content.meta_og_url || window.location.href;
+
+  // Open Graph Type
+  let ogType = document.querySelector('meta[property="og:type"]');
+  if (!ogType) {
+    ogType = document.createElement('meta');
+    ogType.setAttribute('property', 'og:type');
+    document.head.appendChild(ogType);
+  }
+  ogType.content = content.meta_og_type || 'website';
 
   // Open Graph Site Name
   let ogSiteName = document.querySelector('meta[property="og:site_name"]');
