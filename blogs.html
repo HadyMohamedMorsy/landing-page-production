@@ -1469,7 +1469,7 @@
               start: (page - 1) * 6
             };
             
-            response = await fetch('http://localhost:3001/api/v1/blog/filter', {
+            response = await fetch('https://api.vdentaleg.com/api/v1/blog/filter', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -1497,7 +1497,7 @@
               }
             };
 
-            response = await fetch('http://localhost:3001/api/v1/blog/front', {
+            response = await fetch('https://api.vdentaleg.com/api/v1/blog/front', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -1708,7 +1708,7 @@
 
         try {
           // Fetch categories from backend
-          const response = await fetch('http://localhost:3001/api/v1/category/parent');
+          const response = await fetch('https://api.vdentaleg.com/api/v1/category/parent');
           
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -1765,7 +1765,7 @@
   document.addEventListener('DOMContentLoaded', async function () {
     try {
       // Fetch general settings from the new endpoint
-      const response = await fetch('http://localhost:3001/api/v1/general-settings/front');
+      const response = await fetch('https://api.vdentaleg.com/api/v1/general-settings/front');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

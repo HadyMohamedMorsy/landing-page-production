@@ -1,8 +1,8 @@
 // Fetch data from existing backend endpoint
 class DataFetcher {
   constructor() {
-    this.apiUrl = 'http://localhost:3001/api/v1/unified-data/data';
-    this.domain = 'http://localhost:3001';
+    this.apiUrl = 'https://api.vdentaleg.com/api/v1/unified-data/data';
+    this.domain = 'https://api.vdentaleg.com';
     this.language = 'en';
     this.languageId = 1; // 1 = en, 2 = ar
     this.data = null;
