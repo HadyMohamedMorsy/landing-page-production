@@ -4,7 +4,7 @@
 		font-size: 18px;
 		font-weight: 500;
 		line-height: 1.35;
-		padding-right: calc(var(--bs-accordion-btn-padding-x) - 5px);
+		padding-inline-end: calc(var(--bs-accordion-btn-padding-x) - 5px);
 		color: var(--bs-secondary);
 		
 		&::after{
@@ -92,7 +92,7 @@
 				// 	color: #fff;
 				// 	opacity: 0.1;
 				// 	position: absolute;
-				// 	right: 20px;
+				// 	inset-inline-end: 20px;
 				// 	top: 15px;
 				// 	line-height: 1.15;
 				// }
@@ -103,7 +103,7 @@
 			.accordion-body{
 				border: 2px solid var(--bs-primary);
 				border-radius: 15px;
-				padding: 20px 20px 20px 30px;
+				padding: 20px 30px 20px 20px;
 				background-color: #fff;
 				
 				p:last-child{
@@ -254,7 +254,7 @@
 	.dz-collapse{
 		border: 2px solid var(--bs-primary);
 		border-radius: 15px;
-		padding: 20px 20px 20px 30px;
+		padding: 20px 30px 20px 20px;
 			
 		p:last-child{
 			margin-bottom: 0;

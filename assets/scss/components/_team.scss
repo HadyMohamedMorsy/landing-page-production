@@ -40,8 +40,8 @@
 			.btn{
 				position: absolute;
 				bottom: -60px;
-				left: 10px;
-				right: 10px;
+				inset-inline-start: 10px;
+				inset-inline-end: 10px;
 			}
 		}
 		.dz-name{
@@ -149,7 +149,7 @@
 				content: "";
 				position: absolute;
 				bottom: 0;
-				left: 0;
+				inset-inline-start: 0;
 				width: 100%;
 				height: 30%;
 				background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 64.5%);
@@ -158,8 +158,8 @@
 		.btn{
 			position: absolute;
 			bottom: -60px;
-			left: 10px;
-			right: 10px;
+			inset-inline-start: 10px;
+			inset-inline-end: 10px;
 			z-index: 1;
 			opacity: 0;
 		}
@@ -330,14 +330,14 @@
 	// Style 4
 	&.style-4{
 		width: 500px;
-		margin-left: auto;
-		margin-right: auto;
+		margin-inline-start: auto;
+		margin-inline-end: auto;
 		
 		.dz-media{
 			text-align: right;
 			width: 100%;
-			margin-left: auto;
-			margin-right: 0;
+			margin-inline-start: auto;
+			margin-inline-end: 0;
 			
 			img{
 				-webkit-mask-image: url(../images/bg05.svg);
@@ -350,8 +350,8 @@
 				mask-size: 100%;
 				position: relative;
 				z-index: 1;
-				padding-left: 35px;
-				padding-right: 35px;
+				padding-inline-start: 35px;
+				padding-inline-end: 35px;
 			}
 			
 			&::before,
@@ -361,7 +361,7 @@
 				bottom: 0;
 				aspect-ratio: 1 / 1;
 				border-radius: 50%;
-				right: 0;
+				inset-inline-end: 0;
 				z-index: -1;
 			}
 			&::after{
@@ -378,7 +378,7 @@
 			content: "";
 			position: absolute;
 			bottom: 1px;
-			right: -5px;
+			inset-inline-end: -5px;
 			background-size: 10px 1px;
 			background-repeat: repeat-x;
 			width: calc(100% + 65px);
@@ -391,7 +391,7 @@
 			position: absolute;
 			z-index: 1;
 			top: 45px;
-			left: 75px;
+			inset-inline-start: 75px;
 			display: flex;
 			flex-direction: column;
 			gap: 12px;
@@ -471,11 +471,11 @@
 			position: absolute;
 			bottom: 160px;
 			z-index: 1;
-			left: -100px;
+			inset-inline-start: -100px;
 		}
 		.item2{
 			bottom: 40px;
-			right: -50px;
+			inset-inline-end: -50px;
 			z-index: 1;
 		}
 		.info-widget.style-3 {
@@ -522,7 +522,7 @@
 			}
 			.dz-social{
 				top: 0;
-				left: 55px;
+				inset-inline-start: 55px;
 			}
 			.dz-social li:nth-child(2) {
 				transform: translateX(-42px) translateY(-15px);
@@ -550,13 +550,13 @@
 		.dz-social{
 			position: absolute;
 			bottom: 0;
-			left: 40px;
+			inset-inline-start: 40px;
 			display: flex;
 			background-color: #fff;
 			border-radius: 50px;
 			height: 60px;
 			padding: 10px 50px;
-			right: 40px;
+			inset-inline-end: 40px;
 			bottom: 40px;
 			box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
 			justify-content: space-between;
@@ -572,10 +572,10 @@
 				padding: 5px 25px 0;
 			}
 			.dz-social{
-				left: 20px;
+				inset-inline-start: 20px;
 				height: 50px;
 				padding: 10px 30px;
-				right: 20px;
+				inset-inline-end: 20px;
 				bottom: 20px;
 				font-size: 15px;
 			}
@@ -592,8 +592,8 @@
 			z-index: 1;
 			padding: 0 40px;
 			overflow: unset;
-			margin-left: auto;
-			margin-right: auto;
+			margin-inline-start: auto;
+			margin-inline-end: auto;
 
 			&::after{
 				content: "";
@@ -604,7 +604,7 @@
 				background-color: var(--bs-primary);
 				box-shadow: 0 0 50px rgba(var(--bs-primary-rgb), 0.3);
 				bottom: 0;
-				left: 0;
+				inset-inline-start: 0;
 				z-index: -1;
 			}
 			@include custommq ($max:1380px){
@@ -629,7 +629,7 @@
 		}
 		.dz-social{
 			position: absolute;
-			left: 50%;
+			inset-inline-start: 50%;
 			display: flex;
 			background-color: #fff;
 			border-radius: 50px;
@@ -658,7 +658,7 @@
 		}
 		.item1{
 			position: absolute;
-			left: 0;
+			inset-inline-start: 0;
 			top: 55%;
 			z-index: 1;
 			
@@ -704,7 +704,7 @@
 				position: absolute;
 				background-image: url('data:image/svg+xml,<svg width="310" height="323" viewBox="0 0 310 323" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M41.7633 172.255C-35.5975 251.064 9.8307 305.545 55.3362 323H260.203C309.744 311.998 310.674 281.743 277.762 246.304C342.195 199.757 298.158 134.698 249.022 123.061C327.361 3.52057 192.055 3.87965 135.502 25.2131C90.4878 -26.1001 46.6286 6.13397 57.819 74.9029C-33.2797 87.0929 4.57897 135.407 41.7633 172.255Z" fill="%23F7F3EB"/></svg>');
 				bottom: 0;
-				left:0;
+				inset-inline-start: 0;
 				height: 90%;
 				z-index: -1;
 				width: 100%;
@@ -773,7 +773,7 @@
 	}
 }
 .dz-team-swiper1-thumb .swiper-slide{
-	padding-right: 20px;
+	padding-inline-end: 20px;
 	margin-bottom: 20px;
 }
 .swiper.dz-team-swiper1-thumb .swiper-wrapper{

@@ -19,7 +19,7 @@
             writing-mode: tb;
             transform: rotate(-180deg) translateY(50%);
             position: absolute;
-            left: 20px;
+            inset-inline-start: 20px;
             top: 50%;
             z-index: 1;
             font-weight: 600;
@@ -62,10 +62,10 @@
         .hero-content{
             position: relative;
             z-index: 1;
-            margin-left: 10px;
+            margin-inline-start: 10px;
 
             @include respond("laptop"){
-                margin-left: 0;
+                margin-inline-start: 0;
             }
 
             @include respond("phone-land"){
@@ -82,7 +82,7 @@
             }
 
             > a.btn{
-                margin-right: 15px;
+                margin-inline-end: 15px;
             }
 
             .popup-youtube{
@@ -96,10 +96,10 @@
 
                 svg,
                 i{
-                    margin-right: 10px;
+                    margin-inline-end: 10px;
 
                     @include respond("phone"){
-                        margin-right: 5px;
+                        margin-inline-end: 5px;
                     }
                 }
                 
@@ -169,15 +169,15 @@
 .content-wrapper{
     &.style-27{
         .content-media{
-            padding-right: 55px;
-            padding-left: 65px;
+            padding-inline-end: 55px;
+            padding-inline-start: 65px;
 
             @include respond("laptop"){
-                padding-right: 15px;
-                padding-left: 0;
+                padding-inline-end: 15px;
+                padding-inline-start: 0;
             }
             @include respond("tab-port"){
-                padding-right: 0;
+                padding-inline-end: 0;
             }
         }
         .dz-media{
@@ -190,10 +190,10 @@
             position: relative;
 
             @include custommq ($max:1399px){
-                padding-right: 60px;
+                padding-inline-end: 60px;
             }
             @include respond("tab-land"){
-                padding-right: 0;
+                padding-inline-end: 0;
                 margin: auto;
             }
             @include respond("phone-land"){
@@ -207,7 +207,7 @@
             position: absolute;
             z-index: 1;
             top: 5px;
-            left: 35px;        
+            inset-inline-start: 35px;        
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -334,20 +334,20 @@
             }
             .dz-media{
                 position: relative;
-                margin-left: 105px;
-                margin-right: 40px;
+                margin-inline-start: 105px;
+                margin-inline-end: 40px;
                 overflow: visible;
 
                 @include respond("tab-land"){
-                    margin-left: 45px;
-                    margin-right: 40px; 
+                    margin-inline-start: 45px;
+                    margin-inline-end: 40px; 
                 }
 
                 &::before{
                     content: "";
                     position: absolute;
                     bottom: 0;
-                    left: 50%;
+                    inset-inline-start: 50%;
                     transform: translate(-50%);
                     width: calc(100% + 75px);
                     height: calc(100% + -75px);
@@ -381,7 +381,7 @@
 		.content-info{
 			padding-top: 115px;
 			padding-bottom: 130px;
-            margin-right: 110px;
+            margin-inline-end: 110px;
 		}
 		@include respond('laptop'){
 			margin-top: 30px;
@@ -396,12 +396,12 @@
 			margin-top: 0;
 			
 			.content-media{
-				margin-right: -25px;
+				margin-inline-end: -25px;
 			}
 		}
 		@include respond('tab-port'){
 			.content-info{
-				margin-right: 0;
+				margin-inline-end: 0;
 			}	
 		}
 	}
@@ -458,12 +458,12 @@
 			margin-top: 0;
 			
 			.content-media{
-				margin-right: -25px;
+				margin-inline-end: -25px;
 			}
 		}
 		@include respond('tab-port'){
 			.content-info{
-				margin-right: 0;
+				margin-inline-end: 0;
 			}	
 		}
 	}
@@ -650,8 +650,8 @@
 // 			}
 // 		}
 // 		@include respond('phone'){
-// 			margin-left: 0;
-// 			margin-right: 0;
+// 			margin-inline-start: 0;
+// 			margin-inline-end: 0;
 // 		}
 // 	}
 
@@ -760,7 +760,7 @@
 // dummy-box
 
 .dummy-swiper{
-    margin-left: 20px;
+    margin-inline-start: 20px;
     &::after{
         content: "";
         width: 100%;
@@ -797,7 +797,7 @@
             color: #000;
             font-weight: 600;
             text-align: center;
-            margin-right: 25px;
+            margin-inline-end: 25px;
             background-color: #fff;
 
             @include respond("tab-port"){
@@ -805,7 +805,7 @@
                 font-size: 10px;
             }
             @include respond("phone"){
-                margin-right: 15px;
+                margin-inline-end: 15px;
             }
         }
         
@@ -908,8 +908,8 @@
             position: absolute;
             top: -30px;
             z-index: 9;
-            right: 60px;
-            left: auto;
+            inset-inline-end: 60px;
+            inset-inline-start: auto;
             color: var(--bs-primary);
             font-weight: 600;
             border: 1px solid rgba(219, 71, 157, 0.14);
@@ -929,7 +929,7 @@
 				font-size: 24px;
 				font-weight: 700;
 				color: #000;
-				margin-left: 5px;
+				margin-inline-start: 5px;
 				transform: translateY(-2px);
 				display: inline-block;
 
@@ -947,7 +947,7 @@
             line-height: 1.2;
 		}
 		.pricingtable-list{	
-            margin-right: 30px;
+            margin-inline-end: 30px;
 			.list-title{
 				font-size: 18px;
 				font-weight: 700;
@@ -956,7 +956,7 @@
 			}
 
             @include respond("laptop"){
-                margin-right: 0;
+                margin-inline-end: 0;
             }
 		}
 		.pricingtable-features{
@@ -978,7 +978,7 @@
 					color: var(--bs-primary);
 					font-size: 20px;
 					position: absolute;
-					left: 0;
+					inset-inline-start: 0;
 					top: 4px;
 					font-weight: 600;
 				}
@@ -1013,7 +1013,7 @@
 				padding: 8px 15px;
 				top: 0;
 				writing-mode: unset;
-				left: 30px;
+				inset-inline-start: 30px;
 			}
 		}
     }
@@ -1061,7 +1061,7 @@
                 border-bottom: 0;
                 border-radius: 30px 30px 0px 0px;
 				bottom: 0;
-				left:0;
+				inset-inline-start: 0;
 				height: 80%;
 				z-index: -1;
 				width: 100%;
@@ -1074,7 +1074,7 @@
 				transform: translate(-50%) translateY(70px); 
 				position: absolute;
 				bottom: 10px;
-                left: 50%;
+                inset-inline-start: 50%;
 				display: flex;
 				justify-content: center;
 

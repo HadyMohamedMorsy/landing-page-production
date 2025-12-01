@@ -43,7 +43,7 @@
 			padding: 30px;
 			position: relative;
 			z-index: 1;
-			border-left: 1px solid rgba(0, 0, 0, 0.1);
+			border-inline-start: 1px solid rgba(0, 0, 0, 0.1);
 			width: calc(50% + 30px);
 			display: flex;
 			flex-direction: column;
@@ -68,8 +68,8 @@
 						content: "";
 						position: absolute;
 						bottom: 0;
-						left: 0;
-						right: 0;
+						inset-inline-start: 0;
+						inset-inline-end: 0;
 						height: 1px;
 						background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2) 50%, rgba(255, 255, 255, 0) 0%);
 						background-size: 10px 1px;
@@ -91,7 +91,7 @@
 					font-size: 16px;
 					font-weight: 500;
 					color: var(--bs-primary);
-					margin-left: 5px;
+					margin-inline-start: 5px;
 					transform: translateY(-2px);
 					display: inline-block;
 				}
@@ -125,7 +125,7 @@
 							background: #C6CBD0;
 							display: block;
 							position: absolute;
-							left: 0;
+							inset-inline-start: 0;
 							color: #fff;
 							border-radius: 35px;
 							text-align: center;
@@ -159,7 +159,7 @@
 				width: 100%;
 			}
 			.right-box{
-			    border-left: 0;
+			    border-inline-start: 0;
 			    border-top: 1px solid rgba(0, 0, 0, 0.1);
 			}
 		}
@@ -191,7 +191,7 @@
 			top: 20px;
 			writing-mode: tb-rl;
 			z-index: 1;
-			left: 0;
+			inset-inline-start: 0;
 			color: #fff;
 			font-weight: 500;
 		}
@@ -202,7 +202,7 @@
 			display: flex;
 			align-self: flex-end;
 			margin-bottom: -30px;
-			margin-right: 30px;
+			margin-inline-end: 30px;
 		}
 		.pricingtable-bx{
 			font-size: 45px;
@@ -215,7 +215,7 @@
 				font-size: 15px;
 				font-weight: 500;
 				color: var(--bs-body-color);
-				margin-left: 5px;
+				margin-inline-start: 5px;
 				transform: translateY(-2px);
 				display: inline-block;
 			}
@@ -232,8 +232,8 @@
 					content: "";
 					position: absolute;
 					bottom: 0;
-					left: 0;
-					right: 0;
+					inset-inline-start: 0;
+					inset-inline-end: 0;
 					height: 1px;
 					background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2) 50%, rgba(255, 255, 255, 0) 0%);
 					background-size: 10px 1px;
@@ -274,7 +274,7 @@
 					color: var(--bs-primary);
 					font-size: 16px;
 					position: absolute;
-					left: 0;
+					inset-inline-start: 0;
 					top: 4px;
 					font-weight: 600;
 				}
@@ -305,7 +305,7 @@
 				padding: 8px 15px;
 				top: 0;
 				writing-mode: unset;
-				left: 30px;
+				inset-inline-start: 30px;
 			}
 		}
 	}
@@ -313,7 +313,7 @@
 	&.style-3{
 		border: 1px solid rgba(var(--bs-secondary-rgb), 0.05);
 		border-radius: var(--radius-xl);
-		margin-left: 0 !important;
+		margin-inline-start: 0 !important;
 		transition: 0.5s;
 		
 		&:hover,
@@ -340,7 +340,7 @@
 						font-size: 14px;
 						font-weight: 500;
 						color: var(--bs-body-color);
-						margin-left: 5px;
+						margin-inline-start: 5px;
 						transform: translateY(-2px);
 						display: inline-block;
 					}
@@ -425,7 +425,7 @@
 }
 .pricingtable-content-wrapper{
 	.pricingtable-wrapper{
-		margin-left: -30px;
+		margin-inline-start: -30px;
 	}
 	.content-bx{
 		margin: 0 30px 0 70px;
@@ -437,7 +437,7 @@
 	}
 	@include respond ("tab-port"){
 		.pricingtable-wrapper{
-			margin-left: 0;
+			margin-inline-start: 0;
 		}
 		.content-bx{
 			margin: 0;
@@ -453,8 +453,8 @@
     background-color: var(--bs-primary);
     display: flex;
     border-radius: 6px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
     height: 50px;
     width: 200px;
     background-size: 200%;
@@ -475,8 +475,8 @@
 		background: #fff;
 		border-radius: 6px;
 		position: absolute;
-		left: 4px;
-		right: auto;
+		inset-inline-start: 4px;
+		inset-inline-end: auto;
 		z-index: -1;
 		-webkit-transition: .2s ease-in-out;
 		-ms-transition: .2s ease-in-out;
@@ -491,7 +491,7 @@
 	}
 	&.monthly{
 		&:after{
-			left:4px;
+			inset-inline-start: 4px;
 		}
 		.monthly{
 			color:#000;
@@ -499,7 +499,7 @@
 	}
 	&.yearly{
 		&:after{
-			left:50%;
+			inset-inline-start: 50%;
 		}
 		.yearly{
 			color:#000;
@@ -529,8 +529,8 @@
 
 	&.tabs-light{
 		background-color: rgba(var(--bs-primary-rgb), 0.1);
-		margin-left: unset;
-		margin-right: unset;
+		margin-inline-start: unset;
+		margin-inline-end: unset;
 		margin-bottom: 20px;
 		
 		&::after{
@@ -546,7 +546,7 @@
 		}
 		&.yearly{
 			&:after{
-				left:50%;
+				inset-inline-start: 50%;
 			}
 			.yearly{
 				color:#fff;
@@ -586,7 +586,7 @@
 			height: 14px;
 			width: 14px;
 			top: 3px;
-			left: 4px;
+			inset-inline-start: 4px;
 			@include transitionFast;
 		}
 	}
@@ -599,7 +599,7 @@
 		}
 		.toggle{
 			&::after{
-				left: 27px;
+				inset-inline-start: 27px;
 			}
 		}
 	}

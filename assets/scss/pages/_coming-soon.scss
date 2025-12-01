@@ -89,7 +89,7 @@
 		}
 		&::before{
 			background-color: var(--bs-primary);
-			right: 0;
+			inset-inline-end: 0;
 			top: 0;
 			width: 150px;
 			height: 400px;
@@ -99,7 +99,7 @@
 			width: 355px;
 			height: 285px;
 			bottom: 0;
-			left: -220px;
+			inset-inline-start: -220px;
 		}
 		@include respond('wide-desktop'){
 			&::before{
@@ -109,7 +109,7 @@
 			&::after{
 				width: 250px;
 				height: 220px;
-				left: -150px;
+				inset-inline-start: -150px;
 			}
 		}
 		@include respond('tab-land'){
@@ -120,7 +120,7 @@
 			&::after {
 				width: 180px;
 				height: 140px;
-				left: -70px;
+				inset-inline-start: -70px;
 			}
 		}
 	}

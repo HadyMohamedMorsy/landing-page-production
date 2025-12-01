@@ -18,13 +18,13 @@
 					border-color: var(--bs-primary);
 				}
 				&.form-btn-square{
-					padding-right: 60px;
-					padding-left: 25px;
+					padding-inline-end: 60px;
+					padding-inline-start: 25px;
 				}
 			}
 			.input-group-addon{
 				position: absolute;
-				right: 5px;
+				inset-inline-end: 5px;
 				top: 50%;
 				transform: translateY(-50%);
 				z-index: 1;
@@ -80,13 +80,13 @@
 					border-color: var(--bs-primary);
 				}
 				&.form-btn-square{
-					padding-right: 60px;
-					padding-left: 25px;
+					padding-inline-end: 60px;
+					padding-inline-start: 25px;
 				}
 			}
 			.input-group-addon{
 				position: absolute;
-				right: 5px;
+				inset-inline-end: 5px;
 				top: 50%;
 				transform: translateY(-50%);
 				z-index: 1;
@@ -168,14 +168,14 @@
 					border-color: var(--bs-primary);
 				}
 				&.form-btn-square{
-					padding-right: 60px;
-					padding-left: 25px;
+					padding-inline-end: 60px;
+					padding-inline-start: 25px;
 				}
 			}
 			
 			.input-group-addon{
 				position: absolute;
-				right: 5px;
+				inset-inline-end: 5px;
 				top: 50%;
 				transform: translateY(-50%);
 				z-index: 1;

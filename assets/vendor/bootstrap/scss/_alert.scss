@@ -42,13 +42,13 @@
 // Expand the right padding and account for the close button's positioning.
 
 .alert-dismissible {
-  padding-right: $alert-dismissible-padding-r;
+  padding-inline-end: $alert-dismissible-padding-r;
 
   // Adjust close link position
   .btn-close {
     position: absolute;
     top: 0;
-    right: 0;
+    inset-inline-end: 0;
     z-index: $stretched-link-z-index + 1;
     padding: $alert-padding-y * 1.25 $alert-padding-x;
   }

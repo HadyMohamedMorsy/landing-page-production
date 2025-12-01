@@ -1,9 +1,10 @@
 // Fetch data from existing backend endpoint
 class DataFetcher {
   constructor() {
-    this.apiUrl = 'https://api.vdentaleg.com/api/v1/unified-data/data';
-    this.domain = 'https://api.vdentaleg.com';
+    this.apiUrl = 'http://localhost:3001/api/v1/unified-data/data';
+    this.domain = 'http://localhost:3001';
     this.language = 'en';
+    this.languageId = 1; // 1 = en, 2 = ar
     this.data = null;
   }
 
@@ -29,13 +30,31 @@ class DataFetcher {
     }
   }
 
-  // Helper method to find content by language
-  findContentByLanguage(sectionData, language = this.language) {
+  // Helper method to find content by language_id
+  findContentByLanguage(sectionData, languageId = this.languageId) {
     if (!sectionData || !sectionData.content) return null;
     
-    return sectionData.content.find(item => 
-      item.language && item.language.name === language
-    ) || sectionData.content[0]; // fallback to first item
+    // Search by language_id first
+    const found = sectionData.content.find(item => 
+      item.language_id === languageId
+    );
+    
+    if (found) return found;
+    
+    // Fallback: try to find by language name if language_id not found
+    const languageName = languageId === 2 ? 'ar' : 'en';
+    const foundByName = sectionData.content.find(item => 
+      item.language && item.language.name === languageName
+    );
+
+    // Final fallback: return first item
+    return foundByName || sectionData.content[0];
+  }
+
+  // Set language and language_id
+  setLanguage(lang) {
+    this.language = lang;
+    this.languageId = lang === 'ar' ? 2 : 1;
   }
 
   // General Settings - similar to api-service.js
@@ -53,10 +72,8 @@ class DataFetcher {
       return null;
     }
     
-    // Get content for current language
-    // Assuming language_id: 1=en, 2=ar
-    const currentLangId = this.language === 'ar' ? 2 : 1;
-    const languageContent = contentArray.find(c => c.language_id === currentLangId) || contentArray[0];
+    // Get content for current language using language_id
+    const languageContent = contentArray.find(c => c.language_id === this.languageId) || contentArray[0];
     
     return {
       content: languageContent,
@@ -174,32 +191,77 @@ class DataFetcher {
       throw error;
     }
   }
+
+  // Reload data and update UI with new language
+  async reloadDataWithLanguage(lang) {
+    // Update language settings
+    this.setLanguage(lang);
+    
+    // Reload all sections with new language
+    await this.updateAllSections();
+  }
+
+  // Update all sections with current language
+  async updateAllSections() {
+    if (!this.data) {
+      // If data not loaded yet, load it first
+      await this.fetchData();
+    }
+
+    // Get all sections with current language
+    const generalSettings = this.getGeneralSettings();
+    const sectionOne = this.getSectionOne();
+    const sectionTwo = this.getSectionTwo();
+    const sectionThree = this.getSectionThree();
+    const sectionFour = this.getSectionFour();
+    const sectionFive = this.getSectionFive();
+    const sectionReviews = this.getSectionReviews();
+    const sectionBranches = this.getSectionBranches();
+    const sectionDoctors = this.getSectionDoctors();
+    
+    // Update all sections in UI
+    updateHeroSection(sectionOne, generalSettings);
+    updateAboutSection(sectionTwo);
+    updateServicesSection(sectionThree);
+    updateWhyChooseSection(sectionFour);
+    updateDoctorSection(sectionFive);
+    updateReviewsSection(sectionReviews, sectionOne);
+    updateDoctorsSection(sectionDoctors);
+    updateBranchesSection(sectionBranches);
+    updateGeneralSettings(generalSettings);
+  }
 }
 
 // متغير لتتبع ما إذا كانت البيانات قد تم جلبها
 let dataLoaded = false;
+// Global fetcher instance
+let globalFetcher = null;
 
 // تشغيل الكود عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', async function() {
-  const fetcher = new DataFetcher();
+  globalFetcher = new DataFetcher();
+  
+  // Initialize language from localStorage
+  const savedLang = localStorage.getItem('language') || 'en';
+  globalFetcher.setLanguage(savedLang);
   
   try {
     // منع تهيئة Swiper للأطباء في dz.carousel.js قبل جلب البيانات
     preventTeamSwiperInitialization();
     
     // جلب البيانات وإخفاء الـ splash screen
-    await fetcher.loadDataAndHideSplash();
+    await globalFetcher.loadDataAndHideSplash();
     
     // الحصول على كل section منفصل
-    const generalSettings = fetcher.getGeneralSettings();
-    const sectionOne = fetcher.getSectionOne();
-    const sectionTwo = fetcher.getSectionTwo();
-    const sectionThree = fetcher.getSectionThree();
-    const sectionFour = fetcher.getSectionFour();
-    const sectionFive = fetcher.getSectionFive();
-    const sectionReviews = fetcher.getSectionReviews();
-    const sectionBranches = fetcher.getSectionBranches();
-    const sectionDoctors = fetcher.getSectionDoctors();
+    const generalSettings = globalFetcher.getGeneralSettings();
+    const sectionOne = globalFetcher.getSectionOne();
+    const sectionTwo = globalFetcher.getSectionTwo();
+    const sectionThree = globalFetcher.getSectionThree();
+    const sectionFour = globalFetcher.getSectionFour();
+    const sectionFive = globalFetcher.getSectionFive();
+    const sectionReviews = globalFetcher.getSectionReviews();
+    const sectionBranches = globalFetcher.getSectionBranches();
+    const sectionDoctors = globalFetcher.getSectionDoctors();
     
     // تحديث الـ hero section بالبيانات
     updateHeroSection(sectionOne, generalSettings);

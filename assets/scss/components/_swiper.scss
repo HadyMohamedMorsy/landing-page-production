@@ -107,16 +107,16 @@
 	}
 }
 .awards-swiper{
-	margin-left: 50px;
-	margin-right: -350px;
+	margin-inline-start: 50px;
+	margin-inline-end: -350px;
 	
 	@media (max-width: 1380px) {
-		margin-left: 0;
-		margin-right: -120px;
+		margin-inline-start: 0;
+		margin-inline-end: -120px;
 		margin-top: 30px;
 	}
 	@include respond('phone'){
-        margin-right: -15px;
+        margin-inline-end: -15px;
 		
 	}
 	.swiper-wrapper{
@@ -136,7 +136,7 @@
 		@include transitionMedium;
 	}
 	.swiper-slide-active ~ .swiper-slide{
-		margin-right: -40px;
+		margin-inline-end: -40px;
 	}
 }
 .slider__pagination{
@@ -180,15 +180,15 @@
 }
 .team-pagination-wrapper{
     max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
 	padding: 0;
 	
 	.swiper-button i{
 		@include transitionMedium;
 	}
 	.team-swiper-prev{
-	    margin-right: 25px;
+	    margin-inline-end: 25px;
 		
 		&:hover i{
 			-webkit-animation: toLeftFromRight 0.3s forwards;
@@ -197,7 +197,7 @@
 		}
 	}
 	.team-swiper-next{
-	    margin-left: 25px;
+	    margin-inline-start: 25px;
 		
 		&:hover i{
 			-webkit-animation: toRightFromLeft 0.3s forwards;
@@ -210,10 +210,10 @@
 	}
 	@include respond('phone'){
 		.team-swiper-prev{
-			margin-right: 15px;
+			margin-inline-end: 15px;
 		}
 		.team-swiper-next{
-			margin-left: 15px;
+			margin-inline-start: 15px;
 		}
 	}
 }

@@ -12,7 +12,7 @@
 	.dz-btn{
 		position: absolute;
 		bottom: 0px;
-		right: 30px;
+		inset-inline-end: 30px;
 		background-color: #fff;
 		padding: 12px 12px 0px 12px;
 		border-radius: 50px 50px 0px 0px;
@@ -40,18 +40,18 @@
 			background-position: center;
 			background-size: 100%;
 			transform: rotate(270deg);
-			left: -40px;
+			inset-inline-start: -40px;
 			bottom: 0px;
 		}
 		&::after{
 			background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' fill='none'><path fill-rule='evenodd' clip-rule='evenodd' d='M0 0V50H50C22.3858 50 0 27.6142 0 0Z' fill='white'/></svg>");
-			left: auto;
-			right: -40px;
+			inset-inline-start: auto;
+			inset-inline-end: -40px;
 			bottom: 0px;
 			transform: rotate(0deg);
 		}
 		@include respond('laptop'){
-			right: 10px;
+			inset-inline-end: 10px;
 			padding: 10px 10px 0px 10px;
 			border-radius: 40px 40px 0px 0px;
 			
@@ -67,11 +67,11 @@
 			&::after{
 				width: 30px;
 				height: 30px;
-				left: -30px;
+				inset-inline-start: -30px;
 			}
 			&::after{
-				left: auto;
-				right: -30px;
+				inset-inline-start: auto;
+				inset-inline-end: -30px;
 			}
 		}
 		@include respond('tab-land'){
@@ -94,7 +94,7 @@
 	.dz-social{
 		position: absolute;
 		top: 50%;
-		right: 30px;
+		inset-inline-end: 30px;
 		transform: translateY(-50%);
 		display: flex;
 		flex-direction: column;
@@ -119,21 +119,21 @@
 	}
 	.banner-media{
 		position: absolute;
-		right: 19%;
+		inset-inline-end: 19%;
 		bottom: 0;
-		left: auto;
+		inset-inline-start: auto;
 		transform: translate(-19%, 0);
 		
 		@include respond('wide-desktop'){
-			right: 10%;
+			inset-inline-end: 10%;
 			transform: translate(-10%, 0);
 		}
 		@include respond('tab-land'){
-			right: 5%;
+			inset-inline-end: 5%;
 			transform: translate(-5%, 0);
 		}
 		@include respond('tab-port'){
-			right: 2%;
+			inset-inline-end: 2%;
 			transform: translate(-2%, 0);
 		}
 		@include respond('phone'){
@@ -197,7 +197,7 @@
 		writing-mode: tb;
 		transform: rotate(-180deg) translateY(50%);
 		position: absolute;
-		left: 45px;
+		inset-inline-start: 45px;
 		top: 50%;
 		color: var(--bs-heading-color);
 		height: 100%;
@@ -262,11 +262,11 @@
 			&::after{
 				width: 30px;
 				height: 30px;
-				left: -30px;
+				inset-inline-start: -30px;
 			}
 			&::after{
-				right: -30px;
-				left: auto;
+				inset-inline-end: -30px;
+				inset-inline-start: auto;
 			}
 		}
 		@include respond('tab-land'){
@@ -336,7 +336,7 @@
 			font-weight: 500;
 			text-transform: capitalize;
 			color: var(--bs-heading-color);
-			margin-right: 0;
+			margin-inline-end: 0;
 			
 			&.active{
 				color: var(--bs-primary);			

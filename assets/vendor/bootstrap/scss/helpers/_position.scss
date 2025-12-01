@@ -3,16 +3,16 @@
 .fixed-top {
   position: fixed;
   top: 0;
-  right: 0;
-  left: 0;
+  inset-inline-end: 0;
+  inset-inline-start: 0;
   z-index: $zindex-fixed;
 }
 
 .fixed-bottom {
   position: fixed;
-  right: 0;
+  inset-inline-end: 0;
   bottom: 0;
-  left: 0;
+  inset-inline-start: 0;
   z-index: $zindex-fixed;
 }
 
