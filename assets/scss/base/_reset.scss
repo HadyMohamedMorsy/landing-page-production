@@ -145,16 +145,16 @@ a {
 	}
 }
 .container-fluid{
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-inline-start: 100px;
+    padding-inline-end: 100px;
 	
 	@include respond('laptop'){
-		padding-left: 35px;
-		padding-right: 35px;
+		padding-inline-start: 35px;
+		padding-inline-end: 35px;
 	}
 	@include respond('phone'){
-		padding-left: 15px;
-		padding-right: 15px;
+		padding-inline-start: 15px;
+		padding-inline-end: 15px;
 	}
 }
 .container{	
@@ -488,8 +488,8 @@ img::selection{
 		content: "";
 		position: absolute;
 		bottom: 0;
-		left: 0;
-		right: 0;
+		inset-inline-start: 0;
+		inset-inline-end: 0;
 		height: 1px;
 		background-image: linear-gradient(to right, rgba(var(--bs-body-color-rgb), 0.3) 50%, rgba(255, 255, 255, 0) 0%);
 		background-size: 10px 1px;
@@ -518,24 +518,24 @@ img::selection{
 }
 
 .container-left{
-    padding-left: 15px;
+    padding-inline-start: 15px;
 	
 	@media (min-width: 992px) {
-		margin-left: calc((100% - 960px) / 2);
+		margin-inline-start: calc((100% - 960px) / 2);
 	}
 	@media (min-width: 1200px) {
-		margin-left: calc((100% - 1140px) / 2);
+		margin-inline-start: calc((100% - 1140px) / 2);
 	}
 	@media (min-width: 1400px){
-		margin-left: calc((100% - 1330px) / 2);
+		margin-inline-start: calc((100% - 1330px) / 2);
 	}
 	@media (min-width: 768px) and (max-width: 991px) {
 		max-width: 720px;
 	}
 	@include respond('tab-port'){
-		padding-right: 15px;
-		margin-left: auto;
-		margin-right: auto;
+		padding-inline-end: 15px;
+		margin-inline-start: auto;
+		margin-inline-end: auto;
 	}
 }
 

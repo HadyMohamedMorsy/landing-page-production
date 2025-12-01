@@ -260,7 +260,7 @@
 			background: var(--bs-primary);
 			content: "";
 			position: absolute;
-			left: 0;
+			inset-inline-start: 0;
 			top: 0;
 			width: 100%;
 			height: 100%;
@@ -746,8 +746,8 @@ footer:not(.style-4){
     border-radius: var(--radius-lg);
 	
 	.widget-title{
-		padding-left: 20px;
-		padding-right: 20px;
+		padding-inline-start: 20px;
+		padding-inline-end: 20px;
 		margin-bottom: 20px;
 	}	
 	ul{
@@ -1163,7 +1163,7 @@ select{
 	.input-group-addon{
 		position: absolute;
 		bottom: 0;
-		right: 0;
+		inset-inline-end: 0;
 		width: auto;
 		height: 100%;
 		

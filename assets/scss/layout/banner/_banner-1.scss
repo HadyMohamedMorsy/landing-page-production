@@ -59,7 +59,7 @@
 			height: calc(100% - 80px);
 			position: absolute;
 			bottom: 0;
-			right: 0;
+			inset-inline-end: 0;
 			z-index: 0;
 			background-image: url(../../skincare/images/banner/bg.webp);
 			background-repeat: no-repeat;
@@ -75,7 +75,7 @@
 			content: "";
 			position: absolute;
 			bottom: 0;
-			right: 0;
+			inset-inline-end: 0;
 			background-color: var(--bs-primary);
 			width: 285px;
 			height: 285px;
@@ -89,9 +89,9 @@
 		}
 		.blur2{
 			top: 25%;
-			left: 0;
+			inset-inline-start: 0;
 			bottom: auto;
-			right: auto;
+			inset-inline-end: auto;
 			opacity: 0.4;
 			background-color: #FFCD37;
 		}
@@ -121,13 +121,13 @@
 				color: #fff;
 			}
 			&.left{
-				border-right: 1px solid rgba(255, 255, 255, 0.1);
+				border-inline-end: 1px solid rgba(255, 255, 255, 0.1);
 			}
 		}
 		.elip{
 			position: absolute;
 			top: 25%;
-			left: 100px;
+			inset-inline-start: 100px;
 			border-radius: 50%;
 			width: 65px;
 			height: 65px;
@@ -145,7 +145,7 @@
 				content: "";
 				position: absolute;
 				top: 0;
-				left: 0;
+				inset-inline-start: 0;
 				width: 100%;
 				height: 100%;
 				display: block;
@@ -179,7 +179,7 @@
 			position: absolute;
 			z-index: 0;
 			top: 35%;
-			right: 32%;
+			inset-inline-end: 32%;
 			
 			@include respond('phone-land'){
 				display: none;
@@ -188,12 +188,12 @@
 		.item2{
 			top: auto;
 			bottom: 0%;
-			right: 38%;			
+			inset-inline-end: 38%;			
 		}
 		.item3{
 			top: auto;
 			bottom: 20%;
-			right: 10%;		
+			inset-inline-end: 10%;		
 		}
 		&.dz-bnr-detail{
 			h1{
@@ -209,7 +209,7 @@
 				width: 100%;
 				bottom: 0;
 				height: 200px;
-				left: 0;
+				inset-inline-start: 0;
 			}
 			@include respond('laptop'){
 				h1{
@@ -285,7 +285,7 @@
 			}
 			.dz-media{
 			    position: absolute;
-				right: 0;
+				inset-inline-end: 0;
 				top: 0;
 				height: 100%;
 				width: 60vw;
@@ -308,8 +308,8 @@
 		}		
 		p{
 			color: var(--bs-body-color);
-			margin-left: 0;
-			margin-right: 0;
+			margin-inline-start: 0;
+			margin-inline-end: 0;
 		}
 		@include respond ('phone-land'){
 			margin-bottom: 0;
@@ -432,7 +432,7 @@
 		.banner-shape{
 			position: absolute;
 			bottom: 0;
-			left: 0;
+			inset-inline-start: 0;
 			width: 100%;
 			height: auto;
 			z-index: 2;
@@ -443,7 +443,7 @@
 			height: 100%;
 			position: absolute;
 			width: 100%;
-			left: 0;
+			inset-inline-start: 0;
 			top: 0;
 			z-index: -1;
 		}
@@ -457,10 +457,10 @@
 			filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.01)); 
 		}
 		.banner-shape2 {
-			left: 0; 
+			inset-inline-start: 0; 
 		}
 		.banner-shape3 {
-			right: 0;
+			inset-inline-end: 0;
 			transform: rotateY(180deg);
 		}
 		.banner-shape4,
@@ -477,11 +477,11 @@
 		}
 		.banner-shape4 {
 			top: 0;
-			left: 0;
+			inset-inline-start: 0;
 		}
 		.banner-shape5 {
 			top: 0;
-			right: 0; 
+			inset-inline-end: 0; 
 		}
 		.item1,
 		.item2,
@@ -495,33 +495,33 @@
 		}
 		.item1{
 			bottom: -10px;
-			left: 50px;
+			inset-inline-start: 50px;
 			width: 135px;
 			
 			@include respond('wide-desktop'){
 				bottom: 0px;
-				left: 30px;
+				inset-inline-start: 30px;
 				width: 80px;
 			}
 		}
 		.item2{
 			top: 35%;
-			left: 100px;
+			inset-inline-start: 100px;
 			width: 115px;
 			
 			@include respond('wide-desktop'){
 				top: 30%;
-				left: 35px;
+				inset-inline-start: 35px;
 				width: 60px;
 			}
 		}
 		.item3{
-			right: 60px;
+			inset-inline-end: 60px;
 			bottom: 50px;
 			width: 125px;
 			
 			@include respond('wide-desktop'){
-				right: 40px;
+				inset-inline-end: 40px;
 				bottom: 30px;
 				width: 80px;
 			}
@@ -566,7 +566,7 @@
 				border-radius: 50%;
 				z-index: -1;
 				top: 30%;
-				left: 50%;
+				inset-inline-start: 50%;
 				opacity: 0.15;
 				transform: translateX(-50%);
 			}
@@ -633,7 +633,7 @@
 			}
 			.bnr-info{
 				width: 50%;
-				padding-right: 60px;
+				padding-inline-end: 60px;
 				
 				.dz-media{
 					height: 300px;
@@ -664,8 +664,8 @@
 			.media-info{
 				position: absolute;
 				bottom: 20px;
-				right: 28px;
-				left: 28px;
+				inset-inline-end: 28px;
+				inset-inline-start: 28px;
 				background-color: #fff;
 				border-radius: 20px;
 				padding: 15px 20px 15px 25px;
@@ -679,13 +679,13 @@
 				}
 				@include respond('phone'){
 					bottom: 15px;
-					right: 15px;
-					left: 15px;
+					inset-inline-end: 15px;
+					inset-inline-start: 15px;
 				}
 			}
 			@include respond('laptop'){
 				.bnr-info{
-					padding-right: 30px;
+					padding-inline-end: 30px;
 				}
 				h1{
 					font-size: 55px;
@@ -696,7 +696,7 @@
 					font-size: 48px;
 				}
 				.bnr-info{
-					padding-right: 0;
+					padding-inline-end: 0;
 					width: 100%;
 					
 					.media-wrapper {
@@ -715,8 +715,8 @@
 					font-size: 36px;
 				}
 				p{
-					margin-left: auto;
-					margin-right: auto;
+					margin-inline-start: auto;
+					margin-inline-end: auto;
 				}
 			}
 			@include respond ('phone-land'){
@@ -832,7 +832,7 @@
 				width: 100%;
 				bottom: 0;
 				height: 200px;
-				left: 0;
+				inset-inline-start: 0;
 			}
 			@include respond('laptop'){
 				h1{
@@ -908,7 +908,7 @@
 			}
 			.dz-media{
 			    position: absolute;
-				right: 0;
+				inset-inline-end: 0;
 				top: 0;
 				height: 100%;
 				width: 60vw;
@@ -936,8 +936,8 @@
 		}		
 		p{
 			color: var(--bs-body-color);
-			margin-left: 0;
-			margin-right: 0;
+			margin-inline-start: 0;
+			margin-inline-end: 0;
 		}
 		@include respond ('phone-land'){
 			margin-bottom: 0;
@@ -1070,36 +1070,36 @@
 		}
 		.item1{
 			bottom: 5%;
-			right: 45%;
+			inset-inline-end: 45%;
 		}
 		.item2{
 			top: 30%;
-   			right: 35%;
+   			inset-inline-end: 35%;
 			
 			@include respond('wide-desktop'){
 				top: 40%;
 			}
 		}
 		.item3{
-			right: 10%;
+			inset-inline-end: 10%;
 			bottom: 20%;		
 			
 			@include respond('wide-desktop'){
-				right: 10%;
+				inset-inline-end: 10%;
 				bottom: 30%;
 			}
 		}
 		.item4{
-			right: 18%;
+			inset-inline-end: 18%;
 			bottom: 20%;
 			
 			@include respond('wide-desktop'){
-				right: 5%;
+				inset-inline-end: 5%;
 			}
 		}
 		.bnr-media{
 			position: absolute;
-			right: -2%;
+			inset-inline-end: -2%;
 			bottom: -2%;
 			float: right;
 	
@@ -1188,7 +1188,7 @@
 			height: 100%;
 			position: absolute;
 			bottom: 0;
-			left: 0;
+			inset-inline-start: 0;
 			z-index: 0;
 			background-image: url(../../fatloss/images/banner/bg.webp);
 			background-repeat: no-repeat;
@@ -1203,7 +1203,7 @@
 			content: "";
 			position: absolute;
 			bottom: -250px;
-			right: -250px;
+			inset-inline-end: -250px;
 			background: linear-gradient(180deg, #F0588D 0%, #F79C86 100%);
 			width: 450px;
 			height: 450px;
@@ -1223,14 +1223,14 @@
 				color: #fff;
 			}
 			&.right{
-				border-left: 0;
+				border-inline-start: 0;
 			}
 		}
 		.blur2{
 			top: 0;
-			left: 0;
+			inset-inline-start: 0;
 			bottom: auto;
-			right: auto;
+			inset-inline-end: auto;
 			background: linear-gradient(180deg, #F0588D 0%, #F79C86 100%);
 			filter: blur(350px);
 		}
@@ -1254,7 +1254,7 @@
 		.elip{
 			position: absolute;
 			top: 25%;
-			left: 100px;
+			inset-inline-start: 100px;
 			border-radius: 50%;
 			width: 65px;
 			height: 65px;
@@ -1272,7 +1272,7 @@
 				content: "";
 				position: absolute;
 				top: 0;
-				left: 0;
+				inset-inline-start: 0;
 				width: 100%;
 				height: 100%;
 				display: block;
@@ -1306,7 +1306,7 @@
 			position: absolute;
 			z-index: 0;
 			top: 38%;
-			right: 36%;
+			inset-inline-end: 36%;
 
 			
 			@include respond('phone-land'){
@@ -1316,12 +1316,12 @@
 		.item2{
 		    top: auto;
 			bottom: 18%;
-			right: 16%;	
+			inset-inline-end: 16%;	
 		}
 		.item3{
 			top: auto;
 			bottom: 20%;
-			right: 10%;		
+			inset-inline-end: 10%;		
 		}
 		&.dz-bnr-detail{
 			h1{
@@ -1337,7 +1337,7 @@
 				width: 100%;
 				bottom: 0;
 				height: 200px;
-				left: 0;
+				inset-inline-start: 0;
 			}
 			@include respond('laptop'){
 				h1{
@@ -1413,7 +1413,7 @@
 			}
 			.dz-media{
 			    position: absolute;
-				right: 0;
+				inset-inline-end: 0;
 				top: 0;
 				height: 100%;
 				width: 60vw;

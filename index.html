@@ -81,6 +81,84 @@
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
     
+    <!-- Language Switcher Styles -->
+    <style>
+      #languageDropdown {
+        border: none;
+        background: transparent;
+        color: inherit;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+      #languageDropdown:hover,
+      #languageDropdown:focus {
+        color: inherit;
+        text-decoration: none;
+        opacity: 0.8;
+        outline: none;
+      }
+      .dropdown {
+        position: relative;
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        inset-inline-end: 0;
+        z-index: 1000;
+        display: none;
+        min-width: 120px;
+        padding: 0.5rem 0;
+        margin: 0.125rem 0 0;
+        font-size: 1rem;
+        color: #212529;
+        text-align: start;
+        list-style: none;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.25rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+      .dropdown-menu.show {
+        display: block;
+      }
+      .dropdown-menu-end {
+        inset-inline-end: 0;
+        inset-inline-start: auto;
+      }
+      .dropdown-item {
+        display: block;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        clear: both;
+        font-weight: 400;
+        color: #212529;
+        text-align: inherit;
+        text-decoration: none;
+        white-space: nowrap;
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+      }
+      .dropdown-item:hover,
+      .dropdown-item:focus {
+        color: #1e2125;
+        background-color: #e9ecef;
+      }
+      .language-option.active {
+        background-color: var(--bs-primary, #0d6efd);
+        color: #fff;
+      }
+      .language-option.active:hover {
+        background-color: var(--bs-primary, #0d6efd);
+        color: #fff;
+        opacity: 0.9;
+      }
+    </style>
+    
     <!-- Splash Screen CSS -->
     <style>
       /* Splash Screen Styles */
@@ -177,6 +255,85 @@
         .phone-fixed {
           display: flex;
         }
+      }
+
+      /* Language Fixed Button Styles (mobile only) */
+      .language-fixed {
+        position: fixed;
+        bottom: 160px !important;
+        left: 30px !important;
+        width: 60px !important;
+        height: 60px !important;
+        background-color: #6366f1;
+        border-radius: 50%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: white;
+        font-size: 24px;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: none;
+      }
+
+      .language-fixed:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 18px rgba(99, 102, 241, 0.6);
+        color: white;
+      }
+
+      .language-fixed:active {
+        transform: scale(0.95);
+      }
+
+      @media (max-width: 767px) {
+        .language-fixed {
+          display: flex;
+        }
+      }
+
+      /* Language Dropdown for Fixed Button */
+      .language-fixed-dropdown {
+        position: fixed;
+        bottom: 230px !important;
+        left: 30px !important;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        z-index: 1001;
+        min-width: 150px;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .language-fixed-dropdown.show {
+        display: flex;
+      }
+
+      .language-fixed-option {
+        padding: 12px 20px;
+        color: #333;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .language-fixed-option:last-child {
+        border-bottom: none;
+      }
+
+      .language-fixed-option:hover {
+        background-color: #f8f9fa;
+        color: #6366f1;
+      }
+
+      .language-fixed-option.active {
+        background-color: #6366f1;
+        color: white;
       }
       
       #splash-screen.fade-out {
@@ -698,6 +855,16 @@
                   </a>
                 </div>
 
+                            <ul class="nav navbar-nav">
+                              <li class="homedemo  full-width">
+                                <a href="index.html"><span data-translate="nav.home">Home</span> </a>
+                              </li>
+                            
+                              <li>
+                                <a href="blogs.html"><span data-translate="nav.blogs">blogs</span> </a>
+                              </li>
+                            </ul>
+
                 <div class="dz-social-icon">
                   <ul>
                     <li>
@@ -719,11 +886,39 @@
                 <div class="extra-cell">
                   <ul class="header-right">
                     <li class="nav-item">
+                      <!-- Language Switcher Dropdown -->
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-link text-white"
+                          type="button"
+                          id="languageDropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i class="feather icon-globe" style="margin-inline-end: 0.5rem;"></i>
+                          <span id="currentLang">EN</span>
+                          <i class="feather icon-chevron-down" style="margin-inline-start: 0.5rem; font-size: 0.875rem;"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                          <li class="w-100">
+                            <a class="dropdown-item language-option" href="#" data-lang="en" data-dir="ltr">
+                              <span>English</span>
+                            </a>
+                          </li>
+                          <li class="w-100">
+                            <a class="dropdown-item language-option" href="#" data-lang="ar" data-dir="rtl">
+                              <span>العربية</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="nav-item">
                       <a
                         class="whatsapp-setting btn btn-primary btn-hover1"
                         href="https://api.whatsapp.com/send?phone=201050800531&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook"
                       >
-                        Appointment
+                        <span data-translate="button.appointment">Appointment</span>
                       </a>
                     </li>
                   </ul>
@@ -926,7 +1121,7 @@
                           href="https://api.whatsapp.com/send?phone=201050800531&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook"
                           class="btn btn-secondary btn-hover1 w-100 m-t10"
                         >
-                          Book appointment
+                          <span data-translate="button.book_appointment">Book appointment</span>
                         </a>
                       </div>
                     </div>
@@ -1727,7 +1922,7 @@
                       href="https://api.whatsapp.com/send?phone=201050800531&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebookl"
                       class="btn btn-lg btn-icon btn-primary"
                     >
-                      Appointment
+                      <span data-translate="button.appointment">Appointment</span>
                       <span class="right-icon"
                         ><i class="feather icon-arrow-right"></i
                       ></span>
@@ -2215,7 +2410,7 @@ clinic 121, Abdullah ibn salamah, the fount mall, قسم أول القاهرة �
                           value="submit"
                           class="btn btn-lg btn-icon btn-white btn-shadow"
                         >
-                          Appointment
+                          <span data-translate="button.appointment">Appointment</span>
                           <span class="right-icon"
                             ><i class="feather icon-arrow-right"></i
                           ></span>
@@ -2277,7 +2472,7 @@ clinic 121, Abdullah ibn salamah, the fount mall, قسم أول القاهرة �
                     </a>
                   </div>
                   <p>
-                    <span class="text-white">V Dental Clinics</span> Redefining dental care with precision, comfort, and lasting results.
+                    <span class="text-white">V Dental Clinics</span> <span data-translate="footer.tagline">Redefining dental care with precision, comfort, and lasting results.</span>
                   </p>
                 </div>
               </div>
@@ -2349,9 +2544,237 @@ clinic 121, Abdullah ibn salamah, the fount mall, قسم أول القاهرة �
       <a href="tel:+201050800531" class="phone-fixed" aria-label="Call V Dental">
         <i class="fas fa-phone"></i>
       </a>
+      <!-- Fixed Language Button (Mobile Only) -->
+      <button class="language-fixed"
+              id="languageFixedButton"
+              aria-label="Change Language"
+              type="button">
+        <i class="feather icon-globe"></i>
+      </button>
+      <!-- Language Dropdown for Fixed Button -->
+      <div class="language-fixed-dropdown" id="languageFixedDropdown">
+        <a class="language-fixed-option language-option-fixed"
+           href="#"
+           data-lang="en"
+           data-dir="ltr">
+          <span>English</span>
+        </a>
+        <a class="language-fixed-option language-option-fixed"
+           href="#"
+           data-lang="ar"
+           data-dir="rtl">
+          <span>العربية</span>
+        </a>
+      </div>
     </div>
     <!-- JAVASCRIPT FILES ========================================= -->
     <script src="./assets/js/global.min.js"></script>
+    
+    <!-- Language Switcher Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get current language from localStorage or default to 'en'
+        let currentLang = localStorage.getItem('language') || 'en';
+        let currentDir = localStorage.getItem('direction') || 'ltr';
+        
+        // Translation dictionary
+        const translations = {
+          en: {
+            'nav.home': 'Home',
+            'nav.blogs': 'blogs',
+            'footer.tagline': 'Redefining dental care with precision, comfort, and lasting results.',
+            'page.blogs.title': 'Blogs',
+            'blog.related': 'Related Blogs',
+            'button.appointment': 'Appointment',
+            'button.book_appointment': 'Book appointment'
+          },
+          ar: {
+            'nav.home': 'الرئيسية',
+            'nav.blogs': 'المدونة',
+            'footer.tagline': 'تعيد تعريف رعاية الأسنان بدقة وراحة ونتائج دائمة.',
+            'page.blogs.title': 'المدونة',
+            'blog.related': 'مقالات ذات صلة',
+            'button.appointment': 'حجز موعد',
+            'button.book_appointment': 'احجز موعد'
+          }
+        };
+        
+        // Function to translate static text
+        function translateStaticText(lang) {
+          document.querySelectorAll('[data-translate]').forEach(element => {
+            const key = element.getAttribute('data-translate');
+            if (translations[lang] && translations[lang][key]) {
+              element.textContent = translations[lang][key];
+            }
+          });
+        }
+        
+        // Initialize language on page load
+        function initLanguage() {
+          document.documentElement.lang = currentLang;
+          document.documentElement.dir = currentDir;
+          document.querySelector('html').setAttribute('dir', currentDir);
+          
+          // Update globalFetcher language if available
+          if (typeof globalFetcher !== 'undefined' && globalFetcher) {
+            globalFetcher.setLanguage(currentLang);
+          }
+          
+          // Update dropdown text
+          const currentLangSpan = document.getElementById('currentLang');
+          if (currentLangSpan) {
+            currentLangSpan.textContent = currentLang.toUpperCase();
+          }
+          
+          // Mark active language in header dropdown
+          document.querySelectorAll('.language-option').forEach(option => {
+            if (option.getAttribute('data-lang') === currentLang) {
+              option.classList.add('active');
+            } else {
+              option.classList.remove('active');
+            }
+          });
+          
+          // Mark active language in fixed dropdown
+          document.querySelectorAll('.language-option-fixed').forEach(option => {
+            if (option.getAttribute('data-lang') === currentLang) {
+              option.classList.add('active');
+            } else {
+              option.classList.remove('active');
+            }
+          });
+          
+          // Translate static text
+          translateStaticText(currentLang);
+        }
+        
+        // Handle language change
+        async function switchLanguage(lang, dir) {
+          currentLang = lang;
+          currentDir = dir;
+          
+          // Save to localStorage
+          localStorage.setItem('language', lang);
+          localStorage.setItem('direction', dir);
+          
+          // Update HTML attributes
+          document.documentElement.lang = lang;
+          document.documentElement.dir = dir;
+          document.querySelector('html').setAttribute('dir', dir);
+          
+          // Update dropdown text
+          const currentLangSpan = document.getElementById('currentLang');
+          if (currentLangSpan) {
+            currentLangSpan.textContent = lang.toUpperCase();
+          }
+          
+          // Update active state for header dropdown
+          document.querySelectorAll('.language-option').forEach(option => {
+            if (option.getAttribute('data-lang') === lang) {
+              option.classList.add('active');
+            } else {
+              option.classList.remove('active');
+            }
+          });
+          
+          // Update active state for fixed dropdown
+          document.querySelectorAll('.language-option-fixed').forEach(option => {
+            if (option.getAttribute('data-lang') === lang) {
+              option.classList.add('active');
+            } else {
+              option.classList.remove('active');
+            }
+          });
+          
+          // Reload data with new language if fetcher is available
+          if (typeof globalFetcher !== 'undefined' && globalFetcher) {
+            try {
+              await globalFetcher.reloadDataWithLanguage(lang);
+            } catch (error) {
+              console.error('Error reloading data with new language:', error);
+            }
+          }
+          
+          // Translate static text
+          translateStaticText(lang);
+        }
+        
+        // Initialize on page load
+        initLanguage();
+        
+        // Toggle header dropdown
+        const dropdownButton = document.getElementById('languageDropdown');
+        const dropdownMenu = dropdownButton?.nextElementSibling;
+        
+        if (dropdownButton && dropdownMenu) {
+          dropdownButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
+            dropdownMenu.classList.toggle('show');
+          });
+          
+          // Close dropdown when clicking outside
+          document.addEventListener('click', function(e) {
+            if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+              dropdownButton.setAttribute('aria-expanded', 'false');
+              dropdownMenu.classList.remove('show');
+            }
+          });
+        }
+        
+        // Add event listeners to header language options
+        document.querySelectorAll('.language-option').forEach(option => {
+          option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.getAttribute('data-lang');
+            const dir = this.getAttribute('data-dir');
+            switchLanguage(lang, dir);
+            
+            // Close dropdown
+            if (dropdownButton && dropdownMenu) {
+              dropdownButton.setAttribute('aria-expanded', 'false');
+              dropdownMenu.classList.remove('show');
+            }
+          });
+        });
+        
+        // Toggle fixed language dropdown
+        const languageFixedButton = document.getElementById('languageFixedButton');
+        const languageFixedDropdown = document.getElementById('languageFixedDropdown');
+
+        if (languageFixedButton && languageFixedDropdown) {
+          languageFixedButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            languageFixedDropdown.classList.toggle('show');
+          });
+
+          // Close dropdown if clicked outside
+          document.addEventListener('click', function (e) {
+            if (!languageFixedButton.contains(e.target) && !languageFixedDropdown.contains(e.target)) {
+              languageFixedDropdown.classList.remove('show');
+            }
+          });
+        }
+
+        // Add event listeners to fixed language options
+        document.querySelectorAll('.language-option-fixed').forEach(option => {
+          option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.getAttribute('data-lang');
+            const dir = this.getAttribute('data-dir');
+            switchLanguage(lang, dir);
+            
+            // Close dropdown
+            if (languageFixedDropdown) {
+              languageFixedDropdown.classList.remove('show');
+            }
+          });
+        });
+      });
+    </script>
     <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="./assets/vendor/imagesloaded/imagesloaded.js"></script>
     <script src="./assets/vendor/twentytwenty/js/jquery.event.move.js"></script>
@@ -2367,6 +2790,32 @@ clinic 121, Abdullah ibn salamah, the fount mall, قسم أول القاهرة �
     <!-- Data Fetching Script -->
     <script src="./fetch-data.js"></script>
     
+    <!-- Nav Toggle JavaScript -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.querySelector('.w3menu-toggler');
+        const menu = document.getElementById('W3Menu');
+        const body = document.body;
+        const menuClose = document.querySelector('.menu-close');
+        
+        if (toggleBtn && menu) {
+          toggleBtn.addEventListener('click', function() {
+            toggleBtn.classList.toggle('open');
+            body.classList.toggle('fixed');
+            menu.classList.toggle('show');
+          });
+        }
+        
+        if (menuClose && menu && toggleBtn) {
+          menuClose.addEventListener('click', function() {
+            toggleBtn.classList.remove('open');
+            body.classList.remove('fixed');
+            menu.classList.remove('show');
+          });
+        }
+      });
+    </script>
+
     <!-- Splash Screen JavaScript -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {

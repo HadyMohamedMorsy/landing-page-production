@@ -64,7 +64,7 @@
 
   &[data-bs-popper] {
     top: 100%;
-    left: 0;
+    inset-inline-start: 0;
     margin-top: var(--#{$prefix}dropdown-spacer);
   }
 
@@ -93,8 +93,8 @@
       --bs-position: start;
 
       &[data-bs-popper] {
-        right: auto;
-        left: 0;
+        inset-inline-end: auto;
+        inset-inline-start: 0;
       }
     }
 
@@ -102,8 +102,8 @@
       --bs-position: end;
 
       &[data-bs-popper] {
-        right: 0;
-        left: auto;
+        inset-inline-end: 0;
+        inset-inline-start: auto;
       }
     }
   }
@@ -128,10 +128,10 @@
 .dropend {
   .dropdown-menu[data-bs-popper] {
     top: 0;
-    right: auto;
-    left: 100%;
+    inset-inline-end: auto;
+    inset-inline-start: 100%;
     margin-top: 0;
-    margin-left: var(--#{$prefix}dropdown-spacer);
+    margin-inline-start: var(--#{$prefix}dropdown-spacer);
   }
 
   .dropdown-toggle {
@@ -145,10 +145,10 @@
 .dropstart {
   .dropdown-menu[data-bs-popper] {
     top: 0;
-    right: 100%;
-    left: auto;
+    inset-inline-end: 100%;
+    inset-inline-start: auto;
     margin-top: 0;
-    margin-right: var(--#{$prefix}dropdown-spacer);
+    margin-inline-end: var(--#{$prefix}dropdown-spacer);
   }
 
   .dropdown-toggle {

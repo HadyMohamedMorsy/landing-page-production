@@ -28,8 +28,8 @@
 	.shop-meta{
 		position: absolute;
 		bottom: -80px;
-		left: 0;
-		right: 0;
+		inset-inline-start: 0;
+		inset-inline-end: 0;
 		text-align: center;
 		@include transitionFast;
 	
@@ -53,8 +53,8 @@
 			}
 		}
 		.quick-view{
-			padding-left: 20px;
-			padding-right: 20px;
+			padding-inline-start: 20px;
+			padding-inline-end: 20px;
 			background-color: var(--bs-secondary);
 			border-color: var(--bs-secondary);
 			color: #fff;
@@ -70,8 +70,8 @@
 		}
 		@include respond('tab-port'){
 			.quick-view{
-				padding-left: 20px;
-				padding-right: 20px;
+				padding-inline-start: 20px;
+				padding-inline-end: 20px;
 			}
 		}
 		@include respond('phone-land'){
@@ -178,7 +178,7 @@
 			del{
 				color: #816E6E;
 				font-weight: 400;
-				margin-left: 5px;
+				margin-inline-start: 5px;
 			}
 		}
 	}

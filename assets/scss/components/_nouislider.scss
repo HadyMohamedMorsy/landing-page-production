@@ -11,7 +11,7 @@
 				background-color: var(--bs-light);
 				box-shadow: none;
 				top: -8px;
-				right: 0;
+				inset-inline-end: 0;
 				cursor: pointer;
 				&:before,
 				&:after{

@@ -41,10 +41,10 @@ table {
 .table-border-bottom{
 	tr > *{
 		&:first-child{
-			padding-left: 0;
+			padding-inline-start: 0;
 		}
 		&:last-child{
-			padding-right: 0;
+			padding-inline-end: 0;
 		}
 	}
 	tr:last-child > *{
@@ -163,7 +163,7 @@ table {
 				color: var(--bs-secondary);
 				border:none;
 				font-family: var(--font-family-title);
-				padding-left: 0;
+				padding-inline-start: 0;
 				img{
 					width: 80px;
 					min-width: 80px;
@@ -180,7 +180,7 @@ table {
 				&.product-item-name{
 					font-size:18px;
 					font-family: var(--font-family-title);
-					padding-left: 15px;
+					padding-inline-start: 15px;
 				}
 				&.product-item-price{
 					color: #5E626F;

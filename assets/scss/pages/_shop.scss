@@ -720,7 +720,7 @@
 			opacity: 0.5;
 			color: #000;
 			font-weight: 500;
-			margin-left: 5px;
+			margin-inline-start: 5px;
 		}
 	}
 	.swiper-btn-center-lr + .dz-content{
@@ -729,10 +729,10 @@
 	.dz-media{
 		border-radius: var(--radius-md);
 		box-shadow: 0 0 60px rgba(var(--bs-secondary-rgb), 0.05);
-		margin-right: 40px;
+		margin-inline-end: 40px;
 		
 		@include respond('tab-port'){
-			margin-right: 0;
+			margin-inline-end: 0;
 		}
 		@include respond('phone-land'){
 			height: 100%;
@@ -1073,7 +1073,7 @@
 				border-radius: 50%;
 				width: 44px;
 				min-width: 44px;
-				margin-right: 10px;
+				margin-inline-end: 10px;
 				color: var(--bs-secondary);
 			}
 			h5{
@@ -1156,7 +1156,7 @@
 				vertical-align: middle;
 			}
 			&:first-child{
-				margin-right:8px;
+				margin-inline-end: 8px;
 			}
 		}
 	}

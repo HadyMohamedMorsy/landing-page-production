@@ -33,7 +33,7 @@
 				content: attr(data-name);
 				position: absolute;
 				top: 7px;
-				left: 7px;
+				inset-inline-start: 7px;
 				width: calc(100% - 5px);
 				height: calc(100% - 5px);
 				-webkit-text-stroke: 1px #CFDEE0;
@@ -50,7 +50,7 @@
 				
 				&::after{
 					top: 5px;
-					left: 5px;
+					inset-inline-start: 5px;
 				}
             }
             @include respond("tab-port"){
@@ -61,7 +61,7 @@
 				
 				&::after{
 					top: 3px;
-					left: 3px;
+					inset-inline-start: 3px;
 				}
 			}
         }
@@ -91,12 +91,12 @@
 			.item1{
                 position: absolute;
                 top: 0;
-                right: 50px;
+                inset-inline-end: 50px;
                 animation: shake 3s linear infinite;
 				
 				img{
 					position: absolute;
-					left: 50%;
+					inset-inline-start: 50%;
 					top: 50%;
 					transform: translate(-50%, -50%);
 					width: 60%;
@@ -109,7 +109,7 @@
 				}
 				@include respond("phone"){
 					width: 100px;
-					right: 30px;
+					inset-inline-end: 30px;
 					top: -30px;
 				}
             }
@@ -118,12 +118,12 @@
 
     &.style-2{
         .dz-error-media{
-            margin-left: 20px;
-            margin-right: 80px;
+            margin-inline-start: 20px;
+            margin-inline-end: 80px;
 			
 			@include respond('phone-land'){
-				margin-left: 0;
-				margin-right: 0;
+				margin-inline-start: 0;
+				margin-inline-end: 0;
 				margin-bottom: 30px;
 			}
         }
@@ -162,8 +162,8 @@
 				text-align: center;
 				
 				.text{
-					margin-left: auto;
-					margin-right: auto;
+					margin-inline-start: auto;
+					margin-inline-end: auto;
 				}
 			}
         }
@@ -203,7 +203,7 @@
 				content: attr(data-name);
 				position: absolute;
 				top: 7px;
-				left: 7px;
+				inset-inline-start: 7px;
 				width: calc(100% - 5px);
 				height: calc(100% - 5px);
 				-webkit-text-stroke: 1px #CFDEE0;
@@ -220,7 +220,7 @@
 				
 				&::after{
 					top: 5px;
-					left: 5px;
+					inset-inline-start: 5px;
 				}
             }
             @include respond("tab-port"){
@@ -231,7 +231,7 @@
 				
 				&::after{
 					top: 3px;
-					left: 3px;
+					inset-inline-start: 3px;
 				}
 			}
         }
@@ -261,12 +261,12 @@
 			.item1{
                 position: absolute;
                 top: 0;
-                right: 50px;
+                inset-inline-end: 50px;
                 animation: shake 3s linear infinite;
 				
 				img{
 					position: absolute;
-					left: 50%;
+					inset-inline-start: 50%;
 					top: 50%;
 					transform: translate(-50%, -50%);
 					width: 60%;
@@ -279,7 +279,7 @@
 				}
 				@include respond("phone"){
 					width: 100px;
-					right: 30px;
+					inset-inline-end: 30px;
 					top: -30px;
 				}
             }
@@ -335,7 +335,7 @@
 			.error-wave{
 				position: absolute;
 				bottom: 0;
-				left: 50%;
+				inset-inline-start: 50%;
 				transform: translate(-50%);
 			}
 
@@ -379,15 +379,15 @@
 		.main-item{
 			position: absolute;
 			top: 20%;
-			left: 25%;
+			inset-inline-start: 25%;
 
 			@include respond("wide-desktop"){
 				top: 20%;
-    			left: 20%;
+    			inset-inline-start: 20%;
 			}
 			@include respond("tab-land"){
 				top: 15%;
-				left: 5%;
+				inset-inline-start: 5%;
 			}
 			@include respond("tab-port"){
 				display: none;
@@ -400,7 +400,7 @@
 .animation-text{
     overflow: visible;
     position: absolute;
-    right: 0;
+    inset-inline-end: 0;
     bottom: 0;
     transform: translate(35%, 90%);
     text {

@@ -195,8 +195,8 @@
 		z-index: 1;
 		margin-bottom: 15px;
 		.price {
-			margin-left: auto;
-			margin-right: 10px;
+			margin-inline-start: auto;
+			margin-inline-end: 10px;
 			font-size: 14px;
 			font-weight: 500;
 		}
@@ -232,7 +232,7 @@
 			height: 26px;
 			position: absolute;
 			top: 50%;
-			right: 15px;
+			inset-inline-end: 15px;
 			transform: translate(0px, -50%);
 			margin: 0;
 			transition: 0.4s;

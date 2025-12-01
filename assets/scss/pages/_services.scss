@@ -2,10 +2,10 @@
 	@include respond('tab-land-min'){
 		.side-bar{
 			&:not(.left){
-				padding-left: 45px;
+				padding-inline-start: 45px;
 			}
 			&.left{
-				padding-right: 45px;
+				padding-inline-end: 45px;
 			}
 		}
 	}
