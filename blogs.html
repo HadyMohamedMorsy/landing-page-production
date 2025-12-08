@@ -212,13 +212,13 @@
         color: white;
         font-size: 26px;
         z-index: 1000;
-        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+        box-shadow: 0 4px 12px rgba(93, 115, 76, 0.4);
         transition: all 0.3s ease;
       }
 
       .phone-fixed:hover {
         transform: scale(1.05);
-        box-shadow: 0 6px 18px rgba(14, 165, 233, 0.6);
+        box-shadow: 0 6px 18px rgba(93, 115, 76, 0.6);
         color: white;
       }
 
@@ -885,8 +885,22 @@
                       </a>
                     </li>
                   </ul>
+
+                  <!-- Language Switch -->
+                  <div class="dz-language-switch"
+                        style="margin-top: 1rem;">
+                    <button class="btn btn-sm btn-outline-light language-switch-btn"
+                            type="button"
+                            id="languageSwitchMobile">
+                      <i class="feather icon-globe"
+                          style="margin-inline-end: 0.5rem;"></i>
+                      <span id="currentLangSwitch">EN</span>
+                    </button>
+                  </div>
+                  </div>
                 </div>
-              </div>
+
+
       
               <!-- EXTRA NAV -->
               <div class="extra-nav">
@@ -1189,7 +1203,7 @@
            class="phone-fixed"
            aria-label="Call V Dental"
            onclick="return typeof gtag_report_conversion !== 'undefined' ? gtag_report_conversion('tel:+201050800531') : true;">
-          <i class="fas fa-phone"></i>
+          <i class="fas fa-phone" style="font-size: 18px;"></i>
         </a>
 </div>
 <!-- JAVASCRIPT FILES ========================================= -->
@@ -1249,6 +1263,12 @@
             currentLangSpan.textContent = currentLang.toUpperCase();
           }
 
+          // Update switch text
+          const currentLangSwitch = document.getElementById('currentLangSwitch');
+          if (currentLangSwitch) {
+            currentLangSwitch.textContent = currentLang.toUpperCase();
+          }
+
           // Mark active language in header dropdown
           document.querySelectorAll('.language-option').forEach(option => {
             if (option.getAttribute('data-lang') === currentLang) {
@@ -1289,6 +1309,12 @@
           const currentLangSpan = document.getElementById('currentLang');
           if (currentLangSpan) {
             currentLangSpan.textContent = lang.toUpperCase();
+          }
+
+          // Update switch text
+          const currentLangSwitch = document.getElementById('currentLangSwitch');
+          if (currentLangSwitch) {
+            currentLangSwitch.textContent = lang.toUpperCase();
           }
 
           // Update active state for header dropdown
@@ -1376,6 +1402,18 @@
             }
           });
         });
+
+        // Language switch button - toggle between languages
+        const languageSwitchBtn = document.getElementById('languageSwitchMobile');
+        if (languageSwitchBtn) {
+          languageSwitchBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Toggle between languages
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            const newDir = newLang === 'ar' ? 'rtl' : 'ltr';
+            switchLanguage(newLang, newDir);
+          });
+        }
 
         // Toggle fixed language dropdown
         const languageFixedButton = document.getElementById('languageFixedButton');

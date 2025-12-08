@@ -878,7 +878,17 @@
                       </a>
                     </li>
                   </ul>
+                  <!-- Language Switch -->
+                  <div class="dz-language-switch" style="margin-top: 1rem;">
+                    <button class="btn btn-sm btn-outline-light language-switch-btn"
+                            type="button"
+                            id="languageSwitchMobile">
+                      <i class="feather icon-globe" style="margin-inline-end: 0.5rem;"></i>
+                      <span id="currentLangSwitch">EN</span>
+                    </button>
+                  </div>
                 </div>
+
               </div>
 
               <!-- EXTRA NAV -->
@@ -2630,6 +2640,12 @@ clinic 121, Abdullah ibn salamah, the fount mall, قسم أول القاهرة �
           if (currentLangSpan) {
             currentLangSpan.textContent = currentLang.toUpperCase();
           }
+
+          // Update switch text
+          const currentLangSwitch = document.getElementById('currentLangSwitch');
+          if (currentLangSwitch) {
+            currentLangSwitch.textContent = currentLang.toUpperCase();
+          }
           
           // Mark active language in header dropdown
           document.querySelectorAll('.language-option').forEach(option => {
@@ -2673,6 +2689,12 @@ clinic 121, Abdullah ibn salamah, the fount mall, قسم أول القاهرة �
           const currentLangSpan = document.getElementById('currentLang');
           if (currentLangSpan) {
             currentLangSpan.textContent = lang.toUpperCase();
+          }
+
+          // Update switch text
+          const currentLangSwitch = document.getElementById('currentLangSwitch');
+          if (currentLangSwitch) {
+            currentLangSwitch.textContent = lang.toUpperCase();
           }
           
           // Update active state for header dropdown
@@ -2748,6 +2770,18 @@ clinic 121, Abdullah ibn salamah, the fount mall, قسم أول القاهرة �
             }
           });
         });
+
+        // Language switch button - toggle between languages
+        const languageSwitchBtn = document.getElementById('languageSwitchMobile');
+        if (languageSwitchBtn) {
+          languageSwitchBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Toggle between languages
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            const newDir = newLang === 'ar' ? 'rtl' : 'ltr';
+            switchLanguage(newLang, newDir);
+          });
+        }
         
         // Toggle fixed language dropdown
         const languageFixedButton = document.getElementById('languageFixedButton');
