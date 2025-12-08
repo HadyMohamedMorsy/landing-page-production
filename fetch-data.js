@@ -1425,12 +1425,8 @@ function updateGeneralSettings(generalSettings) {
     });
   }
 
-  // تحديث صورة الـ blog banner
-  updateBlogBannerImage(settings);
-
   // تحديث الـ SEO meta tags (use content for meta fields)
   updateSEOTags(content);
-  
   // تحديث الـ tracking scripts (use full settings object)
   updateTrackingScripts(settings);
 }
@@ -1626,7 +1622,6 @@ function addGoogleAnalytics(gaId) {
   document.head.appendChild(gaConfig);
 
   // Add conversion tracking function for Google Ads
-  console.log(!window.gtag_report_conversion);
   if (!window.gtag_report_conversion) {
     const conversionScript = document.createElement('script');
     conversionScript.innerHTML = `
