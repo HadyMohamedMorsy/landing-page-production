@@ -26,7 +26,7 @@
 			content: "BEFORE";
 			position: absolute;
 			top: 50%;
-			inset-inline-start: 30px;
+			inset-block-end: 30px;
 			z-index: 99;
 			padding: 34px 8px;
 			background-color: rgba(255, 255, 255, 0.2);
@@ -45,7 +45,7 @@
         }
         &::after{
             content: "AFTER";
-            inset-inline-end: 30px;
+            inset-block-start: 30px;
             inset-inline-start: auto;
         }
 		@include respond('phone-land'){

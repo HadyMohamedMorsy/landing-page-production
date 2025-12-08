@@ -276,10 +276,14 @@
 		}
 	}
 	.right-icon{
-		margin: -11px -20px -11px 15px;
+    margin-block: -11px;
+    margin-inline-end: -20px;
+    margin-inline-start: 15px;
 	}
 	.left-icon{
-		margin: -11px 15px -11px -20px;
+    margin-block: -11px;
+    margin-inline-end: -20px;
+    margin-inline-start: 15px;
 	}
 	&.btn-rounded{
 		.right-icon,
@@ -314,10 +318,14 @@
 			min-width: 60px;
 		}
 		.right-icon{
-			margin: -10px -20px -10px 12px;
+      margin-block: -10px;
+      margin-inline-end: -20px;
+      margin-inline-start: 12px;
 		}
 		.left-icon{
-			margin: -10px 12px -9px -20px;
+      margin-block: -10px;
+      margin-inline-end: -20px;
+      margin-inline-start: 12px;
 		}
 		@include respond('phone-land'){
 			font-size: 18px;
@@ -329,10 +337,14 @@
 				min-width: 50px;
 			}
 			.right-icon{
-				margin: -10px -20px -8px 12px;
+        margin-block: -10px;
+        margin-inline-end: -20px;
+        margin-inline-start: 12px;
 			}
 			.left-icon{
-				margin: -10px 12px -8px -20px;
+        margin-block: -10px;
+        margin-inline-end: -20px;
+        margin-inline-start: 12px;
 			}
 		}
 	}
@@ -345,17 +357,25 @@
 			transform: translateY(0);
 		}
 		.right-icon{
-			margin: -11px -18px -11px 12px;
+      margin-block: -11px;
+      margin-inline-end: -18px;
+      margin-inline-start: 12px;
 		}
 		.left-icon{
-			margin: -11px 12px -11px -18px;
+      margin-block: -11px;
+      margin-inline-end: 12px;
+      margin-inline-start: -18px;
 		}
 		@include respond('phone-land'){
 			.right-icon{
-				margin: -11px -16px -11px 12px;
+        margin-block: -11px;
+        margin-inline-end: -16px;
+        margin-inline-start: 12px;
 			}
 			.left-icon{
-				margin: -11px 12px -11px -16px;
+        margin-block: -11px;
+        margin-inline-end: 12px;
+        margin-inline-start: -16px;
 			}
 		}
 	}
@@ -368,10 +388,14 @@
 			transform: translateY(0);
 		}
 		.right-icon{
-			margin: -8px -17px -8px 10px;
+      margin-block: -8px;
+      margin-inline-end: -17px;
+      margin-inline-start: 10px;
 		}
 		.left-icon{
-			margin: -8px 10px -8px -17px;
+      margin-block: -8px;
+      margin-inline-end: 10px;
+      margin-inline-start: -17px;
 		}
 	}
 	

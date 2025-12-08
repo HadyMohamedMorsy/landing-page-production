@@ -140,10 +140,10 @@
             .whatsapp-fixed {
               position: fixed;
               bottom: 90px !important;
-              left: 30px !important;
-              width: 60px !important;
-              height: 60px !important;
-              background-color: #25d366;
+              left: 10px !important;
+              width: 45px !important;
+              height: 45px !important;
+              background-color: #5D734C;
               border-radius: 50%;
               display: flex;
               align-items: center;
@@ -159,7 +159,7 @@
           
             .whatsapp-fixed:hover {
               transform: scale(1.1);
-              box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+              box-shadow: 0 6px 20px rgba(93, 115, 76, 0.4);
               color: white;
               text-decoration: none;
             }
@@ -168,28 +168,26 @@
               transform: scale(0.95);
             }
           
-            @keyframes whatsapp-pulse {
-              0% {
-                box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-              }
-          
-              50% {
-                box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6);
-              }
-          
-              100% {
-                box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-              }
-            }
+      @keyframes whatsapp-pulse {
+        0% {
+          box-shadow: 0 4px 12px rgba(93, 115, 76, 0.4);
+        }
+        50% {
+          box-shadow: 0 4px 20px rgba(93, 115, 76, 0.6);
+        }
+        100% {
+          box-shadow: 0 4px 12px rgba(93, 115, 76, 0.4);
+        }
+      }
           
             /* Phone Fixed Button Styles (mobile only) */
             .phone-fixed {
               position: fixed;
               bottom: 20px !important;
-              left: 30px !important;
-              width: 60px !important;
-              height: 60px !important;
-              background-color: #0ea5e9;
+              left: 10px !important;
+              width: 45px !important;
+              height: 45px !important;
+              background-color: #5D734C;
               border-radius: 50%;
               display: none;
               align-items: center;
@@ -638,7 +636,7 @@
                 <ul>
                   <li>
                     <a class="phone-setting" id="phone-link"
-                       href="tel:+201050800531"><i class="feather icon-phone-call text-primary"></i>
+                       href="tel:+201050800531" onclick="return typeof gtag_report_conversion !== 'undefined' ? gtag_report_conversion('tel:+201050800531') : true;"><i class="feather icon-phone-call text-primary"></i>
                       <span id="phone-text">+20 10 50800531</span></a>
                   </li>
                   <li>
@@ -1072,15 +1070,15 @@
           <div class="container">
             <div class="fb-inner">
               <div class="row">
-                <div class="col-lg-6 col-md-12 text-start">
+                <div class="col-lg-6 col-md-12" style="text-align: start;">
                   <p class="copyright-text">
                     © <span class="current-year">2025</span>
                     <a href="#"
                        target="_blank">V Dental</a>
-                    All Rights Reserved.
+                    <span data-translate="footer.copyright">All Rights Reserved.</span>
                   </p>
                 </div>
-                <div class="col-lg-6 col-md-12 text-end">
+                <div class="col-lg-6 col-md-12" style="text-align: end;">
                   <ul class="nav-inline">
                     <li>
                       <a href="https://www.instagram.com/vdentalclinicseg/"
@@ -1109,37 +1107,17 @@
 <a href="https://api.whatsapp.com/send?phone=201050800531"
    class="whatsapp-fixed"
    target="_blank"
-   rel="noopener noreferrer">
+   rel="noopener noreferrer"
+   onclick="return typeof gtag_report_conversion !== 'undefined' ? gtag_report_conversion('https://api.whatsapp.com/send?phone=201050800531') : true;">
   <i class="fab fa-whatsapp"></i>
 </a>
 <!-- Fixed Phone Button -->
 <a href="tel:+201050800531"
    class="phone-fixed"
-   aria-label="Call V Dental">
+   aria-label="Call V Dental"
+   onclick="return typeof gtag_report_conversion !== 'undefined' ? gtag_report_conversion('tel:+201050800531') : true;">
   <i class="fas fa-phone"></i>
 </a>
-<!-- Fixed Language Button (Mobile Only) -->
-<button class="language-fixed"
-        id="languageFixedButton"
-        aria-label="Change Language"
-        type="button">
-  <i class="feather icon-globe"></i>
-</button>
-<!-- Language Dropdown for Fixed Button -->
-<div class="language-fixed-dropdown" id="languageFixedDropdown">
-  <a class="language-fixed-option language-option-fixed"
-     href="#"
-     data-lang="en"
-     data-dir="ltr">
-    <span>English</span>
-  </a>
-  <a class="language-fixed-option language-option-fixed"
-     href="#"
-     data-lang="ar"
-     data-dir="rtl">
-    <span>العربية</span>
-  </a>
-</div>
 </div>
 <!-- JAVASCRIPT FILES ========================================= -->
 <script src="../assets/js/global.min.js"></script>
@@ -1212,18 +1190,29 @@
       let blogMetaTitle = '';
       let blogMetaDescription = '';
 
+      // Function to clean empty paragraphs
+      function cleanEmptyParagraphs(html) {
+        if (!html) return html;
+        // Remove empty paragraphs: <p></p>, <p> </p>, <p><br></p>, <p><br/></p>, <p><br /><br></p>, etc.
+        return html
+          .replace(/<p[^>]*>\s*(<br\s*\/?>)*\s*<\/p>/gi, '')
+          .replace(/<p[^>]*>\s*(<br\s*\/?>)*\s*(<br\s*\/?>)*\s*<\/p>/gi, '')
+          .replace(/<p[^>]*>\s*&nbsp;\s*<\/p>/gi, '')
+          .replace(/<p[^>]*>\s*(<br\s*\/?>)*\s*&nbsp;\s*(<br\s*\/?>)*\s*<\/p>/gi, '');
+      }
+
       if (blog.content && Array.isArray(blog.content)) {
         const contentItem = blog.content.find(item => item.language_id === languageId);
         if (contentItem) {
           blogTitle = contentItem.title || blogTitle;
-          blogDescription = contentItem.description || blogDescription;
-          blogContent = contentItem.content || blogContent;
+          blogDescription = cleanEmptyParagraphs(contentItem.description || blogDescription);
+          blogContent = cleanEmptyParagraphs(contentItem.content || blogContent);
           blogMetaTitle = contentItem.metaTitle || '';
           blogMetaDescription = contentItem.metaDescription || '';
         } else if (blog.content.length > 0) {
           blogTitle = blog.content[0].title || blogTitle;
-          blogDescription = blog.content[0].description || blogDescription;
-          blogContent = blog.content[0].content || blogContent;
+          blogDescription = cleanEmptyParagraphs(blog.content[0].description || blogDescription);
+          blogContent = cleanEmptyParagraphs(blog.content[0].content || blogContent);
           blogMetaTitle = blog.content[0].metaTitle || '';
           blogMetaDescription = blog.content[0].metaDescription || '';
         }
@@ -1248,7 +1237,7 @@
         : 'Admin';
 
       // Get blog image
-      const blogImage = blog.thumb || blog.featuredImages?.[0] || 'images/blog/detail/img2.webp';
+      const blogImage = 'https://api.vdentaleg.com/' + blog.thumb || 'https://api.vdentaleg.com/' + blog.featuredImages?.[0] || 'images/blog/detail/img2.webp';
 
       // Get categories for tags
       let tagsHtml = '';
@@ -1421,11 +1410,10 @@
             <div class="col-md-6 col-12 m-b30">
               <div class="dz-card style-1">
                 <div class="dz-media">
-                  <img src="${relatedImage}" alt="${relatedTitle}">
+                  <img src="https://api.vdentaleg.com/${relatedImage}" alt="${relatedTitle}">
                 </div>
                 <div class="dz-info">
                   <h3 class="dz-title"><a href="blog-details.html?slug=${relatedBlog.slug}">${relatedTitle}</a></h3>
-                  <p>${relatedDescription.substring(0, 100)}${relatedDescription.length > 100 ? '...' : ''}</p>
                   <div class="dz-meta">
                     <ul>
                       <li class="post-date">${relatedDate}</li>
@@ -1468,14 +1456,16 @@
         'nav.blogs': 'blogs',
         'blog.related': 'Related Blogs',
         'footer.tagline': 'Redefining dental care with precision, comfort, and lasting results.',
-        'button.appointment': 'Appointment'
+        'button.appointment': 'Appointment',
+        'footer.copyright': 'All Rights Reserved.'
       },
       ar: {
         'nav.home': 'الرئيسية',
         'nav.blogs': 'المدونة',
         'blog.related': 'مقالات ذات صلة',
         'footer.tagline': 'تعيد تعريف رعاية الأسنان بدقة وراحة ونتائج دائمة.',
-        'button.appointment': 'حجز موعد'
+        'button.appointment': 'حجز موعد',
+        'footer.copyright': 'جميع الحقوق محفوظة.'
       }
     };
     
@@ -1691,38 +1681,48 @@
         }
       }
 
-      // Update logo and meta tags (main header and mobile menu)
-      if (generalSettings.content && Array.isArray(generalSettings.content)) {
-        const contentItem = generalSettings.content.find(item => item.language_id === languageId) || generalSettings.content[0];
+      // Load Google Analytics if enabled
+      if (generalSettings.google_analytics_enabled && generalSettings.google_analytics_id) {
+        const gaId = generalSettings.google_analytics_id;
         
-        if (contentItem) {
-          // Update logo
-          if (contentItem.logo) {
-            // Update main header logo
-            const logoContainer = document.getElementById('logo-container');
-            const logoLink = document.getElementById('logo-link');
-            if (logoContainer && logoLink) {
-              const logoImg = document.createElement('img');
-              logoImg.src = contentItem.logo;
-              logoImg.alt = contentItem.store_name || 'Logo';
-              logoImg.style.maxWidth = '150px';
-              logoImg.style.height = 'auto';
-              logoLink.innerHTML = '';
-              logoLink.appendChild(logoImg);
-            }
+        // Check if already added
+        const existingScript = document.querySelector(`script[src*="gtag/js?id=${gaId}"]`);
+        if (!existingScript) {
+          // Google Analytics 4
+          const gaScript = document.createElement('script');
+          gaScript.async = true;
+          gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+          document.head.appendChild(gaScript);
 
-            // Update mobile menu logo
-            const logoContainerMobile = document.getElementById('logo-container-mobile');
-            const logoLinkMobile = document.getElementById('logo-link-mobile');
-            if (logoContainerMobile && logoLinkMobile) {
-              const logoImgMobile = document.createElement('img');
-              logoImgMobile.src = contentItem.logo;
-              logoImgMobile.alt = contentItem.store_name || 'Logo';
-              logoImgMobile.style.maxWidth = '150px';
-              logoImgMobile.style.height = 'auto';
-              logoLinkMobile.innerHTML = '';
-              logoLinkMobile.appendChild(logoImgMobile);
-            }
+          const gaConfig = document.createElement('script');
+          gaConfig.innerHTML = `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${gaId}');
+          `;
+          document.head.appendChild(gaConfig);
+
+          // Add conversion tracking function for Google Ads
+          if (!window.gtag_report_conversion) {
+            const conversionScript = document.createElement('script');
+            conversionScript.innerHTML = `
+              function gtag_report_conversion(url) {
+                var callback = function () {
+                  if (typeof(url) != 'undefined') {
+                    window.location = url;
+                  }
+                };
+                gtag('event', 'conversion', {
+                  'send_to': 'AW-11483906478/OPV9CMyi1sgbEK6D-uMq',
+                  'value': 1.0,
+                  'currency': 'EGP',
+                  'event_callback': callback
+                });
+                return false;
+              }
+            `;
+            document.head.appendChild(conversionScript);
           }
         }
       }

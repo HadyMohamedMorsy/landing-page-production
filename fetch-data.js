@@ -51,6 +51,46 @@ class DataFetcher {
     return foundByName || sectionData.content[0];
   }
 
+  // Helper method to get image with fallback to content[0]
+  getImageWithFallback(currentContent, allContentArray, imageField) {
+    if (!currentContent || !allContentArray || !Array.isArray(allContentArray) || allContentArray.length === 0) {
+      return currentContent?.[imageField] || null;
+    }
+    
+    // If image exists in current content and is not null/empty, return it
+    if (currentContent[imageField] != null && currentContent[imageField] !== '') {
+      return currentContent[imageField];
+    }
+    
+    // Fallback to content[0]
+    const firstContent = allContentArray[0];
+    if (firstContent && firstContent[imageField] != null && firstContent[imageField] !== '') {
+      return firstContent[imageField];
+    }
+    
+    return null;
+  }
+
+  // Helper method to get array of images with fallback to content[0]
+  getImageArrayWithFallback(currentContent, allContentArray, imageField) {
+    if (!currentContent || !allContentArray || !Array.isArray(allContentArray) || allContentArray.length === 0) {
+      return currentContent?.[imageField] || null;
+    }
+    
+    // If image array exists in current content and is not null/empty, return it
+    if (currentContent[imageField] != null && Array.isArray(currentContent[imageField]) && currentContent[imageField].length > 0) {
+      return currentContent[imageField];
+    }
+    
+    // Fallback to content[0]
+    const firstContent = allContentArray[0];
+    if (firstContent && firstContent[imageField] != null && Array.isArray(firstContent[imageField]) && firstContent[imageField].length > 0) {
+      return firstContent[imageField];
+    }
+    
+    return null;
+  }
+
   // Set language and language_id
   setLanguage(lang) {
     this.language = lang;
@@ -79,6 +119,7 @@ class DataFetcher {
       content: languageContent,
       store_email: generalSettingsObj.store_email,
       store_phone: generalSettingsObj.store_phone,
+      blog_image: generalSettingsObj.blog_image,
       gtm_container_id: generalSettingsObj.gtm_container_id,
       google_analytics_id: generalSettingsObj.google_analytics_id,
       facebook_pixel_id: generalSettingsObj.facebook_pixel_id,
@@ -219,12 +260,19 @@ class DataFetcher {
     const sectionBranches = this.getSectionBranches();
     const sectionDoctors = this.getSectionDoctors();
     
+    // Get full section data for fallback
+    const sectionOneData = this.data?.data?.section_one || null;
+    const sectionTwoData = this.data?.data?.section_two || null;
+    const sectionThreeData = this.data?.data?.section_three || null;
+    const sectionFourData = this.data?.data?.section_four || null;
+    const sectionFiveData = this.data?.data?.section_five || null;
+    
     // Update all sections in UI
-    updateHeroSection(sectionOne, generalSettings);
-    updateAboutSection(sectionTwo);
-    updateServicesSection(sectionThree);
-    updateWhyChooseSection(sectionFour);
-    updateDoctorSection(sectionFive);
+    updateHeroSection(sectionOne, generalSettings, sectionOneData);
+    updateAboutSection(sectionTwo, sectionTwoData);
+    updateServicesSection(sectionThree, sectionThreeData);
+    updateWhyChooseSection(sectionFour, sectionFourData);
+    updateDoctorSection(sectionFive, sectionFiveData);
     updateReviewsSection(sectionReviews, sectionOne);
     updateDoctorsSection(sectionDoctors);
     updateBranchesSection(sectionBranches);
@@ -263,20 +311,27 @@ document.addEventListener('DOMContentLoaded', async function() {
     const sectionBranches = globalFetcher.getSectionBranches();
     const sectionDoctors = globalFetcher.getSectionDoctors();
     
+    // الحصول على section data كامل للـ fallback
+    const sectionOneData = globalFetcher.data?.data?.section_one || null;
+    const sectionTwoData = globalFetcher.data?.data?.section_two || null;
+    const sectionThreeData = globalFetcher.data?.data?.section_three || null;
+    const sectionFourData = globalFetcher.data?.data?.section_four || null;
+    const sectionFiveData = globalFetcher.data?.data?.section_five || null;
+    
     // تحديث الـ hero section بالبيانات
-    updateHeroSection(sectionOne, generalSettings);
+    updateHeroSection(sectionOne, generalSettings, sectionOneData);
     
     // تحديث الـ about section بالبيانات
-    updateAboutSection(sectionTwo);
+    updateAboutSection(sectionTwo, sectionTwoData);
     
     // تحديث الـ services section بالبيانات
-    updateServicesSection(sectionThree);
+    updateServicesSection(sectionThree, sectionThreeData);
     
     // تحديث الـ why choose section بالبيانات
-    updateWhyChooseSection(sectionFour);
+    updateWhyChooseSection(sectionFour, sectionFourData);
     
     // تحديث الـ doctor section بالبيانات
-    updateDoctorSection(sectionFive);
+    updateDoctorSection(sectionFive, sectionFiveData);
     
     // تحديث الـ reviews section بالبيانات
     updateReviewsSection(sectionReviews, sectionOne);
@@ -463,22 +518,37 @@ function reinitializeTeamSwiper(totalSlides) {
 }
 
 // دالة لتحديث الـ hero section
-function updateHeroSection(sectionOne, generalSettings) {
+function updateHeroSection(sectionOne, generalSettings, sectionData = null) {
   if (!sectionOne) {
     return;
   }
 
   // بناء الـ hero section من الصفر
-  buildHeroSectionFromScratch(sectionOne, generalSettings);
+  buildHeroSectionFromScratch(sectionOne, generalSettings, sectionData);
+  
+  // ترجمة النصوص الثابتة بعد بناء الـ HTML
+  if (typeof window.translateStaticText === 'function') {
+    const currentLang = localStorage.getItem('language') || 'en';
+    setTimeout(() => window.translateStaticText(currentLang), 100);
+  }
 }
 
 // دالة لبناء الـ hero section من الصفر
-function buildHeroSectionFromScratch(sectionOne, generalSettings) {
+function buildHeroSectionFromScratch(sectionOne, generalSettings, sectionData = null) {
   // البحث عن الـ container
   const container = document.querySelector('.hero-banner.style-2');
   if (!container) {
     return;
   }
+
+  // الحصول على content array للـ fallback
+  const allContentArray = sectionData?.content || (sectionOne?.content ? [sectionOne] : [sectionOne]);
+
+  // استخدام الدوال المساعدة للحصول على الصور مع fallback
+  const mainClinicImage = globalFetcher?.getImageWithFallback(sectionOne, allContentArray, 'main_clinic_image') || sectionOne.main_clinic_image;
+  const talkDoctorsImages = globalFetcher?.getImageArrayWithFallback(sectionOne, allContentArray, 'talk_doctors_images') || sectionOne.talk_doctors_images;
+  const additionalClinicImages = globalFetcher?.getImageArrayWithFallback(sectionOne, allContentArray, 'additional_clinic_images') || sectionOne.additional_clinic_images;
+  const availableDoctorsImages = globalFetcher?.getImageArrayWithFallback(sectionOne, allContentArray, 'available_doctors_images') || sectionOne.available_doctors_images;
 
   // الحصول على رقم الهاتف من الـ generalSettings
   const phone = generalSettings?.store_phone || '201050800531';
@@ -503,12 +573,14 @@ function buildHeroSectionFromScratch(sectionOne, generalSettings) {
               <div class="d-flex align-items-center m-b15 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="0.8s">
                 <div class="info-widget style-12 m-r40 shadow-sm">
                   <div class="avatar-group">
-                    ${sectionOne.talk_doctors_images && Array.isArray(sectionOne.talk_doctors_images) ? sectionOne.talk_doctors_images.map((doctor, index) => `
-                      <img class="avatar rounded-circle avatar-md border border-white" src="https://api.vdentaleg.com/${doctor}" alt="v-Dental Clinic" style="margin-left: ${index > 0 ? '-8px' : '0'}; z-index: ${sectionOne.talk_doctors_images.length - index};" />
+                    ${talkDoctorsImages && Array.isArray(talkDoctorsImages) ? talkDoctorsImages.map((doctor, index) => `
+                      <img class="avatar rounded-circle avatar-md border border-white" src="https://api.vdentaleg.com/${doctor}" alt="v-Dental Clinic" style="margin-left: ${index > 0 ? '-8px' : '0'}; z-index: ${talkDoctorsImages.length - index};" />
                     `).join('') : ''}
                   </div>
                   <div class="clearfix">
-                    <span>Talk to over <strong>${sectionOne.doctor_count_text || '215'}</strong> doctor</span>
+                    <span data-translate="doctors.talk_to_over_count" data-count="${sectionOne.doctor_count_text || '215'}">
+                      Talk to over <strong>${sectionOne.doctor_count_text || '215'}</strong> doctor
+                    </span>
                   </div>
                 </div>
                 <a href="${whatsappUrl}" target="_blank" class="btn btn-square btn-xl btn-white shadow-sm btn-rounded">
@@ -522,9 +594,9 @@ function buildHeroSectionFromScratch(sectionOne, generalSettings) {
           </div>
           <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.8s" data-wow-duration="0.8s">
             <div class="hero-thumbnail" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-              <img class="thumbnail" src="https://api.vdentaleg.com/${sectionOne.main_clinic_image}" alt="v-Dental Clinic" />
+              ${mainClinicImage ? `<img class="thumbnail" src="https://api.vdentaleg.com/${mainClinicImage}" alt="v-Dental Clinic" />` : ''}
               <div class="circle-wrapper"></div>
-              ${sectionOne.additional_clinic_images && Array.isArray(sectionOne.additional_clinic_images) ? sectionOne.additional_clinic_images.map((image, index) => `
+              ${additionalClinicImages && Array.isArray(additionalClinicImages) ? additionalClinicImages.map((image, index) => `
                 <div class="item${index + 4}" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
                   <img class="move-4" src="https://api.vdentaleg.com/${image}" alt="v-Dental Clinic" />
                 </div>
@@ -532,20 +604,20 @@ function buildHeroSectionFromScratch(sectionOne, generalSettings) {
               <div class="item6" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
                 <div class="info-widget style-13 move-4">
                   <div class="m-b15">
-                    <h5 class="fw-medium m-b0">Available Doctors</h5>
-                    <span class="font-13">Select Doctor</span>
+                    <h5 class="fw-medium m-b0" data-translate="doctors.available">Available Doctors</h5>
+                    <span class="font-13" data-translate="doctors.select">Select Doctor</span>
                   </div>
-                  ${sectionOne.available_doctors_images && Array.isArray(sectionOne.available_doctors_images) && sectionOne.available_doctors_images[0] ? `
+                  ${availableDoctorsImages && Array.isArray(availableDoctorsImages) && availableDoctorsImages[0] ? `
                     <div class="d-flex align-items-center m-b15">
-                      <img class="rounded-circle avatar-md" src="https://api.vdentaleg.com/${sectionOne.available_doctors_images[0].image}" alt="${sectionOne.available_doctors_images[0].name}" />
+                      <img class="rounded-circle avatar-md" src="https://api.vdentaleg.com/${availableDoctorsImages[0].image}" alt="${availableDoctorsImages[0].name}" />
                       <div class="clearfix m-l10">
-                        <h6 class="name">${sectionOne.available_doctors_images[0].name}</h6>
-                        <span class="position">${sectionOne.available_doctors_images[0].short_description}</span>
+                        <h6 class="name">${availableDoctorsImages[0].name}</h6>
+                        <span class="position">${availableDoctorsImages[0].short_description}</span>
                       </div>
                       <input class="form-check-input form-check1 ms-auto form-check-secondary" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                     </div>
                   ` : ''}
-                  <a href="https://api.whatsapp.com/send?phone=201050800531&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook" class="btn btn-secondary btn-hover1 w-100 m-t10">
+                  <a href="https://api.whatsapp.com/send?phone=201050800531&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook" class="btn btn-secondary btn-hover1 w-100 m-t10" data-translate="button.book_appointment">
                     Book appointment
                   </a>
                 </div>
@@ -566,22 +638,28 @@ function buildHeroSectionFromScratch(sectionOne, generalSettings) {
 }
 
 // دالة لتحديث الـ about section
-function updateAboutSection(sectionTwo) {
+function updateAboutSection(sectionTwo, sectionData = null) {
   if (!sectionTwo) {
     return;
   }
 
   // بناء الـ about section من الصفر
-  buildAboutSectionFromScratch(sectionTwo);
+  buildAboutSectionFromScratch(sectionTwo, sectionData);
 }
 
 // دالة لبناء الـ about section من الصفر
-function buildAboutSectionFromScratch(sectionTwo) {
+function buildAboutSectionFromScratch(sectionTwo, sectionData = null) {
   // البحث عن الـ container
   const container = document.querySelector('.content-inner.overlay-primary-gradient-light');
   if (!container) {
     return;
   }
+
+  // الحصول على content array للـ fallback
+  const allContentArray = sectionData?.content || (sectionTwo?.content ? [sectionTwo] : [sectionTwo]);
+
+  // استخدام الدوال المساعدة للحصول على الصور مع fallback
+  const mainClinicImage = globalFetcher?.getImageWithFallback(sectionTwo, allContentArray, 'main_clinic_image') || sectionTwo.main_clinic_image;
 
   // مسح المحتوى الموجود
   container.innerHTML = '';
@@ -593,7 +671,7 @@ function buildAboutSectionFromScratch(sectionTwo) {
         <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7">
           <div class="content-media m-b30">
             <div class="dz-media" data-bottom-top="transform: translateY(30px)" data-top-bottom="transform: translateY(0px)">
-              <img src="https://api.vdentaleg.com/${sectionTwo.main_clinic_image}" alt="V-Dental Clinic" />
+              ${mainClinicImage ? `<img src="https://api.vdentaleg.com/${mainClinicImage}" alt="V-Dental Clinic" />` : ''}
             </div>
             <div class="item1" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(0px)"></div>
             <div class="item2" data-bottom-top="transform: translateY(-30px)" data-top-bottom="transform: translateY(0px)">
@@ -633,21 +711,29 @@ function buildAboutSectionFromScratch(sectionTwo) {
 }
 
 // دالة لتحديث الـ services section
-function updateServicesSection(sectionThree) {
+function updateServicesSection(sectionThree, sectionData = null) {
   if (!sectionThree) {
     return;
   }
 
   // بناء الـ services section من الصفر
-  buildServicesSectionFromScratch(sectionThree);
+  buildServicesSectionFromScratch(sectionThree, sectionData);
 }
 
 // دالة لإعادة بناء الـ services section من الصفر
-function buildServicesSectionFromScratch(sectionThree) {
+function buildServicesSectionFromScratch(sectionThree, sectionData = null) {
   const container = document.querySelector('.twentytwenty-bottom-spacing.overlay-primary-light');
   if (!container) {
     return;
   }
+
+  // الحصول على content array للـ fallback
+  const allContentArray = sectionData?.content || (sectionThree?.content ? [sectionThree] : [sectionThree]);
+
+  // استخدام الدوال المساعدة للحصول على الصور مع fallback
+  const servicesImages = globalFetcher?.getImageArrayWithFallback(sectionThree, allContentArray, 'services_images') || sectionThree.services_images;
+  const serviceImageBefore = globalFetcher?.getImageWithFallback(sectionThree, allContentArray, 'service_image_before') || sectionThree.service_image_before;
+  const serviceImageAfter = globalFetcher?.getImageWithFallback(sectionThree, allContentArray, 'service_image_after') || sectionThree.service_image_after;
 
   // مسح المحتوى الموجود
   container.innerHTML = '';
@@ -666,7 +752,7 @@ function buildServicesSectionFromScratch(sectionThree) {
         </div>
       </div>
       <div class="row">
-        ${sectionThree.services_images && Array.isArray(sectionThree.services_images) ? sectionThree.services_images.map((image, index) => `
+        ${servicesImages && Array.isArray(servicesImages) ? servicesImages.map((image, index) => `
           <div class="col-xl-3 col-md-6 m-b30 wow fadeInUp" data-wow-delay="${0.2 + (index * 0.2)}s" data-wow-duration="0.8s">
             <div class="icon-bx-wraper style-7 box-hover ${index === 1 ? 'active' : ''}">
               ${index === 0 ? `<div class="bg" style="background-image: url(images/background/bg7.webp)"></div>` : ''}
@@ -678,15 +764,15 @@ function buildServicesSectionFromScratch(sectionThree) {
         `).join('') : ''}
       </div>
     </div>
-    ${sectionThree.service_image_before && sectionThree.service_image_after ? `
+    ${serviceImageBefore && serviceImageAfter ? `
     <div class="twentytwenty-center wow bounceIn" data-wow-delay="1.0s" data-wow-duration="0.8s">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-xl-8 col-lg-10">
+          <div class="col-xl-8 col-lg-10" style="direction : rtl;">
             <div class="twentytwenty-box shadow">
               <div class="twentytwenty-container">
-                <img src="https://api.vdentaleg.com/${sectionThree.service_image_before}" alt="Before" />
-                <img src="https://api.vdentaleg.com/${sectionThree.service_image_after}" alt="After" />
+                <img src="https://api.vdentaleg.com/${serviceImageBefore}" alt="Before" />
+                <img src="https://api.vdentaleg.com/${serviceImageAfter}" alt="After" />
               </div>
             </div>
           </div>
@@ -750,22 +836,42 @@ function buildServicesSectionFromScratch(sectionThree) {
 }
 
 // دالة لتحديث الـ why choose section
-function updateWhyChooseSection(sectionFour) {
+function updateWhyChooseSection(sectionFour, sectionData = null) {
   if (!sectionFour) {
     return;
   }
 
   // بناء الـ why choose section من الصفر
-  buildWhyChooseSectionFromScratch(sectionFour);
+  buildWhyChooseSectionFromScratch(sectionFour, sectionData);
 }
 
 // دالة لبناء الـ why choose section من الصفر
-function buildWhyChooseSectionFromScratch(sectionFour) {
+function buildWhyChooseSectionFromScratch(sectionFour, sectionData = null) {
   // البحث عن الـ container
   const container = document.querySelector('.twentytwenty-top-spacing');
   if (!container) {
     return;
   }
+
+  // الحصول على content array للـ fallback
+  const allContentArray = sectionData?.content || (sectionFour?.content ? [sectionFour] : [sectionFour]);
+  const firstContent = allContentArray[0] || sectionFour;
+
+  // استخدام الدوال المساعدة للحصول على الصور مع fallback
+  const rightSectionImage1 = globalFetcher?.getImageWithFallback(sectionFour, allContentArray, 'right_section_image_1') || sectionFour.right_section_image_1;
+  const rightSectionImage2 = globalFetcher?.getImageWithFallback(sectionFour, allContentArray, 'right_section_image_2') || sectionFour.right_section_image_2;
+  const rightSectionImage3 = globalFetcher?.getImageWithFallback(sectionFour, allContentArray, 'right_section_image_3') || sectionFour.right_section_image_3;
+  const rightSectionImage4 = globalFetcher?.getImageWithFallback(sectionFour, allContentArray, 'right_section_image_4') || sectionFour.right_section_image_4;
+
+  // معالجة features مع fallback للصور
+  const features = sectionFour.features || firstContent.features || [];
+  const processedFeatures = features.map((feature, index) => {
+    const firstContentFeature = firstContent.features?.[index];
+    return {
+      ...feature,
+      image: feature.image || firstContentFeature?.image || null
+    };
+  });
 
   // مسح المحتوى الموجود
   container.innerHTML = '';
@@ -780,7 +886,7 @@ function buildWhyChooseSectionFromScratch(sectionFour) {
             <p>${sectionFour.main_description || 'Choose us for excellence and quality'}</p>
           </div>
           <div class="accordion dz-accordion style-2" id="accordionExample">
-            ${sectionFour.features && Array.isArray(sectionFour.features) ? sectionFour.features.map((feature, index) => `
+            ${processedFeatures && Array.isArray(processedFeatures) ? processedFeatures.map((feature, index) => `
               <div class="accordion-item wow fadeInUp" data-wow-delay="${0.4 + (index * 0.2)}s" data-wow-duration="0.8s">
                 <h2 class="accordion-header">
                   <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index === 0 ? 'One' : index === 1 ? 'Two' : 'Three'}" aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="collapse${index === 0 ? 'One' : index === 1 ? 'Two' : 'Three'}">
@@ -795,9 +901,11 @@ function buildWhyChooseSectionFromScratch(sectionFour) {
                         <p>${feature.description}</p>
                       </div>
                       <div class="col-sm-4">
+                        ${feature.image ? `
                         <div class="dz-media radius-md">
                           <img src="https://api.vdentaleg.com/${feature.image}" alt="${feature.title}" width="200px" height="200px" style="object-fit: contain; width: 200px; height: 200px;" />
                         </div>
+                        ` : ''}
                       </div>
                     </div>
                   </div>
@@ -810,18 +918,18 @@ function buildWhyChooseSectionFromScratch(sectionFour) {
           <div class="content-media" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
             <div class="media-top">
               <div class="media1">
-                <img src="https://api.vdentaleg.com/${sectionFour.right_section_image_2}" alt="Feature 2" />
+                ${rightSectionImage2 ? `<img src="https://api.vdentaleg.com/${rightSectionImage2}" alt="Feature 2" />` : ''}
               </div>
               <div class="media2">
-                <img src="https://api.vdentaleg.com/${sectionFour.right_section_image_1}" alt="Feature 1" />
+                ${rightSectionImage1 ? `<img src="https://api.vdentaleg.com/${rightSectionImage1}" alt="Feature 1" />` : ''}
               </div>
             </div>
             <div class="media-bottom">
               <div class="media3">
-                <img src="https://api.vdentaleg.com/${sectionFour.right_section_image_3}" alt="Feature 3" />
+                ${rightSectionImage3 ? `<img src="https://api.vdentaleg.com/${rightSectionImage3}" alt="Feature 3" />` : ''}
               </div>
               <div class="media4">
-                <img src="https://api.vdentaleg.com/${sectionFour.right_section_image_4}" alt="Feature 4" />
+                ${rightSectionImage4 ? `<img src="https://api.vdentaleg.com/${rightSectionImage4}" alt="Feature 4" />` : ''}
               </div>
             </div>
             <div class="circle-wrapper">
@@ -835,22 +943,34 @@ function buildWhyChooseSectionFromScratch(sectionFour) {
 }
 
 // دالة لتحديث الـ doctor section
-function updateDoctorSection(sectionFive) {
+function updateDoctorSection(sectionFive, sectionData = null) {
   if (!sectionFive) {
     return;
   }
 
   // بناء الـ doctor section من الصفر
-  buildDoctorSectionFromScratch(sectionFive);
+  buildDoctorSectionFromScratch(sectionFive, sectionData);
+  
+  // ترجمة النصوص الثابتة بعد بناء الـ HTML
+  if (typeof window.translateStaticText === 'function') {
+    const currentLang = localStorage.getItem('language') || 'en';
+    setTimeout(() => window.translateStaticText(currentLang), 100);
+  }
 }
 
 // دالة لبناء الـ doctor section من الصفر
-function buildDoctorSectionFromScratch(sectionFive) {
+function buildDoctorSectionFromScratch(sectionFive, sectionData = null) {
   // البحث عن الـ container
   const container = document.querySelector('.content-inner.p-t50.bg-light');
   if (!container) {
     return;
   }
+
+  // الحصول على content array للـ fallback
+  const allContentArray = sectionData?.content || (sectionFive?.content ? [sectionFive] : [sectionFive]);
+
+  // استخدام الدوال المساعدة للحصول على الصور مع fallback
+  const doctorImage = globalFetcher?.getImageWithFallback(sectionFive, allContentArray, 'doctor_image') || sectionFive.doctor_image;
 
   // مسح المحتوى الموجود
   container.innerHTML = '';
@@ -878,7 +998,7 @@ function buildDoctorSectionFromScratch(sectionFive) {
             </div>
             <div class="col-sm-6 wow fadeInUp" data-wow-delay="1.4s" data-wow-duration="0.8s">
               <a href="https://api.whatsapp.com/send?phone=201050800531&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebookl" class="btn btn-lg btn-icon btn-primary">
-                Appointment
+                <span data-translate="button.appointment">Appointment</span>
                 <span class="right-icon"><i class="feather icon-arrow-right"></i></span>
               </a>
             </div>
@@ -887,7 +1007,7 @@ function buildDoctorSectionFromScratch(sectionFive) {
         <div class="col-xl-6 col-lg-6 m-b30">
           <div class="content-media">
             <div class="dz-media" data-bottom-top="transform: translateY(30px)" data-top-bottom="transform: translateY(-30px)">
-              <img src="https://api.vdentaleg.com/${sectionFive.doctor_image}" alt="Doctor Image" />
+              ${doctorImage ? `<img src="https://api.vdentaleg.com/${doctorImage}" alt="Doctor Image" />` : ''}
             </div>
             <div class="item1" data-bottom-top="transform: translateY(-20px)" data-top-bottom="transform: translateY(10px)">
               <div class="info-widget style-10 move-3">
@@ -939,7 +1059,17 @@ function updateReviewsSection(sectionReviews, sectionOne) {
     // تحديث عدد الأطباء من sectionOne
     const doctorCount = document.querySelector('.gradient-primary .clearfix span');
     if (doctorCount && sectionOne.doctor_count_text) {
-      doctorCount.textContent = `Talk to over ${sectionOne.doctor_count_text} doctor`;
+      doctorCount.setAttribute('data-translate', 'doctors.talk_to_over_count');
+      doctorCount.setAttribute('data-count', sectionOne.doctor_count_text);
+      // ترجمة النص
+      if (typeof window.translateStaticText === 'function') {
+        const currentLang = localStorage.getItem('language') || 'en';
+        const talkToOver = window.translations[currentLang]?.['doctors.talk_to_over'] || 'Talk to over';
+        const doctor = window.translations[currentLang]?.['doctors.doctor'] || 'doctor';
+        doctorCount.textContent = `${talkToOver} ${sectionOne.doctor_count_text} ${doctor}`;
+      } else {
+        doctorCount.textContent = `Talk to over ${sectionOne.doctor_count_text} doctor`;
+      }
     }
   }
 
@@ -1157,6 +1287,12 @@ function updateBranchesSection(sectionBranches) {
 
   // بناء الـ branches section من الصفر
   buildBranchesSectionFromScratch(sectionBranches);
+  
+  // ترجمة النصوص الثابتة بعد بناء الـ HTML
+  if (typeof window.translateStaticText === 'function') {
+    const currentLang = localStorage.getItem('language') || 'en';
+    setTimeout(() => window.translateStaticText(currentLang), 100);
+  }
 }
 
 // دالة لبناء الـ branches section من الصفر
@@ -1199,7 +1335,7 @@ function buildBranchesSectionFromScratch(sectionBranches) {
                           </span>
                         </div>
                         <div class="icon-content branches-working-hours">
-                          <h5 class="dz-title fw-semibold branches-working-hours">
+                          <h5 class="dz-title fw-semibold branches-working-hours" data-translate="branch.working_hours">
                             Working Hours:
                           </h5>
                           <p>${branch.working_hours ? branch.working_hours.replace(/\n/g, '<br />') : 'sat-thu: 3:00pm-10:00pm<br />fri: no working'}</p>
@@ -1214,7 +1350,7 @@ function buildBranchesSectionFromScratch(sectionBranches) {
                           </span>
                         </div>
                         <div class="icon-content">
-                          <h5 class="dz-title fw-semibold">
+                          <h5 class="dz-title fw-semibold" data-translate="branch.office_address">
                             Office Address:
                           </h5>
                           <p>${branch.address ? branch.address.replace(/\n/g, '<br />') : 'clinic 121, Abdullah ibn salamah, the fount mall, قسم أول القاهرة الجديدة، محافظة القاهرة 11865'}</p>
@@ -1289,12 +1425,16 @@ function updateGeneralSettings(generalSettings) {
     });
   }
 
+  // تحديث صورة الـ blog banner
+  updateBlogBannerImage(settings);
+
   // تحديث الـ SEO meta tags (use content for meta fields)
   updateSEOTags(content);
   
   // تحديث الـ tracking scripts (use full settings object)
   updateTrackingScripts(settings);
 }
+
 
 // Show maintenance mode
 function showMaintenanceMode(message) {
@@ -1484,6 +1624,29 @@ function addGoogleAnalytics(gaId) {
     gtag('config', '${gaId}');
   `;
   document.head.appendChild(gaConfig);
+
+  // Add conversion tracking function for Google Ads
+  console.log(!window.gtag_report_conversion);
+  if (!window.gtag_report_conversion) {
+    const conversionScript = document.createElement('script');
+    conversionScript.innerHTML = `
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+          'send_to': 'AW-11483906478/OPV9CMyi1sgbEK6D-uMq',
+          'value': 1.0,
+          'currency': 'EGP',
+          'event_callback': callback
+        });
+        return false;
+      }
+    `;
+    document.head.appendChild(conversionScript);
+  }
 }
 
 // دالة إضافة Google Tag Manager

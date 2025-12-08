@@ -20196,7 +20196,7 @@ section {
   content: "BEFORE";
   position: absolute;
   top: 50%;
-  inset-inline-start: 30px;
+  inset-block-end: 30px;
   z-index: 99;
   padding: 34px 8px;
   background-color: rgba(255, 255, 255, 0.2);
@@ -20215,7 +20215,7 @@ section {
 }
 .twentytwenty-wrapper .twentytwenty-container::after {
   content: "AFTER";
-  inset-inline-end: 30px;
+  inset-block-start: 30px;
   inset-inline-start: auto;
 }
 @media only screen and (max-width: 767px) {
@@ -23729,15 +23729,6 @@ select, button {
 .dz-card.style-1 .dz-meta li a {
   color: #fff;
 }
-.dz-card.style-1 .dz-meta li::after {
-  content: "";
-  position: absolute;
-  height: 6px;
-  width: 6px;
-  border-radius: 50%;
-  background-color: #fff;
-  inset-inline-start: 10px;
-}
 @media only screen and (max-width: 575px) {
   .dz-card.style-1 .dz-meta {
     margin-top: 15px;
@@ -26457,10 +26448,14 @@ input[type=number] {
   transition: all 0.5s;
 }
 .btn-icon .right-icon {
-  margin: -11px -20px -11px 15px;
+  margin-block: -11px;
+  margin-inline-end: -20px;
+  margin-inline-start: 15px;
 }
 .btn-icon .left-icon {
-  margin: -11px 15px -11px -20px;
+  margin-block: -11px;
+  margin-inline-end: -20px;
+  margin-inline-start: 15px;
 }
 .btn-icon.btn-rounded .right-icon,
 .btn-icon.btn-rounded .left-icon {
@@ -26487,10 +26482,14 @@ input[type=number] {
   min-width: 60px;
 }
 .btn-icon.btn-xl .right-icon {
-  margin: -10px -20px -10px 12px;
+  margin-block: -10px;
+  margin-inline-end: -20px;
+  margin-inline-start: 12px;
 }
 .btn-icon.btn-xl .left-icon {
-  margin: -10px 12px -9px -20px;
+  margin-block: -10px;
+  margin-inline-end: -20px;
+  margin-inline-start: 12px;
 }
 @media only screen and (max-width: 767px) {
   .btn-icon.btn-xl {
@@ -26503,10 +26502,14 @@ input[type=number] {
     min-width: 50px;
   }
   .btn-icon.btn-xl .right-icon {
-    margin: -10px -20px -8px 12px;
+    margin-block: -10px;
+    margin-inline-end: -20px;
+    margin-inline-start: 12px;
   }
   .btn-icon.btn-xl .left-icon {
-    margin: -10px 12px -8px -20px;
+    margin-block: -10px;
+    margin-inline-end: -20px;
+    margin-inline-start: 12px;
   }
 }
 .btn-icon.btn-lg .right-icon, .btn-group-lg > .btn-icon.btn .right-icon,
@@ -26518,17 +26521,25 @@ input[type=number] {
   transform: translateY(0);
 }
 .btn-icon.btn-lg .right-icon, .btn-group-lg > .btn-icon.btn .right-icon {
-  margin: -11px -18px -11px 12px;
+  margin-block: -11px;
+  margin-inline-end: -18px;
+  margin-inline-start: 12px;
 }
 .btn-icon.btn-lg .left-icon, .btn-group-lg > .btn-icon.btn .left-icon {
-  margin: -11px 12px -11px -18px;
+  margin-block: -11px;
+  margin-inline-end: 12px;
+  margin-inline-start: -18px;
 }
 @media only screen and (max-width: 767px) {
   .btn-icon.btn-lg .right-icon, .btn-group-lg > .btn-icon.btn .right-icon {
-    margin: -11px -16px -11px 12px;
+    margin-block: -11px;
+    margin-inline-end: -16px;
+    margin-inline-start: 12px;
   }
   .btn-icon.btn-lg .left-icon, .btn-group-lg > .btn-icon.btn .left-icon {
-    margin: -11px 12px -11px -16px;
+    margin-block: -11px;
+    margin-inline-end: 12px;
+    margin-inline-start: -16px;
   }
 }
 .btn-icon.btn-sm .right-icon, .btn-group-sm > .btn-icon.btn .right-icon,
@@ -26540,10 +26551,14 @@ input[type=number] {
   transform: translateY(0);
 }
 .btn-icon.btn-sm .right-icon, .btn-group-sm > .btn-icon.btn .right-icon {
-  margin: -8px -17px -8px 10px;
+  margin-block: -8px;
+  margin-inline-end: -17px;
+  margin-inline-start: 10px;
 }
 .btn-icon.btn-sm .left-icon, .btn-group-sm > .btn-icon.btn .left-icon {
-  margin: -8px 10px -8px -17px;
+  margin-block: -8px;
+  margin-inline-end: 10px;
+  margin-inline-start: -17px;
 }
 @-webkit-keyframes toLeftFromRight {
   49% {
@@ -32648,7 +32663,9 @@ table {
 .list-badge-check li,
 .list-box-check li {
   position: relative;
-  padding: 5px 5px 5px 30px;
+  padding-block: 5px;
+  padding-inline-end: 5px;
+  padding-inline-start: 30px;
   font-family: var(--font-family-base);
   font-size: 16px;
 }
@@ -32683,7 +32700,7 @@ table {
 .list-badge-check li:before,
 .list-box-check li:before {
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: 8px;
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
@@ -38317,7 +38334,7 @@ pre {
 
 .dz-page-text p,
 .dz-blog.blog-single .dz-post-text p {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   font-weight: 300;
   color: var(--bs-secondary);
 }

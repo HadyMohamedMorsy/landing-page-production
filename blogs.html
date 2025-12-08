@@ -156,10 +156,10 @@
       .whatsapp-fixed {
         position: fixed;
         bottom: 90px !important;
-        left: 30px !important;
-        width: 60px !important;
-        height: 60px !important;
-        background-color: #25d366;
+        left: 10px !important;
+        width: 45px !important;
+        height: 45px !important;
+        background-color: #5D734C;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -175,7 +175,7 @@
       
       .whatsapp-fixed:hover {
         transform: scale(1.1);
-        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        box-shadow: 0 6px 20px rgba(93, 115, 76, 0.4);
         color: white;
         text-decoration: none;
       }
@@ -184,15 +184,15 @@
         transform: scale(0.95);
       }
       
-      @keyframes whatsapp-pulse {
+          @keyframes whatsapp-pulse {
         0% {
-          box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+          box-shadow: 0 4px 12px rgba(93, 115, 76, 0.4);
         }
         50% {
-          box-shadow: 0 4px 20px rgba(37, 211, 102, 0.6);
+          box-shadow: 0 4px 20px rgba(93, 115, 76, 0.6);
         }
         100% {
-          box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+          box-shadow: 0 4px 12px rgba(93, 115, 76, 0.4);
         }
       }
 
@@ -200,10 +200,10 @@
       .phone-fixed {
         position: fixed;
         bottom: 20px !important;
-        left: 30px !important;
-        width: 60px !important;
-        height: 60px !important;
-        background-color: #0ea5e9;
+        left: 10px !important;
+        width: 45px !important;
+        height: 45px !important;
+        background-color: #5D734C;
         border-radius: 50%;
         display: none;
         align-items: center;
@@ -651,7 +651,7 @@
                 <ul>
                   <li>
                     <a class="phone-setting" id="phone-link"
-                       href="tel:+201050800531"><i class="feather icon-phone-call text-primary"></i>
+                       href="tel:+201050800531" onclick="return typeof gtag_report_conversion !== 'undefined' ? gtag_report_conversion('tel:+201050800531') : true;"><i class="feather icon-phone-call text-primary"></i>
                       <span id="phone-text">+20 10 50800531</span></a>
                   </li>
                   <li>
@@ -929,7 +929,8 @@
                     </li>
                     <li class="nav-item">
                       <a class="whatsapp-setting btn btn-primary btn-hover1"
-                         href="https://api.whatsapp.com/send?phone=201050800531&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook">
+                         href="https://api.whatsapp.com/send?phone=201050800531&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook"
+                         onclick="return typeof gtag_report_conversion !== 'undefined' ? gtag_report_conversion('https://api.whatsapp.com/send?phone=201050800531&text&context=AffMX3rNCA1vEu-H-lm7x_A9zM4lbftdB9t0FPI_jQqeYxvxY8z5bMf3ICMptUcZ1UPEJVwB6hFCKdwajA9SRQ0tnbvcVtWtZHZPXn6zVchyUtJkzKDQ7Y6_OAdolwevONVHydwkGheqlH92hYSgkwg2wQ&source&app=facebook') : true;">
                         <span data-translate="button.appointment">Appointment</span>
                       </a>
                     </li>
@@ -1010,7 +1011,7 @@
 	</div> -->
 	<div class="widget widget_categories style-1 widget-bx bg-light wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.8s">
 		<div class="widget-title">
-			<h4 class="title">Category</h4>
+			<h4 class="title" data-translate="blog.category">Category</h4>
 		</div>
 		<ul id="categories-list">
 			<!-- Categories will be loaded dynamically here -->
@@ -1120,8 +1121,7 @@
                     </a>
                   </div>
                   <p>
-                    <span class="text-white">V Dental Clinics</span> Redefining dental care with
-                    precision, comfort, and lasting results.
+                    <span class="text-white">V Dental Clinics</span> <span data-translate="footer.tagline">Redefining dental care with precision, comfort, and lasting results.</span>
                   </p>
                 </div>
               </div>
@@ -1142,15 +1142,15 @@
           <div class="container">
             <div class="fb-inner">
               <div class="row">
-                <div class="col-lg-6 col-md-12 text-start">
+                <div class="col-lg-6 col-md-12" style="text-align: start;">
                   <p class="copyright-text">
                     © <span class="current-year">2025</span>
                     <a href="#"
                        target="_blank">V Dental</a>
-                    All Rights Reserved.
+                    <span data-translate="footer.copyright">All Rights Reserved.</span>
                   </p>
                 </div>
-                <div class="col-lg-6 col-md-12 text-end">
+                <div class="col-lg-6 col-md-12" style="text-align: end;">
                   <ul class="nav-inline">
                     <li>
                       <a href="https://www.instagram.com/vdentalclinicseg/"
@@ -1180,37 +1180,17 @@
         <a href="https://api.whatsapp.com/send?phone=201050800531"
            class="whatsapp-fixed"
            target="_blank"
-           rel="noopener noreferrer">
+           rel="noopener noreferrer"
+           onclick="return typeof gtag_report_conversion !== 'undefined' ? gtag_report_conversion('https://api.whatsapp.com/send?phone=201050800531') : true;">
           <i class="fab fa-whatsapp"></i>
         </a>
         <!-- Fixed Phone Button -->
         <a href="tel:+201050800531"
            class="phone-fixed"
-           aria-label="Call V Dental">
+           aria-label="Call V Dental"
+           onclick="return typeof gtag_report_conversion !== 'undefined' ? gtag_report_conversion('tel:+201050800531') : true;">
           <i class="fas fa-phone"></i>
         </a>
-        <!-- Fixed Language Button (Mobile Only) -->
-        <button class="language-fixed"
-                id="languageFixedButton"
-                aria-label="Change Language"
-                type="button">
-          <i class="feather icon-globe"></i>
-        </button>
-        <!-- Language Dropdown for Fixed Button -->
-        <div class="language-fixed-dropdown" id="languageFixedDropdown">
-          <a class="language-fixed-option language-option-fixed"
-             href="#"
-             data-lang="en"
-             data-dir="ltr">
-            <span>English</span>
-          </a>
-          <a class="language-fixed-option language-option-fixed"
-             href="#"
-             data-lang="ar"
-             data-dir="rtl">
-            <span>العربية</span>
-          </a>
-        </div>
 </div>
 <!-- JAVASCRIPT FILES ========================================= -->
     <!-- Language Switcher Script -->
@@ -1226,13 +1206,19 @@
             'nav.home': 'Home',
             'nav.blogs': 'blogs',
             'page.blogs.title': 'Blogs',
-            'button.appointment': 'Appointment'
+            'button.appointment': 'Appointment',
+            'blog.category': 'Category',
+            'footer.tagline': 'Redefining dental care with precision, comfort, and lasting results.',
+            'footer.copyright': 'All Rights Reserved.'
           },
           ar: {
             'nav.home': 'الرئيسية',
             'nav.blogs': 'المدونة',
             'page.blogs.title': 'المدونة',
-            'button.appointment': 'حجز موعد'
+            'button.appointment': 'حجز موعد',
+            'blog.category': 'الفئة',
+            'footer.tagline': 'تعيد تعريف رعاية الأسنان بدقة وراحة ونتائج دائمة.',
+            'footer.copyright': 'جميع الحقوق محفوظة.'
           }
         };
         
@@ -1575,8 +1561,7 @@
               ? `${blog.createdBy.firstName || ''} ${blog.createdBy.lastName || ''}`.trim() || 'Admin'
               : 'Admin';
 
-            // Get blog image
-            const blogImage = blog.thumb || blog.featuredImages?.[0] || 'images/blog/grid/pic1.webp';
+            const blogImage = 'https://api.vdentaleg.com/' + blog.thumb || 'https://api.vdentaleg.com/' + blog.featuredImages?.[0] || 'images/blog/grid/pic1.webp';
 
             // Create blog card
             const blogCard = document.createElement('div');
@@ -1593,9 +1578,8 @@
                   <h3 class="dz-title">
                     <a href="blog-details.html?slug=${blog.slug}">${blogTitle}</a>
                   </h3>
-                  <p>${blogDescription.substring(0, 100)}${blogDescription.length > 100 ? '...' : ''}</p>
                   <div class="dz-meta">
-                    <ul>
+                    <ul style="list-style: none;">
                       <li class="post-date">${blogDate}</li>
                       <li class="post-author">By <a href="javascript:void(0);">${authorName}</a></li>
                     </ul>
@@ -1794,60 +1778,84 @@
         }
       }
 
+      // Update blog banner image
+      if (generalSettings.blog_image) {
+        const blogBannerImage = document.querySelector('.bnr-media img');
+        if (blogBannerImage) {
+          blogBannerImage.src = `https://api.vdentaleg.com/${generalSettings.blog_image}`;
+          blogBannerImage.alt = 'Blog Banner';
+        }
+      }
+
       // Update logo and meta tags (main header and mobile menu)
       if (generalSettings.content && Array.isArray(generalSettings.content)) {
         const contentItem = generalSettings.content.find(item => item.language_id === languageId) || generalSettings.content[0];
         
-        if (contentItem) {
-          // Update logo
-          if (contentItem.logo) {
-            // Update main header logo
-            const logoContainer = document.getElementById('logo-container');
-            const logoLink = document.getElementById('logo-link');
-            if (logoContainer && logoLink) {
-              const logoImg = document.createElement('img');
-              logoImg.src = contentItem.logo;
-              logoImg.alt = contentItem.store_name || 'Logo';
-              logoImg.style.maxWidth = '150px';
-              logoImg.style.height = 'auto';
-              logoLink.innerHTML = '';
-              logoLink.appendChild(logoImg);
-            }
-
-            // Update mobile menu logo
-            const logoContainerMobile = document.getElementById('logo-container-mobile');
-            const logoLinkMobile = document.getElementById('logo-link-mobile');
-            if (logoContainerMobile && logoLinkMobile) {
-              const logoImgMobile = document.createElement('img');
-              logoImgMobile.src = contentItem.logo;
-              logoImgMobile.alt = contentItem.store_name || 'Logo';
-              logoImgMobile.style.maxWidth = '150px';
-              logoImgMobile.style.height = 'auto';
-              logoLinkMobile.innerHTML = '';
-              logoLinkMobile.appendChild(logoImgMobile);
-            }
+        // Update meta description
+        if (contentItem.meta_description) {
+          let metaDescription = document.querySelector('meta[name="description"]');
+          if (!metaDescription) {
+            metaDescription = document.createElement('meta');
+            metaDescription.name = 'description';
+            document.head.appendChild(metaDescription);
           }
+          metaDescription.content = contentItem.meta_description;
+        }
 
-          // Update meta description
-          if (contentItem.meta_description) {
-            let metaDescription = document.querySelector('meta[name="description"]');
-            if (!metaDescription) {
-              metaDescription = document.createElement('meta');
-              metaDescription.name = 'description';
-              document.head.appendChild(metaDescription);
-            }
-            metaDescription.content = contentItem.meta_description;
+        // Update meta keywords
+        if (contentItem.meta_keywords) {
+          let metaKeywords = document.querySelector('meta[name="keywords"]');
+          if (!metaKeywords) {
+            metaKeywords = document.createElement('meta');
+            metaKeywords.name = 'keywords';
+            document.head.appendChild(metaKeywords);
           }
+          metaKeywords.content = contentItem.meta_keywords;
+        }
+      }
 
-          // Update meta keywords
-          if (contentItem.meta_keywords) {
-            let metaKeywords = document.querySelector('meta[name="keywords"]');
-            if (!metaKeywords) {
-              metaKeywords = document.createElement('meta');
-              metaKeywords.name = 'keywords';
-              document.head.appendChild(metaKeywords);
-            }
-            metaKeywords.content = contentItem.meta_keywords;
+      // Load Google Analytics if enabled
+      if (generalSettings.google_analytics_enabled && generalSettings.google_analytics_id) {
+        const gaId = generalSettings.google_analytics_id;
+        
+        // Check if already added
+        const existingScript = document.querySelector(`script[src*="gtag/js?id=${gaId}"]`);
+        if (!existingScript) {
+          // Google Analytics 4
+          const gaScript = document.createElement('script');
+          gaScript.async = true;
+          gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+          document.head.appendChild(gaScript);
+
+          const gaConfig = document.createElement('script');
+          gaConfig.innerHTML = `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${gaId}');
+          `;
+          document.head.appendChild(gaConfig);
+
+          // Add conversion tracking function for Google Ads
+          if (!window.gtag_report_conversion) {
+            const conversionScript = document.createElement('script');
+            conversionScript.innerHTML = `
+              function gtag_report_conversion(url) {
+                var callback = function () {
+                  if (typeof(url) != 'undefined') {
+                    window.location = url;
+                  }
+                };
+                gtag('event', 'conversion', {
+                  'send_to': 'AW-11483906478/OPV9CMyi1sgbEK6D-uMq',
+                  'value': 1.0,
+                  'currency': 'EGP',
+                  'event_callback': callback
+                });
+                return false;
+              }
+            `;
+            document.head.appendChild(conversionScript);
           }
         }
       }
