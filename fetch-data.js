@@ -645,6 +645,14 @@ function updateAboutSection(sectionTwo, sectionData = null) {
 
   // بناء الـ about section من الصفر
   buildAboutSectionFromScratch(sectionTwo, sectionData);
+  
+  // ترجمة النصوص بعد تحديث المحتوى
+  if (typeof window.translateStaticText === 'function') {
+    const currentLang = localStorage.getItem('language') || 'en';
+    setTimeout(() => {
+      window.translateStaticText(currentLang);
+    }, 100);
+  }
 }
 
 // دالة لبناء الـ about section من الصفر
@@ -981,11 +989,11 @@ function buildDoctorSectionFromScratch(sectionFive, sectionData = null) {
       <div class="row content-wrapper style-9 align-items-end">
         <div class="col-xl-6 col-lg-6 m-b30">
           <div class="section-head style-2 m-b30">
-            <div class="sub-title wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s">
+            <div class="sub-title wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.8s" data-translate="section.best_dentist">
               Best Dentist
             </div>
           </div>
-          <h3 class="text-primary title-dashed-separator wow fadeInUp" data-wow-delay="0.8s" data-wow-duration="0.8s">
+          <h3 class="text-primary title-dashed-separator wow fadeInUp" data-wow-delay="0.8s" data-wow-duration="0.8s" data-translate="section.about_services">
             About Services
           </h3>
           <ul class="list-check text-secondary fw-medium grid-2 m-b35 wow fadeInUp" data-wow-delay="1.0s" data-wow-duration="0.8s">
